@@ -6,10 +6,24 @@
 
 package model;
 
+import java.io.Serializable;
+
 /**
- *
+ * Une couple de point (x,y) / (longitude/latitude)
  * @author nikolai
  */
-public class Coordinate {
+public class Coordinate implements Serializable{
+    
+    public int x;
+    public int y;
+    
+    public Coordinate(int x, int y){
+        this.x= x;
+        this.y = y;
+    }
+    
+    public Coordinate(){
+        
+    }
     
 }
