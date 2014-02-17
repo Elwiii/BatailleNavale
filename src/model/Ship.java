@@ -7,7 +7,7 @@
 package model;
 
 /**
- *
+ * TODO
  * @author nikolai
  */
 public class Ship {

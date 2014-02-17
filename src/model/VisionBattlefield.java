@@ -14,7 +14,7 @@ import java.io.Serializable;
  *
  * @author nikolai
  */
-public class Battlefield implements Serializable{
+public class VisionBattlefield implements Serializable{
 
     private final int[][] map;
 
@@ -23,7 +23,7 @@ public class Battlefield implements Serializable{
     private final int HIT = 1;
     private final int MISS = 2;
 
-    public Battlefield(int hauteur, int largeur) {
+    public VisionBattlefield(int hauteur, int largeur) {
         map = new int[hauteur][largeur];
     }
     

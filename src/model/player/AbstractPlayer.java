@@ -6,10 +6,24 @@
 
 package model.player;
 
+import java.util.List;
+import model.VisionBattlefield;
+import model.Flotte;
+import model.OrdreTir;
+import model.Ship;
+
 /**
- *
+ * TODO
  * @author nikolai
  */
-public class AbstractPlayer {
+public abstract class AbstractPlayer {
+    
+    /**
+     * Applique un ordre de tir sur une liste de bateau ennemi. Met à jour le battefield.
+     * @param bf
+     * @param od 
+     * @param flotte 
+     */
+    public abstract void play(VisionBattlefield bf, OrdreTir od, Flotte flotte);
     
 }

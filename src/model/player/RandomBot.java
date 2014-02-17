@@ -6,10 +6,24 @@
 
 package model.player;
 
+import java.util.List;
+import model.VisionBattlefield;
+import model.Ship;
+
 /**
- *
+ * TODO
  * @author nikolai
  */
-public class RandomBot {
+public class RandomBot extends AbstractBot{
+
+    /**
+     * @param shipsEnnemi
+     * @todo
+     * @param bf 
+     */
+    @Override
+    public void autoPlay(VisionBattlefield bf, List<Ship> shipsEnnemi) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }
