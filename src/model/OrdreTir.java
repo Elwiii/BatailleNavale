@@ -17,7 +17,7 @@ public class OrdreTir {
     private Coordinate coordinate;
     
     /* ordre à donner si on deal avec un bot */
-    public static final OrdreTir FIND_YOURSELF_ORDER = new OrdreTir(null,null);
+    public static final OrdreTir NO_ORDER = new OrdreTir(null,null);
     
     public OrdreTir(Coordinate coordinate, Ship launcher){
         this.coordinate = coordinate;
