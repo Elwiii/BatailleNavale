@@ -7,7 +7,7 @@
 package model.player;
 
 /**
- * TODO
+ * @todo
  * @author nikolai
  */
 public class Human {

@@ -11,7 +11,7 @@ import model.VisionBattlefield;
 import model.Ship;
 
 /**
- * TODO
+ *  @todo
  * @author nikolai
  */
 public class RandomBot extends AbstractBot{

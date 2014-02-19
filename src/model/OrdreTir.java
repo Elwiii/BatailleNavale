@@ -7,7 +7,7 @@
 package model;
 
 /**
- * TODO
+ * @todo
  * @author nikolai
  */
 public class OrdreTir {

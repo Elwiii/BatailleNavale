@@ -11,7 +11,7 @@ import java.io.Serializable;
  * Permet de stocker une réprésentation du champs de bataille du point de vue
  * d'un joueur Affiche les coups manqués , reussis et les positions encore
  * vierges.
- *
+ * @todo
  * @author nikolai
  */
 public class VisionBattlefield implements Serializable{

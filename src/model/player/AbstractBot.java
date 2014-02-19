@@ -12,7 +12,7 @@ import model.OrdreTir;
 import model.Ship;
 
 /**
- * TODO
+ * @todo
  * @author nikolai
  */
 public abstract class AbstractBot extends AbstractPlayer{

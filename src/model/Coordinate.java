@@ -10,6 +10,7 @@ import java.io.Serializable;
 
 /**
  * Une couple de point (x,y) / (longitude/latitude)
+ * @todo 
  * @author nikolai
  */
 public class Coordinate implements Serializable{
