@@ -29,6 +29,21 @@ public abstract class AbstractDaoFactory {
         }        
     }
     
+    public Dao getInstanceDao(TypeDao typeDao) throws DaoFactoryException{
+        switch(typeDao){
+            case GAME :
+                return getInstanceDaoGame();
+            case PLAYER : 
+                return getInstanceDaoPlayer();
+            default :
+                throw new DaoFactoryException("type de DAO inconnu");
+        }
+    }
+    
+    public abstract Dao getInstanceDaoGame();
+    
+    public abstract Dao getInstanceDaoPlayer();
+    
     
     
 }
