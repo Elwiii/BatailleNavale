@@ -7,17 +7,9 @@
 package persistance;
 
 /**
- * @todo
+ *
  * @author Nikolai
  */
-public class ConcreteFileDaoFactory extends AbstractDaoFactory{
-    
-    private ConcreteFileDaoFactory(){
-        
-    }
-    
-    public static ConcreteFileDaoFactory getInstance(){
-        return null;
-    }
+public class DaoGame {
     
 }
