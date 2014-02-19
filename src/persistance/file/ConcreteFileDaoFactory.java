@@ -7,6 +7,7 @@
 package persistance.file;
 
 import persistance.AbstractDaoFactory;
+import persistance.Dao;
 
 /**
  * @todo
@@ -20,6 +21,16 @@ public class ConcreteFileDaoFactory extends AbstractDaoFactory{
     
     public static ConcreteFileDaoFactory getInstance(){
         return null;
+    }
+
+    @Override
+    public Dao getInstanceDaoGame() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Dao getInstanceDaoPlayer() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

@@ -11,5 +11,5 @@ package persistance;
  * @author Nikolai
  */
 public enum TypePersistance {
-    FILE
+    FILE;
 }

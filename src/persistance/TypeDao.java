@@ -11,5 +11,6 @@ package persistance;
  * @author Nikolai
  */
 public enum TypeDao {
-    
+    GAME,
+    PLAYER;
 }

@@ -8,7 +8,7 @@ package model.player;
 
 import java.util.List;
 import model.VisionBattlefield;
-import model.Ship;
+import model.ship.Ship;
 
 /**
  *  @todo
