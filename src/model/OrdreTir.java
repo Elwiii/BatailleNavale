@@ -6,6 +6,8 @@
 
 package model;
 
+import model.ship.Ship;
+
 /**
  * @todo
  * @author nikolai

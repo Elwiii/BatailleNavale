@@ -10,6 +10,6 @@ package model.player;
  *
  * @author Nikolai
  */
-public class RandomBot {
+public class Bot {
     
 }

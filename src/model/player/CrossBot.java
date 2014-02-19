@@ -6,24 +6,10 @@
 
 package model.player;
 
-import java.util.List;
-import model.VisionBattlefield;
-import model.Ship;
-
 /**
- * @todo
- * @author nikolai
+ *
+ * @author Nikolai
  */
-public class CrossBot extends AbstractBot{
-
-    /**
-     * @param shipsEnnemi
-     * @todo
-     * @param bf 
-     */
-    @Override
-    public void autoPlay(VisionBattlefield bf, List<Ship> shipsEnnemi) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+public class CrossBot {
     
 }
