@@ -25,9 +25,9 @@ public class CreerPartie {
     private JFrame frame = new JFrame("Acceuil");
     private JPanel[] panels = new JPanel[4];
     private Menu menu = new Menu();
-    private JTextField nom = new JTextField("Nom");
-    private JTextField longueur = new JTextField("longeur");
-    private JTextField largeur = new JTextField("largeur");
+    private JTextField nom = new JTextField(40);
+    private JTextField longueur = new JTextField(3);
+    private JTextField largeur = new JTextField(3);
     private String objects[] = {"Car", "Bike", "Dragon", "Bus", "Mouse", "Cheese",
                         "Unicycle", "Sinclair C5", "Pony"};
     private JComboBox listEpoque = new JComboBox(objects);
@@ -60,11 +60,21 @@ public class CreerPartie {
         panels[1].setLayout(new FlowLayout(FlowLayout.CENTER));
         panels[1].add(listEpoque);
         
-        panels[2].setLayout(new GridLayout(2,1));
-        //panels[2].setLayout(new FlowLayout(FlowLayout.CENTER));
-        //longueur.setSize(20, 10);
+        //panels[2].setLayout(new GridLayout(2,1));
+        panels[2].setLayout(new FlowLayout(FlowLayout.CENTER));
+        longueur.setSize(20, 10);
+        
+        longueur.setLocation(0, 0);
+        longueur.setSize(100, 30);
         panels[2].add(longueur);
+
+        // Login Textfield
+        largeur.setLocation(0, 40);
+        largeur.setSize(100, 30);
         panels[2].add(largeur);
+        
+//        panels[2].add(longueur);
+//        panels[2].add(largeur);
         panels[2].setBorder(BorderFactory.createTitledBorder("Taille de la grille"));
         
         panels[3].setLayout(new FlowLayout(FlowLayout.CENTER));
