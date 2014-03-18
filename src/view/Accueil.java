@@ -22,7 +22,7 @@ public class Accueil {
     
     public static final int NEW = -100;
     public static final int LOAD = -200;
-    public static final int SCORE = -400;
+    public static final int SCORE = -300;
     
     private JFrame frame = new JFrame("Acceuil");
     private JPanel[] panels = new JPanel[4];
