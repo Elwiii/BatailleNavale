@@ -12,6 +12,9 @@ import java.awt.event.ActionListener;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
 /**
@@ -26,6 +29,17 @@ public class Accueil {
     
     private JFrame frame = new JFrame("Acceuil");
     private JPanel[] panels = new JPanel[4];
+    /* barre de menu */
+    JMenuBar menu_bar = new JMenuBar();
+    /* menu */
+    JMenu menu = new JMenu("Menu");
+    /* differents choix de chaque menu */
+    private JMenuItem newGameMenu = new JMenuItem("Créer Partie");
+    private JMenuItem loadGameMenu = new JMenuItem("Charger Partie");
+    private JMenuItem scoreMenu = new JMenuItem("Voir les scores");
+    private JMenuItem quitterPartieMenu = new JMenuItem("Quitter la partie");
+    private JMenuItem quitterMenu = new JMenuItem("Quitter");
+    /* differents boutons */
     private JButton newGameButton = new JButton("Créer une partie");
     private JButton loadGameButton = new JButton("Charger une partie");
     private JButton scoreButton = new JButton(" Voir les scores ");
@@ -46,6 +60,20 @@ public class Accueil {
             panels[i] = new JPanel();
         }
         
+        /* Création des composants */                
+        /* Ajouter les choix au menu  */
+        menu.add(newGameMenu);
+        menu.add(loadGameMenu);
+        menu.addSeparator();
+        menu.add(scoreMenu);
+        menu.addSeparator();
+        menu.add(quitterPartieMenu);
+        menu.add(quitterMenu);
+                        /* Ajouter les menu sur la bar de menu */
+        menu_bar.add(menu);
+                        /* Ajouter la bar du menu à la frame */
+        frame.setJMenuBar(menu_bar);
+
         // layout = FlowLayout.CENTER
         panels[1].setLayout(new FlowLayout(FlowLayout.CENTER));
         panels[1].add(newGameButton);
@@ -61,8 +89,7 @@ public class Accueil {
         panels[3].setLayout(new FlowLayout(FlowLayout.CENTER));
         panels[3].add(scoreButton);
         scoreButton.addActionListener(new Accueil.LocalListener(SCORE));
-
-        
+               
         contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));
         for (JPanel jPanel : panels) {
             contentPanel.add(jPanel);
@@ -88,8 +115,8 @@ public class Accueil {
         }
     }
     
-//    public static void main (String[] args){
-//        Accueil a = new Accueil();
-//    }
+    public static void main (String[] args){
+        Accueil a = new Accueil();
+    }
     
 }
