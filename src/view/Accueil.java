@@ -29,17 +29,7 @@ public class Accueil {
     
     private JFrame frame = new JFrame("Acceuil");
     private JPanel[] panels = new JPanel[4];
-    /* barre de menu */
-    JMenuBar menu_bar = new JMenuBar();
-    /* menu */
-    JMenu menu = new JMenu("Menu");
-    /* differents choix de chaque menu */
-    private JMenuItem newGameMenu = new JMenuItem("Créer Partie");
-    private JMenuItem loadGameMenu = new JMenuItem("Charger Partie");
-    private JMenuItem scoreMenu = new JMenuItem("Voir les scores");
-    private JMenuItem quitterPartieMenu = new JMenuItem("Quitter la partie");
-    private JMenuItem quitterMenu = new JMenuItem("Quitter");
-    /* differents boutons */
+    private Menu menu = new Menu();
     private JButton newGameButton = new JButton("Créer une partie");
     private JButton loadGameButton = new JButton("Charger une partie");
     private JButton scoreButton = new JButton(" Voir les scores ");
@@ -60,19 +50,7 @@ public class Accueil {
             panels[i] = new JPanel();
         }
         
-        /* Création des composants */                
-        /* Ajouter les choix au menu  */
-        menu.add(newGameMenu);
-        menu.add(loadGameMenu);
-        menu.addSeparator();
-        menu.add(scoreMenu);
-        menu.addSeparator();
-        menu.add(quitterPartieMenu);
-        menu.add(quitterMenu);
-                        /* Ajouter les menu sur la bar de menu */
-        menu_bar.add(menu);
-                        /* Ajouter la bar du menu à la frame */
-        frame.setJMenuBar(menu_bar);
+        menu.add(frame);
 
         // layout = FlowLayout.CENTER
         panels[1].setLayout(new FlowLayout(FlowLayout.CENTER));
