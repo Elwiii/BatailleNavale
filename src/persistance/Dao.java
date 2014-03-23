@@ -6,10 +6,11 @@
 
 package persistance;
 
+
 /**
  *
  * @author Nikolai
  */
-public class Dao {
+public abstract class Dao {
     
 }
