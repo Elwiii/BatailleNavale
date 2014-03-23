@@ -7,9 +7,9 @@
 package model.ship;
 
 /**
- * @todo
- * @author Nikolai
+ *
+ * @author Rym_r
  */
-public enum TypeShip {
-    GALLION, BARQUE, CROISEUR, FREGATE, PORTEAVION, VAISSEAUMERE, VIPER;
+public class Croiseur extends ShipXX{
+    
 }
