@@ -7,13 +7,9 @@
 package model.player;
 
 /**
- *
+ * @todo
  * @author Nikolai
  */
-public class Human extends Player{
-
-    public Human(String nom, int score, int nombrePartiesJouees) {
-        super(nom, score, nombrePartiesJouees);
-    }
-    
+public enum State {
+    JOUEUR1, JOUEUR2, WINJ1, WINJ2, GIVEUPJ1, GIVEUPJ2;
 }

@@ -10,6 +10,6 @@ package model.player;
  *
  * @author Nikolai
  */
-public class CrossBot {
+public class CrossBot extends Bot{
     
 }

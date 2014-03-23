@@ -11,5 +11,5 @@ package model.ship;
  * @author Nikolai
  */
 public enum Epoque {
-    
+    XVIII, XX, SCIENCEFICTION;
 }

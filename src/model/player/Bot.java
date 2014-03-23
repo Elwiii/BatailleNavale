@@ -6,10 +6,33 @@
 
 package model.player;
 
+import model.Flotte;
+import model.OrdreTir;
+import model.VisionBattlefield;
+
 /**
  *
  * @author Nikolai
  */
 public class Bot {
+
+    /**
+     * 
+     * @param bf
+     * @param shipEnnemi 
+     */
+    public void autoFire(VisionBattlefield bf, Flotte shipEnnemi){
+        
+    }
+    
+    /**
+     * 
+     * @param order
+     * @param target 
+     */
+    public void fire(OrdreTir order, Flotte target){
+        
+    }
+    
     
 }

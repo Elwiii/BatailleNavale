@@ -10,6 +10,7 @@ import java.io.Serializable;
 import java.net.URL;
 import java.util.List;
 import model.player.Player;
+import model.player.State;
 import model.ship.ShipFactory;
 import model.ship.TypeShip;
 
@@ -27,7 +28,7 @@ public class BatailleNavale {
     private BatailleNavaleAdapter adapter;
     private Game save;
     
-    public BatailleNavale(String id, int score, Thread.State state){
+    public BatailleNavale(String id, int score, State state){
         save = new Game(j1, j2, score, state);
         this.id = id;
     }

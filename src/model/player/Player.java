@@ -22,8 +22,10 @@ public class Player {
     private int nombrePartieJouees;   
     private VisionBattlefield map;
     
-    public Player(){
-        
+    public Player(String nom, int score, int nombrePartiesJouees){
+        this.nom = nom;
+        this.score = score;
+        this.nombrePartieJouees = nombrePartieJouees;
     }
     /**
      * 

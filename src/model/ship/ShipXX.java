@@ -10,6 +10,6 @@ package model.ship;
  * @todo
  * @author Nikolai
  */
-public class ShipXX {
+public class ShipXX extends Ship{
     
 }

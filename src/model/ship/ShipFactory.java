@@ -11,5 +11,32 @@ package model.ship;
  * @author Nikolai
  */
 public class ShipFactory {
+    /**
+     * 
+     * @param epoque
+     * @param puissance
+     * @return 
+     */
+    public Ship buildShip(Epoque epoque, int puissance){
+        return null;
+        
+    }
     
+    /**
+     * 
+     * @param type
+     * @return 
+     */
+    public Ship buildShip(TypeShip type){
+        return null;
+    }
+    
+    /**
+     * 
+     * @return 
+     */
+    public ShipFactory getInstance(){
+        return null;
+        
+    }
 }

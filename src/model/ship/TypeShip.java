@@ -11,5 +11,5 @@ package model.ship;
  * @author Nikolai
  */
 public enum TypeShip {
-    
+    VAISSEAU_MERE, VIPER, FREGATE;
 }
