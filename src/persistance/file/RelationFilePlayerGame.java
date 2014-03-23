@@ -10,6 +10,6 @@ package persistance.file;
  *
  * @author Nikolai
  */
-public class RelationFilePlayerGame {
+public class RelationFilePlayerGame extends RelationFile{
     
 }

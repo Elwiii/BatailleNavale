@@ -10,6 +10,6 @@ package persistance;
  *
  * @author Nikolai
  */
-public class DaoPlayer {
+public class DaoPlayer extends Dao{
     
 }

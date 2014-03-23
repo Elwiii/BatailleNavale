@@ -10,6 +10,6 @@ package persistance.file;
  *
  * @author Nikolai
  */
-public class DaoFileGame {
+public class DaoFileGame extends DaoFile{
     
 }

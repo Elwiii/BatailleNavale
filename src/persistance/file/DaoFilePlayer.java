@@ -10,6 +10,6 @@ package persistance.file;
  *
  * @author Nikolai
  */
-public class DaoFilePlayer {
+public class DaoFilePlayer extends DaoFile{
     
 }
