@@ -6,10 +6,49 @@
 
 package model.player;
 
+import model.Coordinate;
+import model.Flotte;
+import model.OrdreTir;
+import model.VisionBattlefield;
+import model.ship.Ship;
+
 /**
  *
  * @author Nikolai
  */
 public class Player {
+    private String nom;
+    private int score;
+    private int nombrePartieJouees;   
+    private VisionBattlefield map;
+    
+    public Player(){
+        
+    }
+    /**
+     * 
+     * @param order
+     * @param target
+     * @return 
+     */
+    public int fire(OrdreTir order, Flotte target){
+       return 0; 
+    }
+    
+    /**
+     * 
+     * @param ship 
+     */
+    public void addShip(Ship ship){
+        
+    }
+    
+    /**
+     * 
+     * @param coordinate 
+     */
+    public void receivedDamage(Coordinate coordinate){
+        
+    }
     
 }
