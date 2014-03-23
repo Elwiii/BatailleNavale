@@ -4,14 +4,12 @@
  * and open the template in the editor.
  */
 
-package model;
-
-import java.util.Observable;
+package model.ship.shipxviii;
 
 /**
- *
+ * @todo
  * @author Nikolai
  */
-public class BatailleNavaleAdapter extends Observable{
+public class Transport {
     
 }
