@@ -27,4 +27,8 @@ public class Coordinate implements Serializable{
         
     }
     
+    @Override
+    public String toString(){
+        return "("+x+","+y+")";
+    }
 }

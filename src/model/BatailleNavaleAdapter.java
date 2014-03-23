@@ -6,10 +6,12 @@
 
 package model;
 
+import java.util.Observable;
+
 /**
  *
  * @author Nikolai
  */
-public class BatailleNavaleAdapter {
+public class BatailleNavaleAdapter extends Observable{
     
 }
