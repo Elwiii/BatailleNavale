@@ -6,10 +6,12 @@
 
 package model.ship.shipscifi;
 
+import model.ship.ShipScifi;
+
 /**
  * @todo
  * @author Nikolai
  */
-public class Viper {
+public class Viper extends ShipScifi{
     
 }

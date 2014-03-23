@@ -6,10 +6,12 @@
 
 package model.ship.shipscifi;
 
+import model.ship.ShipScifi;
+
 /**
  * @todo
  * @author Nikolai
  */
-public class MotherShip {
+public class MotherShip extends ShipScifi{
     
 }

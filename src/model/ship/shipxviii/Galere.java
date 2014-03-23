@@ -6,10 +6,12 @@
 
 package model.ship.shipxviii;
 
+import model.ship.ShipXVIII;
+
 /**
  * @todo
  * @author Nikolai
  */
-public class Galere {
+public class Galere extends ShipXVIII{
     
 }
