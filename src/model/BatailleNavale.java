@@ -21,7 +21,7 @@ import model.ship.TypeShip;
 public class BatailleNavale {
     private String id;
     private int score;
-    private Thread.State state;
+    private State state;
     private Player j1;
     private Player j2;
     private ShipFactory shipFactory;
