@@ -30,7 +30,7 @@ public class Flotte {
      * tire sur une flotte adverse
      * @param target
      * @param order
-     * @return 
+     * @return UNREACHABLE HIT ou MISS
      */
     public int fire(Flotte target, OrdreTir order) throws Exception{
         Ship launcher = vaisseaux.get(order.getLauncher());
@@ -52,6 +52,8 @@ public class Flotte {
     /**
      * 
      * @param coordinate 
+     * @return  HIT si un des bateaux dla flotte est touché, MISS sinon
+     * @throws java.lang.Exception 
      */
     public int receiveDamage(Coordinate coordinate) throws Exception{
         Ship shiphit = getShipHit(coordinate);
@@ -65,11 +67,12 @@ public class Flotte {
     
     /**
      * return le bateau touché si la coordonée correspond à une de ses parties
-     * return null sinon
+     * return null si aucun bateau n'est atteint
      * @param coordinate
      * @return 
      */
     private Ship getShipHit(Coordinate coordinate){
+        //@todo Thomas
         return null;
     }
     
