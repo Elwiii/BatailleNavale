@@ -28,7 +28,7 @@ public abstract class Player {
      * @param target
      * @return 
      */
-    public abstract int fire(OrdreTir order, Flotte target);
+    public abstract int fire(OrdreTir order, Flotte target) throws Exception;
     
     /**
      * 
@@ -45,9 +45,10 @@ public abstract class Player {
     /**
      * 
      * @param coordinate 
+     * @throws java.lang.Exception 
      */
-    public void receivedDamage(Coordinate coordinate){
-        flotte.receiveDamage(coordinate);
+    public void receivedDamage(Coordinate coordinate) throws Exception{
+                flotte.receiveDamage(coordinate);
     }
 
     /**

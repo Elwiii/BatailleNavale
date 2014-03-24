@@ -21,8 +21,9 @@ public class Human extends Player {
     }
 
     @Override
-    public int fire(OrdreTir order, Flotte target) {
-        return getFlotte().fire(target, order);
+    public int fire(OrdreTir order, Flotte target) throws Exception {
+        int res = getFlotte().fire(target, order);
+        return res;
     }
 
 }
