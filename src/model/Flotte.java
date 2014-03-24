@@ -63,6 +63,7 @@ public class Flotte {
         Ship shiphit = getShipHit(coordinate);
         if(shiphit !=null){
             shiphit.receivedDamage(coordinate);
+            if(shiphit.)
             return HIT;
         }else{
             return MISS;

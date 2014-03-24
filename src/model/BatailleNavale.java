@@ -35,7 +35,7 @@ public class BatailleNavale {
 
     private BatailleNavaleAdapter bna;
 
-    public BatailleNavale() throws DaoFactoryException {
+    public BatailleNavale() throws DaoFactoryException  {
         bna = new BatailleNavaleAdapter();
         shipFactory = ShipFactory.getInstance();
         adf = AbstractDaoFactory.getAbstractDaoFactory(TypePersistance.FILE);
@@ -100,7 +100,7 @@ public class BatailleNavale {
      */
     public void save() {
         save = new Game(this);
-        adf.getInstanceDaoGame()
+        //@todo
     }
 
     /**
@@ -131,15 +131,7 @@ public class BatailleNavale {
         currentPlayer.addShip(shipFactory.buildShip(typeShip, queue, nez));
     }
 
-    /**
-     *
-     * @return
-     */
-    public List<URL> getSaveGame() {
-        //@todo
-        return null;
 
-    }
     
     
     

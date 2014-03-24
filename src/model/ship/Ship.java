@@ -46,6 +46,15 @@ public class Ship {
         return true;
     }
     
+    /**
+     * return vrai si tout les etats sont endomagé
+     * @return 
+     */
+    public boolean isDetroy(){
+        //@todo thomas
+        return true;
+    }
+    
     
     /**
      * remplir la liste etats en fonction de la position de la tete et la queue 
