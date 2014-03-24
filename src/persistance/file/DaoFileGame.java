@@ -21,7 +21,7 @@ import model.Game;
  *
  * @author Thomas
  */
-public class DaoFileGame<Game extends T> extends DaoFile{
+public class DaoFileGame extends DaoFile{
 
     @Override
     public Game find(String id){
