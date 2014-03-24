@@ -14,7 +14,11 @@ import persistance.file.ConcreteFileDaoFactory;
  * @author Nikolai
  */
 public abstract class AbstractDaoFactory {
-    
+    protected static int FILE;
+    protected static int PLAYER;
+    protected static int GAME;
+    protected static int XXX;
+    protected static int YYY;
     
     protected AbstractDaoFactory(){
         

@@ -6,10 +6,12 @@
 
 package persistance.file;
 
+import java.io.OutputStream;
+
 /**
  *
  * @author Nikolai
  */
-public class DaoFile {
-    
+public abstract class DaoFile {
+    protected OutputStream os;
 }

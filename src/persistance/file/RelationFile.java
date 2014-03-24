@@ -6,10 +6,12 @@
 
 package persistance.file;
 
+import java.io.OutputStream;
+
 /**
  *
  * @author Nikolai
  */
-public class RelationFile {
-    
+public abstract class RelationFile {
+    protected OutputStream os;
 }
