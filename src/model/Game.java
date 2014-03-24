@@ -27,4 +27,8 @@ public class Game implements Serializable{
         this.score = bn.getScore();
         this.state = bn.getState();
     }
+
+    public String getId() {
+        return id;
+    }
 }
