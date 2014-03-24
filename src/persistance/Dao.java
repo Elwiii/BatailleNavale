@@ -13,11 +13,12 @@ import java.util.ArrayList;
 /**
  *
  * @author Nikolai
+ * @param <T>
  */
-public abstract class Dao<T implements Serializable> {
-    public T find(String id){};
-    public ArrayList<T> find();
-    public int persiste(T g);
-    public void update(T g){};
+public abstract class Dao<T extends Serializable> {
+    public abstract T find(String id);
+    public abstract ArrayList<T> find();
+    public abstract int persiste(T g);
+    public abstract void update(T g);
     
 }

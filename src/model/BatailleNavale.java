@@ -100,7 +100,7 @@ public class BatailleNavale {
      */
     public void save() {
         save = new Game(this);
-        //@todo
+        adf.getInstanceDaoGame().persiste(save);
     }
 
     /**
