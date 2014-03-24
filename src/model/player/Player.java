@@ -13,36 +13,29 @@ import model.VisionBattlefield;
 import model.ship.Ship;
 
 /**
- *
  * @author Nikolai
  */
-public class Player {
-    private String nom;
-    private int score;
-    private int nombrePartieJouees;   
-    private VisionBattlefield map;
-    
-    public Player(String nom, int score, int nombrePartiesJouees){
-        this.nom = nom;
-        this.score = score;
-        this.nombrePartieJouees = nombrePartieJouees;
-    }
+public abstract class Player {
+    protected String nom;
+    protected int score;
+    protected int nombrePartieJouees;   
+    protected VisionBattlefield map;
+    protected Flotte flotte;
+   
     /**
      * 
      * @param order
      * @param target
      * @return 
      */
-    public int fire(OrdreTir order, Flotte target){
-       return 0; 
-    }
+    public abstract int fire(OrdreTir order, Flotte target);
     
     /**
      * 
      * @param ship 
      */
     public void addShip(Ship ship){
-        
+        flotte.addShip(ship);
     }
     
     /**
@@ -50,7 +43,7 @@ public class Player {
      * @param coordinate 
      */
     public void receivedDamage(Coordinate coordinate){
-        
+        flotte.receiveDamage(coordinate);
     }
     
 }

@@ -10,7 +10,7 @@ import java.awt.Dimension;
 import javax.swing.JFrame;
 import model.BatailleNavale;
 import model.BatailleNavaleAdapter;
-import model.player.State;
+import model.State;
 
 /**
  *

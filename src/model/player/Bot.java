@@ -11,27 +11,30 @@ import model.OrdreTir;
 import model.VisionBattlefield;
 
 /**
- *
  * @author Nikolai
  */
-public class Bot {
+public abstract class Bot extends Player{
 
     /**
      * 
      * @param bf
+     * @param target
      * @param shipEnnemi 
+     * @return  
      */
-    public void autoFire(VisionBattlefield bf, Flotte shipEnnemi){
+    public abstract int autoFire(VisionBattlefield bf, Flotte target);
         
-    }
+    
     
     /**
      * 
      * @param order
      * @param target 
+     * @return  
      */
-    public void fire(OrdreTir order, Flotte target){
-        
+    @Override
+    public int fire(OrdreTir order, Flotte target){
+        return autoFire(map,target);
     }
     
     

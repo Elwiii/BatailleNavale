@@ -8,7 +8,6 @@ package model;
 
 import java.io.Serializable;
 import model.player.Player;
-import model.player.State;
 
 /**
  * version sauvergardable du model

@@ -10,7 +10,6 @@ import java.net.URL;
 import java.util.List;
 import java.util.Observer;
 import model.player.Player;
-import model.player.State;
 import model.ship.ShipFactory;
 import model.ship.TypeShip;
 
@@ -23,7 +22,7 @@ public class BatailleNavale {
     private int score;
     private State state;
     private Player j1;
-    private Player j2;
+    private Player j2; // le bot par defaut
     private ShipFactory shipFactory;
     private BatailleNavaleAdapter adapter;
     private Game save;
@@ -33,6 +32,8 @@ public class BatailleNavale {
     public BatailleNavale(){
         bna = new BatailleNavaleAdapter();
     }
+    
+    
     
     public void addObserver(Observer o){
         bna.addObserver(o);
