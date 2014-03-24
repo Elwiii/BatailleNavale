@@ -10,7 +10,7 @@ import java.util.Observable;
 import java.util.Observer;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import model.BatailleNavaleAdapter;
+import model.BatailleNavale;
 
 /**
  *
@@ -20,7 +20,7 @@ public class JPanelParties extends JPanel implements Observer{
 
     public static final String id = "jpanelparties";
     
-    public JPanelParties(final BatailleNavaleAdapter model){
+    public JPanelParties(final BatailleNavale model){
         super();
         model.addObserver(this);
         add(new JLabel(id));

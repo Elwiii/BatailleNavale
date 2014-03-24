@@ -12,4 +12,5 @@ package model.ship;
  */
 public class ShipScifi extends Ship{
     
+    
 }

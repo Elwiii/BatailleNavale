@@ -6,10 +6,17 @@
 
 package model.ship.shipscifi;
 
+import java.awt.Color;
+import model.ship.ShipScifi;
+
 /**
- * @todo
  * @author Nikolai
  */
-public class MotherShip {
+public class MotherShip extends ShipScifi{
+    
+    public MotherShip(){
+        representationGraphique = new Color(155, 200,255);
+        puissance = 7;
+    }
     
 }

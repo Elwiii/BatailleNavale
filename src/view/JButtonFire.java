@@ -11,7 +11,7 @@ import java.awt.event.ActionListener;
 import java.util.Observable;
 import java.util.Observer;
 import javax.swing.JButton;
-import model.BatailleNavaleAdapter;
+import model.BatailleNavale;
 import model.Coordinate;
 
 /**
@@ -21,7 +21,7 @@ import model.Coordinate;
 public class JButtonFire extends JButton implements Observer{
     private final Coordinate c;
     
-    public JButtonFire(final BatailleNavaleAdapter model,final Coordinate c){
+    public JButtonFire(final BatailleNavale model,final Coordinate c){
         super("X");
         this.c  = c;
         model.addObserver(this);

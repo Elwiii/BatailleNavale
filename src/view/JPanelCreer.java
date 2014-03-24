@@ -15,7 +15,7 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import model.BatailleNavaleAdapter;
+import model.BatailleNavale;
 
 /**
  *
@@ -29,7 +29,7 @@ public class JPanelCreer extends JPanel implements Observer{
     private final JComboBox longueur;
     private final JComboBox largeur;
     
-    public JPanelCreer(final BatailleNavaleAdapter model,final JPanelWizard wizard){
+    public JPanelCreer(final BatailleNavale model,final JPanelWizard wizard){
         super();
         model.addObserver(this);
         add(new JLabel(id));

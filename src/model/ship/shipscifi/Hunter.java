@@ -6,10 +6,17 @@
 
 package model.ship.shipscifi;
 
+import java.awt.Color;
+import model.ship.ShipScifi;
+
 /**
- * @todo
  * @author Nikolai
  */
-public class Hunter {
+public class Hunter extends ShipScifi{
+    
+    public Hunter(){
+        representationGraphique = new Color(100, 200,255);
+        puissance = 3;
+    }
     
 }

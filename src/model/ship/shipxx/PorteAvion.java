@@ -6,10 +6,16 @@
 
 package model.ship.shipxx;
 
+import java.awt.Color;
+import model.ship.ShipXX;
+
 /**
- * @todo
  * @author Nikolai
  */
-public class PorteAvion {
+public class PorteAvion extends ShipXX{
     
+    public PorteAvion(){
+        representationGraphique = new Color(5, 100,0);
+        puissance = 10;
+    }
 }

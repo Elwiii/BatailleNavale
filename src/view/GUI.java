@@ -6,11 +6,11 @@
 package view;
 
 import java.awt.BorderLayout;
-import java.awt.CardLayout;
 import java.awt.Dimension;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
+import model.BatailleNavale;
 import model.BatailleNavaleAdapter;
+import model.player.State;
 
 /**
  *
@@ -19,11 +19,15 @@ import model.BatailleNavaleAdapter;
 public class GUI extends JFrame {
 
     private final JPanelWizard cards;
-    private final BatailleNavaleAdapter model;
+    private final BatailleNavaleAdapter model_adapter;
+    private final BatailleNavale model;
+    
     
     public GUI() {
         super("bataille navale");
-        model = new BatailleNavaleAdapter();
+        model_adapter = new BatailleNavaleAdapter();
+        
+        model = new BatailleNavale();
         
         //Create the panel that contains the "cards".
         cards = new JPanelWizard(model);

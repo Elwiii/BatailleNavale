@@ -6,10 +6,16 @@
 
 package model.ship.shipxviii;
 
+import java.awt.Color;
+import model.ship.ShipXVIII;
+
 /**
- * @todo
  * @author Nikolai
  */
-public class Galere {
+public class Galere extends ShipXVIII{
     
+    public Galere(){
+        representationGraphique = new Color(0, 100,0);
+        puissance = 5;
+    }
 }

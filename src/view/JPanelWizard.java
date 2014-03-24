@@ -10,7 +10,7 @@ import java.awt.CardLayout;
 import java.util.Observable;
 import java.util.Observer;
 import javax.swing.JPanel;
-import model.BatailleNavaleAdapter;
+import model.BatailleNavale;
 
 /**
  *
@@ -20,7 +20,7 @@ public class JPanelWizard extends JPanel implements Observer{
 
     private final CardLayout cl ;
     
-    public JPanelWizard(final BatailleNavaleAdapter model){
+    public JPanelWizard(final BatailleNavale model){
         super();
         cl = new CardLayout();
         this.setLayout(cl);

@@ -6,10 +6,16 @@
 
 package model.ship.shipscifi;
 
+import java.awt.Color;
+import model.ship.ShipScifi;
+
 /**
- * @todo
  * @author Nikolai
  */
-public class Viper {
+public class Viper extends ShipScifi{
     
+    public Viper(){
+        representationGraphique = new Color(155, 200,0);
+        puissance = 2;
+    }
 }

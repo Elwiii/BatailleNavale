@@ -9,9 +9,18 @@ package model;
 import java.util.Observable;
 
 /**
- *
+ * @OK
  * @author Nikolai
  */
 public class BatailleNavaleAdapter extends Observable{
+
+    public BatailleNavaleAdapter(){
+        
+    }
+    
+    public void update(){
+        setChanged();
+        notifyAll();
+    }
     
 }

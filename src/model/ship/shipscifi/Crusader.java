@@ -6,10 +6,16 @@
 
 package model.ship.shipscifi;
 
+import java.awt.Color;
+import model.ship.ShipScifi;
+
 /**
- * @todo
  * @author Nikolai
  */
-public class Crusader {
+public class Crusader extends ShipScifi{
     
+    public Crusader(){
+        representationGraphique = new Color(155, 200,255);
+        puissance = 6;
+    }
 }

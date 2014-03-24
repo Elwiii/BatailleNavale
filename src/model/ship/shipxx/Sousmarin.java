@@ -6,10 +6,16 @@
 
 package model.ship.shipxx;
 
+import java.awt.Color;
+import model.ship.ShipXX;
+
 /**
- * @todo
  * @author Nikolai
  */
-public class Sousmarin {
+public class Sousmarin extends ShipXX{
     
+    public Sousmarin(){
+        representationGraphique = new Color(255, 26,255);
+        puissance = 3;
+    }
 }

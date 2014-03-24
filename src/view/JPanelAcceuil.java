@@ -13,7 +13,7 @@ import java.util.Observer;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import model.BatailleNavaleAdapter;
+import model.BatailleNavale;
 
 /**
  *
@@ -23,7 +23,7 @@ public class JPanelAcceuil extends JPanel implements Observer{
     
     public static final String id = "jpanelacceuil";
 
-    public JPanelAcceuil(final BatailleNavaleAdapter model,final JPanelWizard wizard){
+    public JPanelAcceuil(final BatailleNavale model,final JPanelWizard wizard){
         super();
         model.addObserver(this);
         add(new JLabel(id));

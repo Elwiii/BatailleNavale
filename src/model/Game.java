@@ -11,20 +11,21 @@ import model.player.Player;
 import model.player.State;
 
 /**
- * @todo
+ * version sauvergardable du model
  * @author Nikolai
  */
 public class Game implements Serializable{
-    private Player j1;
-    private Player j2;
+    private final String id;
+    private final Player j1;
+    private final Player j2;
     private int score;
-    private State state; //Le type n'est peut etre pas le bon
+    private State state; 
     
-    //attention pas en accord avec le DC
-    public Game(Player j1, Player j2, int score, State state){
-        this.j1 = j1;
-        this.j2 = j2;
-        this.score = score;
-        this.state = state;
+    public Game(BatailleNavale bn){
+        this.id = bn.getId();
+        this.j1 = bn.getJ1();
+        this.j2 = bn.getJ2();
+        this.score = bn.getScore();
+        this.state = bn.getState();
     }
 }

@@ -7,13 +7,16 @@
 package model;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Une couple de point (x,y) / (longitude/latitude)
- * @todo 
+ * @OK
  * @author nikolai
  */
 public class Coordinate implements Serializable{
+    
+    private List<Coordinate> coordinates;
     
     public int x;
     public int y;
@@ -25,6 +28,13 @@ public class Coordinate implements Serializable{
     
     public Coordinate(){
         
+    }
+    
+    
+    @Override
+    public boolean equals(Object o){
+        Coordinate c = (Coordinate)o;
+        return c.x == x && c.y == y;
     }
     
     @Override

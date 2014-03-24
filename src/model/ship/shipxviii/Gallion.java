@@ -6,10 +6,16 @@
 
 package model.ship.shipxviii;
 
+import java.awt.Color;
+import model.ship.ShipXVIII;
+
 /**
- * @todo
  * @author Nikolai
  */
-public class Gallion {
+public class Gallion extends ShipXVIII{
     
+    public Gallion(){
+        representationGraphique = new Color(155, 100,255);
+        puissance = 6;
+    }
 }

@@ -6,10 +6,16 @@
 
 package model.ship.shipxviii;
 
+import java.awt.Color;
+import model.ship.ShipXVIII;
+
 /**
- * @todo
  * @author Nikolai
  */
-public class Transport {
+public class Transport extends ShipXVIII{
     
+    public Transport(){
+        representationGraphique = new Color(155, 255,255);
+        puissance = 2;
+    }
 }

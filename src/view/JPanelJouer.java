@@ -15,7 +15,7 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
-import model.BatailleNavaleAdapter;
+import model.BatailleNavale;
 import model.Coordinate;
 
 /**
@@ -26,7 +26,7 @@ public class JPanelJouer extends JPanel implements Observer {
 
     public static final String id = "jpaneljouer";
 
-    public JPanelJouer(final BatailleNavaleAdapter model) {
+    public JPanelJouer(final BatailleNavale model) {
         super(new BorderLayout());
         model.addObserver(this);
         add(new JLabel(id));
@@ -47,8 +47,7 @@ public class JPanelJouer extends JPanel implements Observer {
         add(center, BorderLayout.CENTER);
         
         
-        String[] data = {"boat1", "boat2"};
-        JList list = new JList(data); //data has type Object[]
+        JList list = new JList(); //data has type Object[]
         list.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
         list.setLayoutOrientation(JList.HORIZONTAL_WRAP);
         list.setVisibleRowCount(-1);

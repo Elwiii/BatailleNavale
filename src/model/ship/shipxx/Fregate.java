@@ -6,10 +6,16 @@
 
 package model.ship.shipxx;
 
+import java.awt.Color;
+import model.ship.ShipXX;
+
 /**
- * @todo
  * @author Nikolai
  */
-public class Fregate {
+public class Fregate extends ShipXX{
     
+    public Fregate(){
+        representationGraphique = new Color(255, 66,255);
+        puissance = 5;
+    }
 }
