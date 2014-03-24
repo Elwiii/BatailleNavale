@@ -10,7 +10,7 @@ import model.Flotte;
 import model.VisionBattlefield;
 
 /**
- * @todo
+ * @todo Rym
  * @author Nikolai
  */
 public class CrossBot extends Bot{

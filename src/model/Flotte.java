@@ -16,10 +16,6 @@ import model.ship.Ship;
  * @author nikolai
  */
 public class Flotte {
-    // sa map
-    // ses bateaux
-    // des fonctions tirer sur la flotte
-    //return la map de portée
     
     private final int UNREACHABLE = 0;
     private final int HIT = 1;
@@ -31,15 +27,18 @@ public class Flotte {
     }
     
     /**
-     * 
+     * tire sur une flotte adverse
      * @param target
      * @param order
      * @return 
      */
-    public int fire(Flotte target, OrdreTir order){
+    public int fire(Flotte target, OrdreTir order) throws Exception{
         Ship launcher = vaisseaux.get(order.getLauncher());
-        //todo
-        return 0;
+        if(launcher.estAporteeDeTir(order.getCoordinate())){
+            return target.receiveDamage(order.getCoordinate());
+        }else{
+            return UNREACHABLE;
+        }
     }
     
     /**
@@ -54,9 +53,24 @@ public class Flotte {
      * 
      * @param coordinate 
      */
-    public void receiveDamage(Coordinate coordinate){
-        
+    public int receiveDamage(Coordinate coordinate) throws Exception{
+        Ship shiphit = getShipHit(coordinate);
+        if(shiphit !=null){
+            shiphit.receivedDamage(coordinate);
+            return HIT;
+        }else{
+            return MISS;
+        }
     }
     
+    /**
+     * return le bateau touché si la coordonée correspond à une de ses parties
+     * return null sinon
+     * @param coordinate
+     * @return 
+     */
+    private Ship getShipHit(Coordinate coordinate){
+        return null;
+    }
     
 }
