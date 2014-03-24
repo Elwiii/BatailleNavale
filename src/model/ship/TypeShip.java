@@ -3,13 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package model.ship;
 
 /**
- * @todo
  * @author Nikolai
  */
 public enum TypeShip {
-    CRUSADER, HUNTER, MOTHER, VIPER, GALLION, BARQUE, GALERE, TRANSPORT, CROISEUR, FREGATE, JETSKI, PORTEAVION, SOUSMARIN ;
+
+    CRUSADER, HUNTER, MOTHER, VIPER, GALLION, BARQUE, GALERE, TRANSPORT, CROISEUR, FREGATE, JETSKI, PORTEAVION, SOUSMARIN;
 }

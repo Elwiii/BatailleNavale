@@ -6,6 +6,8 @@
 
 package model.ship;
 
+import model.Coordinate;
+
 /**
  * @todo
  * @author Nikolai
@@ -17,7 +19,7 @@ public class ShipFactory {
      * @param puissance
      * @return 
      */
-    public Ship buildShip(Epoque epoque, int puissance){
+    public Ship buildShip(Epoque epoque, int puissance,Coordinate queue, Coordinate nez){
         return null;
         
     }
@@ -27,7 +29,7 @@ public class ShipFactory {
      * @param type
      * @return 
      */
-    public Ship buildShip(TypeShip type){
+    public Ship buildShip(TypeShip type,Coordinate queue, Coordinate nez){
         return null;
     }
     

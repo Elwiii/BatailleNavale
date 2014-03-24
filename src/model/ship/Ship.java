@@ -12,7 +12,7 @@ import model.Coordinate;
 import model.Flotte;
 
 /**
- * @todotofinish @author Nikolai
+ * @author Nikolai
  */
 public class Ship {
 
@@ -33,8 +33,6 @@ public class Ship {
     protected Color representationGraphique; // on fait simple
     protected List<Etat> etats;
     protected int puissance;
-//    private Coordinate queue;
-//    private Coordinate nez; //tete, non?
     
     
     /**
@@ -44,13 +42,15 @@ public class Ship {
      * @param queue
      * @param nez 
      */
-    protected void initializeEtats(Coordinate queue, Coordinate nez){
+    protected void initializeEtats(Coordinate queue, Coordinate nez) throws Exception{
+        int nombreCase = 0;
         if(queue.x == nez.x && queue.y != nez.y){
             // en hauteur
             int maxY = Math.max(queue.y,nez.y);
             int minY = Math.min(queue.y,nez.y);
                 for (int j = 0; j <= maxY; j++) {
                     etats.add(new Etat(new Coordinate(nez.x,minY+j), SAFE));
+                    nombreCase++;
             }
         }else if(queue.x != nez.x && queue.y == nez.y){
             // en longueur
@@ -58,10 +58,12 @@ public class Ship {
             int minX = Math.min(queue.x,nez.x);
                 for (int j = 0; j <= maxX; j++) {
                     etats.add(new Etat(new Coordinate(minX+j,nez.y), SAFE));
+                    nombreCase++;
             }
         }else if(queue.x == nez.x && queue.y == nez.y){
             // nez = queue
             etats.add(new Etat(new Coordinate(nez.x,nez.y), SAFE));
+            nombreCase++;
         }else {
             // diagonale
             int maxX = Math.max(queue.x,nez.x);
@@ -71,8 +73,12 @@ public class Ship {
             for (int i = 0; i <= maxX; i++) {
                 for (int j = 0; j <= maxY; j++) {
                     etats.add(new Etat(new Coordinate(minX+i,minY+i), SAFE));
+                    nombreCase++;
                 }
             }
+        }
+        if(nombreCase != puissance ){
+            throw new Exception("le nombre de case doit être égale à la puissance du bateau");
         }
    }
 

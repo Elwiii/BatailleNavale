@@ -7,6 +7,7 @@
 package model.ship.shipxviii;
 
 import java.awt.Color;
+import model.Coordinate;
 import model.ship.ShipXVIII;
 
 /**
@@ -14,8 +15,9 @@ import model.ship.ShipXVIII;
  */
 public class Barque extends ShipXVIII{
     
-    public Barque(){
+    public Barque(Coordinate queue, Coordinate nez) throws Exception{
         representationGraphique = new Color(155, 100,255);
         puissance = 1;
+        initializeEtats(queue,nez);
     }
 }

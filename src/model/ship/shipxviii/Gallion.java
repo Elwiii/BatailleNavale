@@ -7,6 +7,7 @@
 package model.ship.shipxviii;
 
 import java.awt.Color;
+import model.Coordinate;
 import model.ship.ShipXVIII;
 
 /**
@@ -14,8 +15,9 @@ import model.ship.ShipXVIII;
  */
 public class Gallion extends ShipXVIII{
     
-    public Gallion(){
+    public Gallion(Coordinate queue, Coordinate nez) throws Exception{
         representationGraphique = new Color(155, 100,255);
         puissance = 6;
+        initializeEtats(queue,nez);
     }
 }

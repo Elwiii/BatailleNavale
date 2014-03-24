@@ -7,6 +7,7 @@
 package model.ship.shipscifi;
 
 import java.awt.Color;
+import model.Coordinate;
 import model.ship.ShipScifi;
 
 /**
@@ -14,9 +15,10 @@ import model.ship.ShipScifi;
  */
 public class MotherShip extends ShipScifi{
     
-    public MotherShip(){
+    public MotherShip(Coordinate queue, Coordinate nez) throws Exception{
         representationGraphique = new Color(155, 200,255);
         puissance = 7;
+        initializeEtats(queue,nez);
     }
     
 }

@@ -7,7 +7,6 @@
 package model.ship;
 
 /**
- * @todo
  * @author Nikolai
  */
 public class ShipXVIII extends Ship{
