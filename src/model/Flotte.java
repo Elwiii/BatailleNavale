@@ -49,6 +49,10 @@ public class Flotte {
         vaisseaux.add(ship);
     }
     
+    public void removeShip(int idShip){
+        vaisseaux.remove(idShip);
+    }
+    
     /**
      * 
      * @param coordinate 

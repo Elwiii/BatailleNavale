@@ -38,6 +38,10 @@ public abstract class Player {
         flotte.addShip(ship);
     }
     
+    public void removeShip(int idShip){
+        flotte.removeShip(idShip);
+    }
+    
     /**
      * 
      * @param coordinate 

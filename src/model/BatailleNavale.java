@@ -11,6 +11,9 @@ import java.util.Observer;
 import model.player.Player;
 import model.ship.ShipFactory;
 import model.ship.TypeShip;
+import persistance.AbstractDaoFactory;
+import persistance.DaoFactoryException;
+import persistance.TypePersistance;
 
 /**
  * @author nikolai
@@ -26,14 +29,16 @@ public class BatailleNavale {
     private Player currentPlayer = j1;
     private Player otherPlayer = j2;
     private ShipFactory shipFactory;
+    private AbstractDaoFactory adf;
     private BatailleNavaleAdapter adapter;
     private Game save;
 
     private BatailleNavaleAdapter bna;
 
-    public BatailleNavale() {
+    public BatailleNavale() throws DaoFactoryException {
         bna = new BatailleNavaleAdapter();
         shipFactory = ShipFactory.getInstance();
+        adf = AbstractDaoFactory.getAbstractDaoFactory(TypePersistance.FILE);
     }
 
     public void addObserver(Observer o) {
@@ -94,7 +99,8 @@ public class BatailleNavale {
      *
      */
     public void save() {
-        //@todo
+        save = new Game(this);
+        adf.getInstanceDaoGame()
     }
 
     /**
@@ -111,7 +117,7 @@ public class BatailleNavale {
      * @param joueur
      */
     public void removeShip(int idShip, int joueur) {
-        //@todo
+        currentPlayer.removeShip(idShip);
     }
 
     /**
@@ -134,6 +140,11 @@ public class BatailleNavale {
         return null;
 
     }
+    
+    
+    
+    
+    
     
     
     
