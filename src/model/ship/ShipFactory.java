@@ -37,7 +37,7 @@ public class ShipFactory {
      * 
      * @return 
      */
-    public ShipFactory getInstance(){
+    public static ShipFactory getInstance(){
         return null;
         
     }

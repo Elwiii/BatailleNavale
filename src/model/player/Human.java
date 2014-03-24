@@ -22,7 +22,7 @@ public class Human extends Player {
 
     @Override
     public int fire(OrdreTir order, Flotte target) {
-        return flotte.fire(target, order);
+        return getFlotte().fire(target, order);
     }
 
 }

@@ -20,7 +20,7 @@ public abstract class Player {
     protected int score;
     protected int nombrePartieJouees;   
     protected VisionBattlefield map;
-    protected Flotte flotte;
+    private Flotte flotte;
    
     /**
      * 
@@ -44,6 +44,20 @@ public abstract class Player {
      */
     public void receivedDamage(Coordinate coordinate){
         flotte.receiveDamage(coordinate);
+    }
+
+    /**
+     * @return the flotte
+     */
+    public Flotte getFlotte() {
+        return flotte;
+    }
+
+    /**
+     * @param flotte the flotte to set
+     */
+    public void setFlotte(Flotte flotte) {
+        this.flotte = flotte;
     }
     
 }
