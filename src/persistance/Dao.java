@@ -6,11 +6,18 @@
 
 package persistance;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+
 
 /**
  *
  * @author Nikolai
  */
-public abstract class Dao {
+public abstract class Dao<T implements Serializable> {
+    public T find(String id){};
+    public ArrayList<T> find();
+    public int persiste(T g);
+    public void update(T g){};
     
 }
