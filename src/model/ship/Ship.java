@@ -110,7 +110,7 @@ public class Ship {
      * @param target
      * @param coordinate
      */
-    public void fire(Flotte target, Coordinate coordinate) {
+    public void fire(Flotte target, Coordinate coordinate) throws Exception {
         target.receiveDamage(coordinate);
     }
 

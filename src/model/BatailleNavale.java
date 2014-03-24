@@ -12,7 +12,6 @@ import model.player.Player;
 import model.ship.ShipFactory;
 import model.ship.TypeShip;
 import persistance.AbstractDaoFactory;
-import persistance.DaoFactoryException;
 import persistance.TypePersistance;
 
 /**
@@ -35,7 +34,7 @@ public class BatailleNavale {
 
     private BatailleNavaleAdapter bna;
 
-    public BatailleNavale() throws DaoFactoryException  {
+    public BatailleNavale() throws DaoFactoryException {
         bna = new BatailleNavaleAdapter();
         shipFactory = ShipFactory.getInstance();
         adf = AbstractDaoFactory.getAbstractDaoFactory(TypePersistance.FILE);
@@ -54,8 +53,21 @@ public class BatailleNavale {
      * @param order
      * @throws java.lang.Exception
      */
-    public void fire(OrdreTir order) throws Exception {
-        currentPlayer.fire(order, otherPlayer.getFlotte());
+    public int fire(OrdreTir order) throws Exception {
+        int res = currentPlayer.fire(order, otherPlayer.getFlotte());
+        if (res == Flotte.FLOTTE_DETRUITE) {
+            switch (state) {
+                case JOUEUR1:
+                    state = State.WINJ1;
+                    break;
+                case JOUEUR2:
+                    state = State.WINJ2;
+                    break;
+                default:
+                    throw new Exception("error");
+            }
+        }
+        return res;
     }
 
     /**
@@ -131,18 +143,7 @@ public class BatailleNavale {
         currentPlayer.addShip(shipFactory.buildShip(typeShip, queue, nez));
     }
 
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
     //---------------------------------getteur/setteurs ------------------------------------------
-
     /**
      * @return the id
      */
