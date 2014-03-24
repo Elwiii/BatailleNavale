@@ -7,7 +7,6 @@
 package model;
 
 /**
- * @todo
  * @author Nikolai
  */
 public enum State {

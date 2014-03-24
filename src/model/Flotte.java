@@ -6,6 +6,7 @@
 
 package model;
 
+import java.util.ArrayList;
 import java.util.List;
 import model.ship.Ship;
 
@@ -23,10 +24,10 @@ public class Flotte {
     private final int UNREACHABLE = 0;
     private final int HIT = 1;
     private final int MISS = 2;
-    private List<Ship> vaisseaux; //List?
+    private final List<Ship> vaisseaux; 
     
     public Flotte(){
-        //init vaisseaux
+        vaisseaux = new ArrayList<>();
     }
     
     /**
@@ -44,7 +45,7 @@ public class Flotte {
      * @param ship 
      */
     public void addShip(Ship ship){
-        
+        vaisseaux.add(ship);
     }
     
     /**

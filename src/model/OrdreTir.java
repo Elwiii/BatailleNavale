@@ -6,38 +6,35 @@
 
 package model;
 
-import model.ship.Ship;
-
 /**
- * @todo
  * @author nikolai
  */
 public class OrdreTir {
     
-    private Ship launcher;
+    private int launcherid;
     
     private Coordinate coordinate;
     
     /* ordre à donner si on deal avec un bot */
-    public static final OrdreTir NO_ORDER = new OrdreTir(null,null);
+    public static final OrdreTir NO_ORDER = new OrdreTir(null,-1);
     
-    public OrdreTir(Coordinate coordinate, Ship launcher){
+    public OrdreTir(Coordinate coordinate, int launcherid){
         this.coordinate = coordinate;
-        this.launcher = launcher;
+        this.launcherid = launcherid;
     }
 
     /**
      * @return the launcher
      */
-    public Ship getLauncher() {
-        return launcher;
+    public int getLauncher() {
+        return launcherid;
     }
 
     /**
      * @param launcher the launcher to set
      */
-    public void setLauncher(Ship launcher) {
-        this.launcher = launcher;
+    public void setLauncher(int launcher) {
+        this.launcherid = launcher;
     }
 
     /**

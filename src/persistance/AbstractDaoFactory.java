@@ -10,7 +10,6 @@ import persistance.file.ConcreteFileDaoFactory;
 
 /**
  * Renvoi une factory pour la persistence du type choisie.
- * @todo
  * @author Nikolai
  */
 public abstract class AbstractDaoFactory {
