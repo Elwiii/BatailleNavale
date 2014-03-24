@@ -37,6 +37,8 @@ public class Flotte {
      * @return 
      */
     public int fire(Flotte target, OrdreTir order){
+        Ship launcher = vaisseaux.get(order.getLauncher());
+        //todo
         return 0;
     }
     

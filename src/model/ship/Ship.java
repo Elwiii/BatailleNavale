@@ -34,6 +34,18 @@ public class Ship {
     protected List<Etat> etats;
     protected int puissance;
     
+    /**
+     * evalue si le point de coordonne est atteingable par ce bateau
+     * Est fonction de la puissance du bateau (faire un rayon autour de chacun des points du bateau
+     * on récupère les coordonnées des points du bateau dans la variable etats
+     * @param coordonnee
+     * @return 
+     */
+    public boolean estAporteeDeTir(Coordinate coordonnee){
+        // @todo Thomas
+        return true;
+    }
+    
     
     /**
      * remplir la liste etats en fonction de la position de la tete et la queue 
