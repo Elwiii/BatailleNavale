@@ -20,5 +20,6 @@ public abstract class Dao<T extends Serializable> {
     public abstract ArrayList<T> find();
     public abstract int persiste(T g);
     public abstract void update(T g);
+    public abstract Dao getInstance();
     
 }
