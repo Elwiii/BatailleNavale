@@ -5,11 +5,12 @@
  */
 
 package persistance.file;
+import model.Game;
 import persistance.*;
 
 /**
  *
  * @author Nikolai
  */
-public abstract class DaoFile extends Dao {
+public abstract class DaoFile extends Dao<Game> {
 }
