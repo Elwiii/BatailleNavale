@@ -8,6 +8,7 @@ package persistance.file;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import persistance.Dao;
 
 /**
  *
@@ -32,6 +33,11 @@ public class DaoFilePlayer extends DaoFile{
 
     @Override
     public void update(Serializable g) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Dao getInstance() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

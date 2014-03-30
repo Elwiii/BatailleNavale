@@ -16,12 +16,20 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import model.Game;
+import persistance.Dao;
+import persistance.DaoGame;
 
 /**
  *
  * @author Thomas
  */
-public class DaoFileGame extends DaoFile{
+public class DaoFileGame extends DaoFile<Game> implements DaoGame{
+    
+    /** Singleton **/
+    private DaoFileGame(){}
+    
+    /** Instance unique non préinitialisée */
+    private static DaoFileGame INSTANCE = null;
 
     @Override
     public Game find(String id){
@@ -64,20 +72,44 @@ public class DaoFileGame extends DaoFile{
     }
     
     @Override
-    public int persiste(Game g) throws FileNotFoundException, IOException {
-        FileOutputStream fichier = new FileOutputStream(g.getId());
-        try (ObjectOutputStream oos = new ObjectOutputStream(fichier)) {
+    public int persiste(Game g) {
+        File dossier = new File("Game");
+        //Si le dossier n'existe pas, on le crée
+        if (!(dossier.exists() && dossier.isDirectory())){
+            dossier.mkdir();
+        }
+        //Création du fichier
+        try{
+            FileOutputStream fichier = new FileOutputStream(g.getId());
+            ObjectOutputStream oos = new ObjectOutputStream(fichier);
             oos.writeObject(g);
             oos.flush();
-        }
-        
+        } 
+        catch (java.io.IOException e) {
+          e.printStackTrace();
+        }                
         return 0;
     }
 
 
     @Override
     public void update(Game g) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        File fichier = new File("Game/"+g.getId());
+        //Si le fichier a déjà été créé, on le supprime
+        if(fichier.exists()){
+            fichier.delete();
+        } 
+        //On (re)crée le fichier correspondant
+        persiste(g);    
+    }
+
+    @Override
+    public Dao getInstance()
+    {			
+        if (INSTANCE == null)
+        { 	INSTANCE = new DaoFileGame();	
+        }
+        return INSTANCE;
     }
     
 }

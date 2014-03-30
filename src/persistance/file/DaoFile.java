@@ -5,11 +5,13 @@
  */
 
 package persistance.file;
+import java.io.Serializable;
+import model.Game;
 import persistance.*;
 
 /**
  *
  * @author Nikolai
  */
-public abstract class DaoFile extends Dao {
+public abstract class DaoFile<T extends Serializable> extends Dao<T> {
 }
