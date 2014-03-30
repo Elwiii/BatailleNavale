@@ -17,6 +17,8 @@ public class ShipFactory {
      * 
      * @param epoque
      * @param puissance
+     * @param queue 
+     * @param nez
      * @return 
      */
     public Ship buildShip(Epoque epoque, int puissance,Coordinate queue, Coordinate nez){
@@ -27,6 +29,8 @@ public class ShipFactory {
     /**
      * 
      * @param type
+     * @param queue  
+     * @param nez
      * @return 
      */
     public Ship buildShip(TypeShip type,Coordinate queue, Coordinate nez){
