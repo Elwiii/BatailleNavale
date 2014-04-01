@@ -10,14 +10,14 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
- *
+ *@deprecated 
  * @author Nikolai
  */
 public abstract class Relation<T extends Serializable, K extends Serializable> {
-    public abstract ArrayList<T> get(K p);
-    public abstract ArrayList<K> get(T g);
-    public abstract int persiste(T g,K p);
-    public abstract void removeRelation(T g, K p);
-    public abstract Dao getInstance();
+//    public abstract ArrayList<T> get(K p);
+//    public abstract ArrayList<K> get(T g);
+//    public abstract int persiste(T g,K p);
+//    public abstract void removeRelation(T g, K p);
+//    public abstract Dao getInstance();
     
 }

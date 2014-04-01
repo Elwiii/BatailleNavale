@@ -45,6 +45,10 @@ public abstract class AbstractDaoFactory {
     
     public abstract Dao getInstanceDaoGame();
     
+    /**
+     * @deprecated 
+     * @return 
+     */
     public abstract Dao getInstanceDaoPlayer();
     
     

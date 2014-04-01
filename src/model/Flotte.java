@@ -12,7 +12,6 @@ import model.ship.Ship;
 /**
  * L'ensemble des bateau d'un joueur
  *
- * @todo
  * @author nikolai
  */
 public class Flotte {
@@ -33,6 +32,7 @@ public class Flotte {
      * @param target
      * @param order
      * @return UNREACHABLE HIT ou MISS
+     * @throws java.lang.Exception
      */
     public int fire(Flotte target, OrdreTir order) throws Exception {
         Ship launcher = vaisseaux.get(order.getLauncher());

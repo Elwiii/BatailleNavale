@@ -20,7 +20,7 @@ public abstract class Player {
     protected int score;
     protected int nombrePartieJouees;   
     protected VisionBattlefield map;
-    private Flotte flotte;
+    protected Flotte flotte;
    
     /**
      * 

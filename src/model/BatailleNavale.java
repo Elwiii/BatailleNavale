@@ -5,18 +5,17 @@
  */
 package model;
 
-import java.net.URL;
-import java.util.List;
 import java.util.Observer;
 import model.player.Player;
 import model.ship.ShipFactory;
 import model.ship.TypeShip;
 import persistance.AbstractDaoFactory;
+import persistance.DaoFactoryException;
 import persistance.TypePersistance;
+
 
 /**
  * @author nikolai
- * @todo
  */
 public class BatailleNavale {
 
@@ -28,7 +27,7 @@ public class BatailleNavale {
     private Player currentPlayer = j1;
     private Player otherPlayer = j2;
     private ShipFactory shipFactory;
-    private AbstractDaoFactory adf;
+    private final AbstractDaoFactory adf;
     private BatailleNavaleAdapter adapter;
     private Game save;
 
@@ -120,7 +119,7 @@ public class BatailleNavale {
      * @param id
      */
     public void load(String id) {
-        //@todo
+        //@todo Nicolas (load)
     }
 
     /**

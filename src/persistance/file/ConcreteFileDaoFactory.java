@@ -10,7 +10,7 @@ import persistance.AbstractDaoFactory;
 import persistance.Dao;
 
 /**
- * @todo
+ * @todo Thomas
  * @author Nikolai
  */
 public class ConcreteFileDaoFactory extends AbstractDaoFactory{
