@@ -10,7 +10,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
- *
+ * @deprecated 
  * @author Nikolai
  */
 public class DaoPlayer extends Dao{
