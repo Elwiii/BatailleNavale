@@ -52,7 +52,6 @@ public class Flotte {
     }
 
     public void removeShip(int idShip) {
-        
         vaisseaux.remove(idShip);
     }
 
