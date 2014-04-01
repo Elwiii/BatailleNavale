@@ -101,13 +101,14 @@ public class JPanelCreer extends JPanel implements Observer {
 
             @Override
             public void actionPerformed(ActionEvent ae) {
-                System.out.println("Ep : " + epo + " la : " + lar + "lon " + lon + " diff : " + diff);
+//                System.out.println("Ep : " + epo + " la : " + lar + "lon " + lon + " diff : " + diff);
                 model.setDifficulty(diff);
                 model.setPseudoHumun(nom.getText());
                 model.setLongeurGrille(lon);
                 model.setLargeurGrille(lar);
                 model.construct();
                 wizard.getJpanelPlacement().constuctGrille(lon, lar);
+                wizard.getJpanelPlacement().constructList(epo);
                 wizard.show(JPanelPlacement.id);
                 System.out.println("model : "+model.getPseudoHumun());
             }
