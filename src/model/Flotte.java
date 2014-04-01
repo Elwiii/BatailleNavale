@@ -8,6 +8,7 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 import model.ship.Ship;
+import model.ship.Ship.Etat;
 
 /**
  * L'ensemble des bateau d'un joueur
@@ -89,8 +90,9 @@ public class Flotte {
         //@todo Thomas
         //TODO : getCoordinate pour un Ship!
         for(Ship s : this.vaisseaux){
-            if(coordinate.equals(s)){
-                return s;
+            for(Etat e : s.getEtats()){
+                if (e.getC().equals(coordinate))
+                    return s;
             }
         }
         return null;

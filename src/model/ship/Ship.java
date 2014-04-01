@@ -16,15 +16,21 @@ import model.Flotte;
  */
 public class Ship {
 
-    protected class Etat {
+    public class Etat {
 
         Coordinate c;
+
         int etat;
 
         protected Etat(Coordinate c, int etat) {
             this.c = c;
             this.etat = etat;
         }
+        
+        public Coordinate getC() {
+            return c;
+        }
+        
     }
 
     protected static final int SAFE = 0;
@@ -33,6 +39,10 @@ public class Ship {
     protected Color representationGraphique; // on fait simple
     protected List<Etat> etats;
     protected int puissance;
+    
+    public List<Etat> getEtats() {
+        return etats;
+    }
     
     /**
      * evalue si le point de coordonne est atteingable par ce bateau
