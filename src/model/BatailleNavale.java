@@ -28,7 +28,7 @@ public class BatailleNavale {
     private Player currentPlayer = j1;
     private Player otherPlayer = j2;
     private ShipFactory shipFactory;
-    private AbstractDaoFactory adf;
+    private final AbstractDaoFactory adf;
     private BatailleNavaleAdapter adapter;
     private Game save;
 
