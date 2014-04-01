@@ -19,6 +19,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 import model.BatailleNavale;
+import model.ship.Epoque;
 import model.ship.TypeShip;
 
 /**
@@ -30,6 +31,7 @@ public class JPanelPlacement extends JPanel implements Observer {
     public static final String id = "jpanelplacement";
     private JPanel grille;
     private final BatailleNavale model;
+    private JList list;
 
     public JPanelPlacement(final BatailleNavale model, final JPanelWizard wizard) {
         super(new BorderLayout());
@@ -58,7 +60,15 @@ public class JPanelPlacement extends JPanel implements Observer {
         south.add(valider);
         add(south, BorderLayout.SOUTH);
 
-        JList list = new JList(TypeShip.values()); //data has type Object[]
+        
+
+    }
+
+    public void constructList(Epoque epoque){
+        if(list != null){
+            remove(list);
+        }
+        list = new JList(TypeShip.get(epoque)); 
         list.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
         list.setLayoutOrientation(JList.HORIZONTAL_WRAP);
         list.setVisibleRowCount(-1);
@@ -66,9 +76,8 @@ public class JPanelPlacement extends JPanel implements Observer {
         listScroller.setPreferredSize(new Dimension(250, 80));
 
         add(list, BorderLayout.EAST);
-
     }
-
+    
     public void constuctGrille(int longueur, int largeur) {
         if (grille != null) {
             remove(grille);
