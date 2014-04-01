@@ -43,10 +43,9 @@ public class Ship {
      */
     public boolean estAporteeDeTir(Coordinate coordonnee){
         for(Etat e : this.etats){
-            if((coordonnee.x<=e.c.x + this.puissance)||((coordonnee.x>=e.c.x - this.puissance)
-                    ||(coordonnee.y<=e.c.y + this.puissance)||(coordonnee.y>=e.c.y - this.puissance))){
+            if((Math.abs(e.c.x - coordonnee.x)<= puissance)&&(Math.abs(e.c.y - coordonnee.y)<=puissance)){
                 return true;
-            }               
+            }
         }
         return false;
     }
