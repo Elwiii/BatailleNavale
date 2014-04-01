@@ -87,6 +87,12 @@ public class Flotte {
      */
     private Ship getShipHit(Coordinate coordinate) {
         //@todo Thomas
+        //TODO : getCoordinate pour un Ship!
+        for(Ship s : this.vaisseaux){
+            if(coordinate.equals(s)){
+                return s;
+            }
+        }
         return null;
     }
 
