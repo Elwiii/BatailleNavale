@@ -65,7 +65,7 @@ public class Ship {
      * @return 
      */
     public boolean isDetroy(){
-        //@todo thomas
+        //@tester!!
         for(Etat e : this.etats){
             if(e.etat==SAFE){
                 return false;

@@ -87,8 +87,7 @@ public class Flotte {
      * @return
      */
     private Ship getShipHit(Coordinate coordinate) {
-        //@todo Thomas
-        //TODO : getCoordinate pour un Ship!
+        //Attention : changement de la classe Etat en public pou acceder au coordonnées
         for(Ship s : this.vaisseaux){
             for(Etat e : s.getEtats()){
                 if (e.getC().equals(coordinate))
