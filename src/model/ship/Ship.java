@@ -42,8 +42,13 @@ public class Ship {
      * @return 
      */
     public boolean estAporteeDeTir(Coordinate coordonnee){
-        // @todo Thomas
-        return true;
+        for(Etat e : this.etats){
+            if((coordonnee.x<=e.c.x + this.puissance)||((coordonnee.x>=e.c.x - this.puissance)
+                    ||(coordonnee.y<=e.c.y + this.puissance)||(coordonnee.y>=e.c.y - this.puissance))){
+                return true;
+            }               
+        }
+        return false;
     }
     
     /**
@@ -52,6 +57,11 @@ public class Ship {
      */
     public boolean isDetroy(){
         //@todo thomas
+        for(Etat e : this.etats){
+            if(e.etat==SAFE){
+                return false;
+            }
+        }
         return true;
     }
     

@@ -5,13 +5,13 @@
  */
 
 package persistance.file;
-
-import java.io.OutputStream;
+import java.io.Serializable;
+import model.Game;
+import persistance.*;
 
 /**
  *
  * @author Nikolai
  */
-public abstract class DaoFile {
-    protected OutputStream os;
+public abstract class DaoFile<T extends Serializable> extends Dao<T> {
 }
