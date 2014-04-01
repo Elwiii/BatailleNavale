@@ -9,7 +9,7 @@ package model.ship;
 import model.Coordinate;
 
 /**
- * @todo
+ * @todo Rym
  * @author Nikolai
  */
 public class ShipFactory {

@@ -10,7 +10,7 @@ package persistance;
  *
  * @author Nikolai
  */
-class DaoFactoryException extends Exception{
+public class DaoFactoryException extends Exception{
     public DaoFactoryException(String ex){
         super(ex);
     }

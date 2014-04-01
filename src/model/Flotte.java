@@ -12,7 +12,6 @@ import model.ship.Ship;
 /**
  * L'ensemble des bateau d'un joueur
  *
- * @todo
  * @author nikolai
  */
 public class Flotte {
