@@ -22,12 +22,12 @@ import persistance.DaoFactoryException;
 public class GUI extends JFrame {
 
     private final JPanelWizard cards;
-    private final BatailleNavaleAdapter model_adapter;
+//    private final BatailleNavaleAdapter model_adapter;
     private final BatailleNavale model;
 
     public GUI() throws DaoFactoryException {
         super("bataille navale");
-        model_adapter = new BatailleNavaleAdapter();
+//        model_adapter = new BatailleNavaleAdapter();
 
         model = new BatailleNavale();
 

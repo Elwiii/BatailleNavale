@@ -25,7 +25,7 @@ public class Flotte {
     public Flotte() {
         vaisseaux = new ArrayList<>();
     }
-
+    
     /**
      * tire sur une flotte adverse
      *
