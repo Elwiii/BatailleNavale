@@ -89,5 +89,4 @@ public class Flotte {
         //@todo Thomas
         return null;
     }
-
 }

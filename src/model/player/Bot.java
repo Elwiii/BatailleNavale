@@ -19,7 +19,6 @@ public abstract class Bot extends Player{
      * 
      * @param bf
      * @param target
-     * @param shipEnnemi 
      * @return  
      */
     public abstract int autoFire(VisionBattlefield bf, Flotte target);

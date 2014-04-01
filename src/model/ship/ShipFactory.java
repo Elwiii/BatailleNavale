@@ -13,6 +13,12 @@ import model.Coordinate;
  * @author Nikolai
  */
 public class ShipFactory {
+    private static ShipFactory instance = null;
+    
+    public ShipFactory(){
+        
+    }
+    
     /**
      * 
      * @param epoque
@@ -39,10 +45,11 @@ public class ShipFactory {
     
     /**
      * 
-     * @return 
+     * @return instance
      */
     public static ShipFactory getInstance(){
-        return null;
-        
+        if (instance == null)   
+            instance = new ShipFactory();
+        return(instance);    
     }
 }

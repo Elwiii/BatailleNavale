@@ -18,6 +18,7 @@ public class RandomBot extends Bot{
     @Override
     public int autoFire(VisionBattlefield bf, Flotte target) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
     }
     
 }
