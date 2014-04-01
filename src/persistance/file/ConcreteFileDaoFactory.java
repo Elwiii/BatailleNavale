@@ -15,22 +15,26 @@ import persistance.Dao;
  */
 public class ConcreteFileDaoFactory extends AbstractDaoFactory{
     
+    private static ConcreteFileDaoFactory INSTANCE = null;
     private ConcreteFileDaoFactory(){
         
     }
     
     public static ConcreteFileDaoFactory getInstance(){
-        return null;
+        if (INSTANCE == null)
+        { 	INSTANCE = new ConcreteFileDaoFactory();	
+        }
+        return INSTANCE;
     }
 
     @Override
     public Dao getInstanceDaoGame() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return DaoFileGame.getInstance();        
     }
 
     @Override
     public Dao getInstanceDaoPlayer() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return null;
     }
     
 }

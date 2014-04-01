@@ -19,7 +19,7 @@ public abstract class Player {
     protected String nom;
     protected int score;
     protected int nombrePartieJouees;   
-    protected VisionBattlefield map;
+    private VisionBattlefield map;
     protected Flotte flotte;
    
     /**
@@ -63,6 +63,20 @@ public abstract class Player {
      */
     public void setFlotte(Flotte flotte) {
         this.flotte = flotte;
+    }
+
+    /**
+     * @return the map
+     */
+    public VisionBattlefield getMap() {
+        return map;
+    }
+
+    /**
+     * @param map the map to set
+     */
+    public void setMap(VisionBattlefield map) {
+        this.map = map;
     }
     
 }

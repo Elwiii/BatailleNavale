@@ -16,15 +16,21 @@ import model.Flotte;
  */
 public class Ship {
 
-    protected class Etat {
+    public class Etat {
 
         Coordinate c;
+
         int etat;
 
         protected Etat(Coordinate c, int etat) {
             this.c = c;
             this.etat = etat;
         }
+        
+        public Coordinate getC() {
+            return c;
+        }
+        
     }
 
     protected static final int SAFE = 0;
@@ -33,6 +39,10 @@ public class Ship {
     protected Color representationGraphique; // on fait simple
     protected List<Etat> etats;
     protected int puissance;
+    
+    public List<Etat> getEtats() {
+        return etats;
+    }
     
     /**
      * evalue si le point de coordonne est atteingable par ce bateau
@@ -43,10 +53,9 @@ public class Ship {
      */
     public boolean estAporteeDeTir(Coordinate coordonnee){
         for(Etat e : this.etats){
-            if((coordonnee.x<=e.c.x + this.puissance)||((coordonnee.x>=e.c.x - this.puissance)
-                    ||(coordonnee.y<=e.c.y + this.puissance)||(coordonnee.y>=e.c.y - this.puissance))){
+            if((Math.abs(e.c.x - coordonnee.x)<= puissance)&&(Math.abs(e.c.y - coordonnee.y)<=puissance)){
                 return true;
-            }               
+            }
         }
         return false;
     }
@@ -56,7 +65,7 @@ public class Ship {
      * @return 
      */
     public boolean isDetroy(){
-        //@todo thomas
+        //@tester!!
         for(Etat e : this.etats){
             if(e.etat==SAFE){
                 return false;

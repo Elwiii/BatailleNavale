@@ -20,7 +20,7 @@ public class BatailleNavaleAdapter extends Observable{
     
     public void update(){
         setChanged();
-        notifyAll();
+        notifyObservers();
     }
     
 }

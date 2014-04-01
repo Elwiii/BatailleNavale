@@ -19,6 +19,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 import model.BatailleNavale;
+import model.ship.Epoque;
 import model.ship.TypeShip;
 
 /**
@@ -28,9 +29,13 @@ import model.ship.TypeShip;
 public class JPanelPlacement extends JPanel implements Observer {
 
     public static final String id = "jpanelplacement";
+    private JPanel grille;
+    private final BatailleNavale model;
+    private JList list;
 
     public JPanelPlacement(final BatailleNavale model, final JPanelWizard wizard) {
         super(new BorderLayout());
+        this.model = model;
         model.addObserver(this);
         add(new JLabel(id));
         JPanel south = new JPanel();
@@ -54,15 +59,16 @@ public class JPanelPlacement extends JPanel implements Observer {
         });
         south.add(valider);
         add(south, BorderLayout.SOUTH);
-        JPanel grille = new JPanel(new GridLayout(10, 10/* à recup sur model)*/));
-        for (int i = 0; i < 100; i++) {
-            grille.add(new JButtonPlacementBateau());
 
+        
+
+    }
+
+    public void constructList(Epoque epoque){
+        if(list != null){
+            remove(list);
         }
-
-        add(grille, BorderLayout.CENTER);
-        String[] data = {"typeboat1", "typeboat2"};
-        JList list = new JList(TypeShip.values()); //data has type Object[]
+        list = new JList(TypeShip.get(epoque)); 
         list.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
         list.setLayoutOrientation(JList.HORIZONTAL_WRAP);
         list.setVisibleRowCount(-1);
@@ -70,11 +76,21 @@ public class JPanelPlacement extends JPanel implements Observer {
         listScroller.setPreferredSize(new Dimension(250, 80));
 
         add(list, BorderLayout.EAST);
-
+    }
+    
+    public void constuctGrille(int longueur, int largeur) {
+        if (grille != null) {
+            remove(grille);
+        }
+        grille = new JPanel(new GridLayout(largeur, longueur));
+        for (int i = 0; i < largeur * longueur; i++) {
+            grille.add(new JButtonPlacementBateau());
+        }
+        add(grille, BorderLayout.CENTER);
     }
 
     @Override
     public void update(Observable o, Object o1) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
     }
 }

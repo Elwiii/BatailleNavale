@@ -19,18 +19,20 @@ import model.BatailleNavale;
 public class JPanelWizard extends JPanel implements Observer{
 
     private final CardLayout cl ;
+    private final JPanelPlacement jpanelPlacement ; 
     
     public JPanelWizard(final BatailleNavale model){
         super();
         cl = new CardLayout();
         this.setLayout(cl);
         model.addObserver(this);
+        jpanelPlacement= new JPanelPlacement(model,this);
         add(new JPanelAcceuil(model,this),JPanelAcceuil.id);
         add(new JPanelCreer(model,this),JPanelCreer.id);
         add(new JPanelJouer(model),JPanelJouer.id);
         add(new JPanelParties(model),JPanelParties.id);
         add(new JPanelScore(model),JPanelScore.id);
-        add(new JPanelPlacement(model,this),JPanelPlacement.id);
+        add(jpanelPlacement,JPanelPlacement.id);
         
         show(JPanelAcceuil.id);
         
@@ -42,7 +44,13 @@ public class JPanelWizard extends JPanel implements Observer{
     
     @Override
     public void update(Observable o, Object o1) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    /**
+     * @return the jpanelPlacement
+     */
+    public JPanelPlacement getJpanelPlacement() {
+        return jpanelPlacement;
     }
     
 }
