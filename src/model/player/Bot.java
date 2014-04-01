@@ -34,7 +34,7 @@ public abstract class Bot extends Player{
      */
     @Override
     public int fire(OrdreTir order, Flotte target){
-        return autoFire(map,target);
+        return autoFire(getMap(),target);
     }
     
     

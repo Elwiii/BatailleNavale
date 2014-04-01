@@ -6,7 +6,11 @@
 package model;
 
 import java.util.Observer;
+import model.player.CrossBot;
+import model.player.Difficulty;
+import model.player.Human;
 import model.player.Player;
+import model.player.RandomBot;
 import model.ship.ShipFactory;
 import model.ship.TypeShip;
 import persistance.AbstractDaoFactory;
@@ -27,18 +31,40 @@ public class BatailleNavale {
     private Player currentPlayer = j1;
     private Player otherPlayer = j2;
     private ShipFactory shipFactory;
-    private final AbstractDaoFactory adf;
+    private AbstractDaoFactory adf;
     private BatailleNavaleAdapter adapter;
     private Game save;
+    private Difficulty difficulty;
+    private String pseudoHumun;
+    private int longeurGrille;
+    private int largeurGrille;
 
     private BatailleNavaleAdapter bna;
 
     public BatailleNavale() throws DaoFactoryException {
+        initialisation();
+    }
+    
+    public void construct(){
+        j1 =  new Human(pseudoHumun, 0, 0); //@todo Nicolas
+        // faudrait faire une factory pour les bots ça serait plus propre
+        switch(difficulty){
+            case CROSSBOT :
+                j2 = new CrossBot();
+                break;
+            case RANDOMBOT :
+                j2 = new RandomBot();
+        }
+        update();
+    }
+
+    
+    private void initialisation() throws DaoFactoryException{
         bna = new BatailleNavaleAdapter();
         shipFactory = ShipFactory.getInstance();
         adf = AbstractDaoFactory.getAbstractDaoFactory(TypePersistance.FILE);
     }
-
+    
     public void addObserver(Observer o) {
         bna.addObserver(o);
     }
@@ -50,6 +76,7 @@ public class BatailleNavale {
     /**
      *
      * @param order
+     * @return 
      * @throws java.lang.Exception
      */
     public int fire(OrdreTir order) throws Exception {
@@ -65,6 +92,9 @@ public class BatailleNavale {
                 default:
                     throw new Exception("error");
             }
+        }else{
+            // on met à jour la vison du battlefield qu'a le joueur courant
+            currentPlayer.getMap().setState(order.getCoordinate(), res);
         }
         return res;
     }
@@ -267,5 +297,103 @@ public class BatailleNavale {
      */
     public void setBna(BatailleNavaleAdapter bna) {
         this.bna = bna;
+    }
+
+    /**
+     * @return the currentPlayer
+     */
+    public Player getCurrentPlayer() {
+        return currentPlayer;
+    }
+
+    /**
+     * @param currentPlayer the currentPlayer to set
+     */
+    public void setCurrentPlayer(Player currentPlayer) {
+        this.currentPlayer = currentPlayer;
+    }
+
+    /**
+     * @return the otherPlayer
+     */
+    public Player getOtherPlayer() {
+        return otherPlayer;
+    }
+
+    /**
+     * @param otherPlayer the otherPlayer to set
+     */
+    public void setOtherPlayer(Player otherPlayer) {
+        this.otherPlayer = otherPlayer;
+    }
+
+    /**
+     * @return the adf
+     */
+    public AbstractDaoFactory getAdf() {
+        return adf;
+    }
+
+    /**
+     * @param adf the adf to set
+     */
+    public void setAdf(AbstractDaoFactory adf) {
+        this.adf = adf;
+    }
+
+    /**
+     * @return the difficulty
+     */
+    public Difficulty getDifficulty() {
+        return difficulty;
+    }
+
+    /**
+     * @param difficulty the difficulty to set
+     */
+    public void setDifficulty(Difficulty difficulty) {
+        this.difficulty = difficulty;
+    }
+
+    /**
+     * @return the pseudoHumun
+     */
+    public String getPseudoHumun() {
+        return pseudoHumun;
+    }
+
+    /**
+     * @param pseudoHumun the pseudoHumun to set
+     */
+    public void setPseudoHumun(String pseudoHumun) {
+        this.pseudoHumun = pseudoHumun;
+    }
+
+    /**
+     * @return the longeurGrille
+     */
+    public int getLongeurGrille() {
+        return longeurGrille;
+    }
+
+    /**
+     * @param longeurGrille the longeurGrille to set
+     */
+    public void setLongeurGrille(int longeurGrille) {
+        this.longeurGrille = longeurGrille;
+    }
+
+    /**
+     * @return the largeurGrille
+     */
+    public int getLargeurGrille() {
+        return largeurGrille;
+    }
+
+    /**
+     * @param largeurGrille the largeurGrille to set
+     */
+    public void setLargeurGrille(int largeurGrille) {
+        this.largeurGrille = largeurGrille;
     }
 }
