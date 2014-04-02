@@ -14,11 +14,14 @@ import model.VisionBattlefield;
  * @author Nikolai
  */
 public class RandomBot extends Bot{
+    
+    
 
     @Override
     public int autoFire(VisionBattlefield bf, Flotte target) {
+        setMap(bf);
+        setFlotte(flotte);
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        
     }
     
 }
