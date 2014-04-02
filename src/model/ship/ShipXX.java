@@ -10,8 +10,7 @@ package model.ship;
  * @author Nikolai
  */
 public class ShipXX extends Ship{
-    public int puissance;
-     
+    
     public ShipXX(){
     }
 }
