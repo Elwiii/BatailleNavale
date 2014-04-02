@@ -15,7 +15,6 @@ import model.OrdreTir;
 import model.VisionBattlefield;
 
 /**
- * @todo Rym
  * @author Nikolai
  */
 public class RandomBot extends Bot{
