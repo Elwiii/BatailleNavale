@@ -6,7 +6,6 @@
 
 package model.player;
 
-import java.lang.Math;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Coordinate;
