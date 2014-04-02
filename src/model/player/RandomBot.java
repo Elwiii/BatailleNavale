@@ -6,8 +6,12 @@
 
 package model.player;
 
-import java.util.Random;
+import java.lang.Math;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import model.Coordinate;
 import model.Flotte;
+import model.OrdreTir;
 import model.VisionBattlefield;
 
 /**
@@ -20,11 +24,17 @@ public class RandomBot extends Bot{
 
     @Override
     public int autoFire(VisionBattlefield bf, Flotte target) {
-                    
-        int res =0;
-        return res;
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int x = (int)(Math.random());
+        int y = (int)(Math.random());
+        int l = (int)(Math.random());
+        Coordinate c = new Coordinate(x ,y);
+        OrdreTir o = new OrdreTir(c, l);
+        if(bf != null)
+            try {
+                return target.fire(target, o);
+        } catch (Exception ex) {
+            Logger.getLogger(RandomBot.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
     }     
 }
-
- 
