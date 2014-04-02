@@ -6,6 +6,7 @@
 
 package model.player;
 
+import java.util.Random;
 import model.Flotte;
 import model.VisionBattlefield;
 
@@ -19,9 +20,11 @@ public class RandomBot extends Bot{
 
     @Override
     public int autoFire(VisionBattlefield bf, Flotte target) {
-        setMap(bf);
-        setFlotte(flotte);
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
+                    
+        int res =0;
+        return res;
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }     
 }
+
+ 
