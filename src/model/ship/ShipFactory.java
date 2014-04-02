@@ -22,7 +22,6 @@ import model.ship.shipxx.PorteAvion;
 import model.ship.shipxx.Sousmarin;
 
 /**
- * @todo Rym
  * @author Nikolai
  */
 public class ShipFactory {
