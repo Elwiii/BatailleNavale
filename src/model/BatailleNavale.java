@@ -28,33 +28,42 @@ public class BatailleNavale {
     private State state;
     private Player j1;
     private Player j2; // le bot par defaut
-    private Player currentPlayer = j1;
-    private Player otherPlayer = j2;
+    private Player currentPlayer ;
+    private Player otherPlayer ;
     private ShipFactory shipFactory;
     private AbstractDaoFactory adf;
     private BatailleNavaleAdapter adapter;
     private Game save;
     private Difficulty difficulty;
     private String pseudoHumun;
-    private int longeurGrille;
     private int largeurGrille;
+    private int hauteurGrille;
 
     private BatailleNavaleAdapter bna;
 
     public BatailleNavale() throws DaoFactoryException {
         initialisation();
+        
     }
     
     public void construct(){
         j1 =  new Human(pseudoHumun, 0, 0); //@todo Nicolas
+        j1.constructFlotte();
+        j1.constructMap(hauteurGrille,largeurGrille);
         // faudrait faire une factory pour les bots ça serait plus propre
         switch(difficulty){
             case CROSSBOT :
                 j2 = new CrossBot();
+                j2.constructFlotte();
+                j2.constructMap(hauteurGrille,largeurGrille);
                 break;
             case RANDOMBOT :
                 j2 = new RandomBot();
+                j2.constructFlotte();
+                j2.constructMap(hauteurGrille,largeurGrille);
         }
+        currentPlayer = j1;
+        otherPlayer = j2;
         update();
     }
 
@@ -373,27 +382,27 @@ public class BatailleNavale {
      * @return the longeurGrille
      */
     public int getLongeurGrille() {
-        return longeurGrille;
+        return largeurGrille;
     }
 
     /**
      * @param longeurGrille the longeurGrille to set
      */
     public void setLongeurGrille(int longeurGrille) {
-        this.longeurGrille = longeurGrille;
+        this.largeurGrille = longeurGrille;
     }
 
     /**
      * @return the largeurGrille
      */
     public int getLargeurGrille() {
-        return largeurGrille;
+        return hauteurGrille;
     }
 
     /**
      * @param largeurGrille the largeurGrille to set
      */
     public void setLargeurGrille(int largeurGrille) {
-        this.largeurGrille = largeurGrille;
+        this.hauteurGrille = largeurGrille;
     }
 }

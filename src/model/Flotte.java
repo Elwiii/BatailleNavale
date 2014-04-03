@@ -96,4 +96,11 @@ public class Flotte {
         }
         return null;
     }
+
+    /**
+     * @return the vaisseaux
+     */
+    public List<Ship> getVaisseaux() {
+        return vaisseaux;
+    }
 }

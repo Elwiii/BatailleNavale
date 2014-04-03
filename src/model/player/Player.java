@@ -19,8 +19,19 @@ public abstract class Player {
     protected String nom;
     protected int score;
     protected int nombrePartieJouees;   
-    private VisionBattlefield map;
+    protected VisionBattlefield map;
     protected Flotte flotte;
+    
+    
+    // bof bof mais ça m'emebete de mettre ça dans les constructeurs (vu que c'est abstract ...)
+    public void constructFlotte(){
+        flotte = new Flotte();
+    }
+    
+    // bof bof mais ça m'emebete de mettre ça dans les constructeurs (vu que c'est abstract ...)
+    public void constructMap(int hauteur,int largeur){
+        map = new VisionBattlefield(hauteur, largeur);
+    }
    
     /**
      * 

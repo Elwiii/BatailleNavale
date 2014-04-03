@@ -7,6 +7,7 @@ package model.player;
 
 import model.Flotte;
 import model.OrdreTir;
+import model.VisionBattlefield;
 
 /**
  *
@@ -18,6 +19,7 @@ public class Human extends Player {
         this.nom = nom;
         this.score = score;
         this.nombrePartieJouees = nombrePartieJouees;
+        
     }
 
     @Override

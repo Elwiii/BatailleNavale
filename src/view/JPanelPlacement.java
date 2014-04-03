@@ -6,6 +6,7 @@
 package view;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -14,6 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -23,6 +26,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import model.BatailleNavale;
+import model.Coordinate;
 import model.ship.Epoque;
 import model.ship.TypeShip;
 
@@ -31,7 +35,7 @@ import model.ship.TypeShip;
  * @author nikolai
  */
 public class JPanelPlacement extends JPanel implements Observer {
-    
+
     public static final String id = "jpanelplacement";
     private JPanel grille;
     private final BatailleNavale model;
@@ -44,23 +48,25 @@ public class JPanelPlacement extends JPanel implements Observer {
     private final int SHIP_SELECTED = 0;
     private final int HEAD_SELECTED = 1;
     private final int TAIL_SELECTED = 2;
-    private final int NOTHING_SELECTED = 3;    
+    private final int NOTHING_SELECTED = 3;
     private final JPanel east;
     private final JButton add;
     private int state = NOTHING_SELECTED;
     private JButtonPlacementBateau[][] grilleButton;
-    
+
     private class JButtonPlacementBateau extends JButton {
-        
+
+        final BatailleNavale model;
         final int ligne;
         final int colonne;
-        
-        public JButtonPlacementBateau(final int ligne, final int colonne) {
+
+        public JButtonPlacementBateau(final int ligne, final int colonne, final BatailleNavale model) {
             super();
+            this.model = model;
             this.ligne = ligne;
             this.colonne = colonne;
             this.addActionListener(new ActionListener() {
-                
+
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     switch (state) {
@@ -81,9 +87,52 @@ public class JPanelPlacement extends JPanel implements Observer {
                             tailColonne = colonne;
                             tailLigne = ligne;
                             state = TAIL_SELECTED;
+                            // je place le bateau
+                            int incr_c = 0;
+                            int incr_l = 0;
+
+                            if (headColonne > tailColonne) {
+                                incr_c = 1;
+                                if (headLigne > tailLigne) {
+                                    incr_l = 1;
+                                } else {
+                                    incr_l = -1;
+                                }
+                            } else {
+                                incr_c = -1;
+                                if (headLigne > tailLigne) {
+                                    incr_l = 1;
+                                } else {
+                                    incr_l = -1;
+                                }
+                            }
+                            int max_c = Math.abs(tailColonne - headColonne);// == 0 ? 1 : Math.abs(tailColonne - headColonne);
+                            int max_l = Math.abs(tailLigne - headLigne);// == 0 ? 1 : Math.abs(tailLigne - headLigne);
+                            if (Math.abs(tailColonne - headColonne) == 0 || Math.abs(tailLigne - headLigne) == 0) {
+                                for (int c = 0; c <= max_c; c++) {
+                                    for (int l = 0; l <= max_l; l++) {
+                                        System.out.println("(l,c) : " + l + "," + c);
+                                        grilleButton[tailLigne + incr_l * l][tailColonne + incr_c * c].setEnabled(false);
+                                        grilleButton[tailLigne + incr_l * l][tailColonne + incr_c * c].setBackground(Color.red);
+                                    }
+                                }
+                            } else {
+                                for (int c = 0; c <= max_c; c++) {
+//                                    System.out.println("(l,c) : " + l + "," + c);
+                                    grilleButton[tailLigne + incr_l * c][tailColonne + incr_c * c].setEnabled(false);
+                                    grilleButton[tailLigne + incr_l * c][tailColonne + incr_c * c].setBackground(Color.red);
+                                }
+                            }
+                            try {
+                                // on ajoute le bateau à la flotte
+                                model.addShip(typeShip, new Coordinate(tailLigne, tailColonne), new Coordinate(headLigne, headColonne));
+                                System.out.println(""+model.getJ1().getFlotte().getVaisseaux());
+                            } catch (Exception ex) {
+                                Logger.getLogger(JPanelPlacement.class.getName()).log(Level.SEVERE, null, ex);
+                            }
                             break;
                         case TAIL_SELECTED:
-                            
+
                             break;
                         default:
                         //throw something
@@ -96,11 +145,11 @@ public class JPanelPlacement extends JPanel implements Observer {
 //                    System.out.println("typeShip(button) : " + typeShip);
 //                    System.out.println("previous : " + previousLigne + " " + previousColonne);
 //                    System.out.println("current : " + currentLigne + " " + currentColonne);
-                    
+
                 }
             });
         }
-        
+
     }
 
     /**
@@ -115,7 +164,7 @@ public class JPanelPlacement extends JPanel implements Observer {
         list.add(grilleButton[1][1]);
         return list; // @todo thomas
     }
-    
+
     public JPanelPlacement(final BatailleNavale model, final JPanelWizard wizard) {
         super(new BorderLayout());
         this.model = model;
@@ -125,17 +174,17 @@ public class JPanelPlacement extends JPanel implements Observer {
         JPanel south = new JPanel();
         JButton backToCreer = new JButton("retour");
         backToCreer.addActionListener(new ActionListener() {
-            
+
             @Override
             public void actionPerformed(ActionEvent ae) {
                 wizard.show(JPanelCreer.id);
             }
         });
         south.add(backToCreer);
-        
+
         JButton valider = new JButton("valider");
         valider.addActionListener(new ActionListener() {
-            
+
             @Override
             public void actionPerformed(ActionEvent ae) {
                 wizard.show(JPanelJouer.id);
@@ -145,7 +194,7 @@ public class JPanelPlacement extends JPanel implements Observer {
         add(south, BorderLayout.SOUTH);
         add = new JButton("add");
         add.addActionListener(new ActionListener() {
-            
+
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("add");
@@ -153,9 +202,9 @@ public class JPanelPlacement extends JPanel implements Observer {
         });
 //        east.add(add);
         add(east, BorderLayout.EAST);
-        
+
     }
-    
+
     public void constructList(Epoque epoque) {
         if (list != null) {
             remove(list);
@@ -168,7 +217,7 @@ public class JPanelPlacement extends JPanel implements Observer {
         JScrollPane listScroller = new JScrollPane(list);
         listScroller.setPreferredSize(new Dimension(250, 80));
         list.addListSelectionListener(new ListSelectionListener() {
-            
+
             @Override
             public void valueChanged(ListSelectionEvent e) {
                 typeShip = (TypeShip) list.getSelectedValue();
@@ -178,7 +227,7 @@ public class JPanelPlacement extends JPanel implements Observer {
         });
         east.add(list);
     }
-    
+
     public void constuctGrille(int width, int height) {
         if (grille != null) {
             remove(grille);
@@ -187,16 +236,16 @@ public class JPanelPlacement extends JPanel implements Observer {
         grilleButton = new JButtonPlacementBateau[width][height];
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
-                JButtonPlacementBateau jpb = new JButtonPlacementBateau(i, j);
+                JButtonPlacementBateau jpb = new JButtonPlacementBateau(i, j,model);
                 grille.add(jpb);
-                grilleButton[i][j] = jpb;                
+                grilleButton[i][j] = jpb;
             }
         }
         add(grille, BorderLayout.CENTER);
     }
-    
+
     @Override
     public void update(Observable o, Object o1) {
-        
+
     }
 }

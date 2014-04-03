@@ -6,7 +6,7 @@
 package model.ship;
 
 import java.awt.Color;
-import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import model.Coordinate;
 import model.Flotte;
@@ -26,11 +26,11 @@ public class Ship {
             this.c = c;
             this.etat = etat;
         }
-        
+
         public Coordinate getC() {
             return c;
         }
-        
+
     }
 
     protected static final int SAFE = 0;
@@ -39,88 +39,101 @@ public class Ship {
     protected Color representationGraphique; // on fait simple
     protected List<Etat> etats;
     protected int puissance;
-    
+
     public List<Etat> getEtats() {
         return etats;
     }
-    
+
     /**
-     * evalue si le point de coordonne est atteingable par ce bateau
-     * Est fonction de la puissance du bateau (faire un rayon autour de chacun des points du bateau
-     * on récupère les coordonnées des points du bateau dans la variable etats
+     * evalue si le point de coordonne est atteingable par ce bateau Est
+     * fonction de la puissance du bateau (faire un rayon autour de chacun des
+     * points du bateau on récupère les coordonnées des points du bateau dans la
+     * variable etats
+     *
      * @param coordonnee
-     * @return 
+     * @return
      */
-    public boolean estAporteeDeTir(Coordinate coordonnee){
-        for(Etat e : this.etats){
-            if((Math.abs(e.c.x - coordonnee.x)<= puissance)&&(Math.abs(e.c.y - coordonnee.y)<=puissance)){
+    public boolean estAporteeDeTir(Coordinate coordonnee) {
+        for (Etat e : this.etats) {
+            if ((Math.abs(e.c.x - coordonnee.x) <= puissance) && (Math.abs(e.c.y - coordonnee.y) <= puissance)) {
                 return true;
             }
         }
         return false;
     }
-    
+
     /**
      * return vrai si tout les etats sont endomagé
-     * @return 
+     *
+     * @return
      */
-    public boolean isDetroy(){
+    public boolean isDetroy() {
         //@tester!!
-        for(Etat e : this.etats){
-            if(e.etat==SAFE){
+        for (Etat e : this.etats) {
+            if (e.etat == SAFE) {
                 return false;
             }
         }
         return true;
     }
-    
-    
+
     /**
-     * remplir la liste etats en fonction de la position de la tete et la queue 
+     * remplir la liste etats en fonction de la position de la tete et la queue
      * la queue est la tête doivent former une ligne ou une diagonale
+     *
      * @todotest
      * @param queue
-     * @param nez 
+     * @param nez
      */
-    protected void initializeEtats(Coordinate queue, Coordinate nez) throws Exception{
+    protected void initializeEtats(Coordinate queue, Coordinate nez) throws Exception {
+        etats = new ArrayList<>();
         int nombreCase = 0;
-        if(queue.x == nez.x && queue.y != nez.y){
-            // en hauteur
-            int maxY = Math.max(queue.y,nez.y);
-            int minY = Math.min(queue.y,nez.y);
-                for (int j = 0; j <= maxY; j++) {
-                    etats.add(new Etat(new Coordinate(nez.x,minY+j), SAFE));
-                    nombreCase++;
+
+        int headColonne = nez.x;
+        int headLigne = nez.y;
+        int tailColonne = queue.x;
+        int tailLigne = queue.y;
+        int incr_c = 0;
+        int incr_l = 0;
+        
+        if (headColonne > tailColonne) {
+            incr_c = 1;
+            if (headLigne > tailLigne) {
+                incr_l = 1;
+            } else {
+                incr_l = -1;
             }
-        }else if(queue.x != nez.x && queue.y == nez.y){
-            // en longueur
-            int maxX = Math.max(queue.x,nez.x);
-            int minX = Math.min(queue.x,nez.x);
-                for (int j = 0; j <= maxX; j++) {
-                    etats.add(new Etat(new Coordinate(minX+j,nez.y), SAFE));
-                    nombreCase++;
+        } else {
+            incr_c = -1;
+            if (headLigne > tailLigne) {
+                incr_l = 1;
+            } else {
+                incr_l = -1;
             }
-        }else if(queue.x == nez.x && queue.y == nez.y){
-            // nez = queue
-            etats.add(new Etat(new Coordinate(nez.x,nez.y), SAFE));
-            nombreCase++;
-        }else {
-            // diagonale
-            int maxX = Math.max(queue.x,nez.x);
-            int maxY = Math.max(queue.y,nez.y);
-            int minX = Math.min(queue.x,nez.x);
-            int minY = Math.min(queue.y,nez.y);
-            for (int i = 0; i <= maxX; i++) {
-                for (int j = 0; j <= maxY; j++) {
-                    etats.add(new Etat(new Coordinate(minX+i,minY+i), SAFE));
+        }
+        int max_c = Math.abs(tailColonne - headColonne);// == 0 ? 1 : Math.abs(tailColonne - headColonne);
+        int max_l = Math.abs(tailLigne - headLigne);// == 0 ? 1 : Math.abs(tailLigne - headLigne);
+        if (Math.abs(tailColonne - headColonne) == 0 || Math.abs(tailLigne - headLigne) == 0) {
+            for (int c = 0; c <= max_c; c++) {
+                for (int l = 0; l <= max_l; l++) {
+                    etats.add(new Etat(new Coordinate(tailColonne + incr_c * c,tailLigne + incr_l * l), SAFE));
                     nombreCase++;
                 }
             }
+        } else {
+            for (int c = 0; c <= max_c; c++) {
+                etats.add(new Etat(new Coordinate(tailColonne + incr_c * c,tailLigne + incr_l * c), SAFE));
+                    nombreCase++;
+            }
         }
-        if(nombreCase != puissance ){
+
+//        System.out.println("puissance : " + puissance);
+//        System.out.println("nombreCase : " + nombreCase);
+//        System.out.println("etat : "+etats);
+        if (nombreCase != puissance) {
             throw new Exception("le nombre de case doit être égale à la puissance du bateau");
         }
-   }
+    }
 
     /**
      * tire sur un flotte Il n'y a que la classe flotte qui peut apeller cette
@@ -134,8 +147,9 @@ public class Ship {
     }
 
     /**
-     * la reception de dommage par default d'un bateau
-     * peut être override selon le bateau
+     * la reception de dommage par default d'un bateau peut être override selon
+     * le bateau
+     *
      * @param coordinate
      */
     public void receivedDamage(Coordinate coordinate) throws Exception {
@@ -153,9 +167,6 @@ public class Ship {
             throw new Exception("le bateau ne possède aucune de ses parties à cette coordonée");
         }
     }
-
-
-   
 
     /**
      * // * @return the etat //
