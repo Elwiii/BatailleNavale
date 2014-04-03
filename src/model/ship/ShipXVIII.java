@@ -10,5 +10,7 @@ package model.ship;
  * @author Nikolai
  */
 public class ShipXVIII extends Ship{
-    
+ 
+    public ShipXVIII(){
+    }
 }

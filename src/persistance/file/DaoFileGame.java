@@ -104,7 +104,7 @@ public class DaoFileGame extends DaoFile<Game> implements DaoGame{
     }
 
     @Override
-    public Dao getInstance()
+    public static Dao getInstance()
     {			
         if (INSTANCE == null)
         { 	INSTANCE = new DaoFileGame();	
