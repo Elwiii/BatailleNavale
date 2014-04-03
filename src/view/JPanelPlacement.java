@@ -10,6 +10,8 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 import javax.swing.JButton;
@@ -29,49 +31,91 @@ import model.ship.TypeShip;
  * @author nikolai
  */
 public class JPanelPlacement extends JPanel implements Observer {
-
+    
     public static final String id = "jpanelplacement";
     private JPanel grille;
     private final BatailleNavale model;
     private JList list;
     private TypeShip typeShip;
-    private int currentColonne;
-    private int currentLigne;
-    private int previousColonne;
-    private int previousLigne;
-    private int state;
-    private final int EPOQUE_SELECTED = 0;
+    private int headColonne;
+    private int headLigne;
+    private int tailColonne;
+    private int tailLigne;
+    private final int SHIP_SELECTED = 0;
     private final int HEAD_SELECTED = 1;
     private final int TAIL_SELECTED = 2;
+    private final int NOTHING_SELECTED = 3;    
     private final JPanel east;
     private final JButton add;
+    private int state = NOTHING_SELECTED;
+    private JButtonPlacementBateau[][] grilleButton;
     
     private class JButtonPlacementBateau extends JButton {
-
+        
         final int ligne;
         final int colonne;
-
+        
         public JButtonPlacementBateau(final int ligne, final int colonne) {
             super();
             this.ligne = ligne;
             this.colonne = colonne;
             this.addActionListener(new ActionListener() {
-
+                
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    System.out.println("ligne : " + ligne + " colonne : " + colonne);
-                    previousColonne = currentColonne;
-                    previousLigne = currentLigne;
-                    currentColonne = colonne;
-                    currentLigne = ligne;
-                    System.out.println("typeShip(button) : "+typeShip);
+                    switch (state) {
+                        case NOTHING_SELECTED:
+                            break;
+                        case SHIP_SELECTED:
+                            headColonne = colonne;
+                            headLigne = ligne;
+                            grilleButton[headLigne][headColonne].setEnabled(false);
+                            grilleButton[headLigne][headColonne].setText("head");
+                            // afficher les buttons higlight
+                            for (JButtonPlacementBateau jbp : tailsImpossibles()) {
+                                jbp.setEnabled(false);
+                            }
+                            state = HEAD_SELECTED;
+                            break;
+                        case HEAD_SELECTED:
+                            tailColonne = colonne;
+                            tailLigne = ligne;
+                            state = TAIL_SELECTED;
+                            break;
+                        case TAIL_SELECTED:
+                            
+                            break;
+                        default:
+                        //throw something
+                    }
+//                    System.out.println("ligne : " + ligne + " colonne : " + colonne);
+//                    previousColonne = currentColonne;
+//                    previousLigne = currentLigne;
+//                    currentColonne = colonne;
+//                    currentLigne = ligne;
+//                    System.out.println("typeShip(button) : " + typeShip);
+//                    System.out.println("previous : " + previousLigne + " " + previousColonne);
+//                    System.out.println("current : " + currentLigne + " " + currentColonne);
                     
                 }
             });
         }
-
+        
     }
 
+    /**
+     * renvoi tout les boutons qui ne sont pas cliquable afin de determiner la
+     * queue du bateau (sachant une tête déjà choisie)
+     *
+     * @return
+     */
+    private List<JButtonPlacementBateau> tailsImpossibles() {
+        List<JButtonPlacementBateau> list = new ArrayList<>();
+        list.add(grilleButton[0][0]);
+        list.add(grilleButton[1][1]);
+        return list; // @todo thomas
+    }
+    
     public JPanelPlacement(final BatailleNavale model, final JPanelWizard wizard) {
         super(new BorderLayout());
         this.model = model;
@@ -81,17 +125,17 @@ public class JPanelPlacement extends JPanel implements Observer {
         JPanel south = new JPanel();
         JButton backToCreer = new JButton("retour");
         backToCreer.addActionListener(new ActionListener() {
-
+            
             @Override
             public void actionPerformed(ActionEvent ae) {
                 wizard.show(JPanelCreer.id);
             }
         });
         south.add(backToCreer);
-
+        
         JButton valider = new JButton("valider");
         valider.addActionListener(new ActionListener() {
-
+            
             @Override
             public void actionPerformed(ActionEvent ae) {
                 wizard.show(JPanelJouer.id);
@@ -101,54 +145,58 @@ public class JPanelPlacement extends JPanel implements Observer {
         add(south, BorderLayout.SOUTH);
         add = new JButton("add");
         add.addActionListener(new ActionListener() {
-
+            
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("add");
             }
         });
 //        east.add(add);
-        add(east,BorderLayout.EAST);
-
+        add(east, BorderLayout.EAST);
+        
     }
-
+    
     public void constructList(Epoque epoque) {
         if (list != null) {
             remove(list);
         }
         list = new JList(TypeShip.get(epoque));
+//        list.setSelectedIndex(0);
         list.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
         list.setLayoutOrientation(JList.HORIZONTAL_WRAP);
         list.setVisibleRowCount(-1);
         JScrollPane listScroller = new JScrollPane(list);
         listScroller.setPreferredSize(new Dimension(250, 80));
         list.addListSelectionListener(new ListSelectionListener() {
-
+            
             @Override
             public void valueChanged(ListSelectionEvent e) {
                 typeShip = (TypeShip) list.getSelectedValue();
-                state = EPOQUE_SELECTED;
-                System.out.println("type : "+typeShip);
+                state = SHIP_SELECTED;
+                System.out.println("type : " + typeShip);
             }
         });
         east.add(list);
     }
-
-    public void constuctGrille(int longueur, int largeur) {
+    
+    public void constuctGrille(int width, int height) {
         if (grille != null) {
             remove(grille);
         }
-        grille = new JPanel(new GridLayout(largeur, longueur));
-        for (int i = 0; i < longueur; i++) {
-            for (int j = 0; j < largeur; j++) {
-                grille.add(new JButtonPlacementBateau(i, j));
+        grille = new JPanel(new GridLayout(height, width));
+        grilleButton = new JButtonPlacementBateau[width][height];
+        for (int i = 0; i < width; i++) {
+            for (int j = 0; j < height; j++) {
+                JButtonPlacementBateau jpb = new JButtonPlacementBateau(i, j);
+                grille.add(jpb);
+                grilleButton[i][j] = jpb;                
             }
         }
         add(grille, BorderLayout.CENTER);
     }
-
+    
     @Override
     public void update(Observable o, Object o1) {
-
+        
     }
 }
