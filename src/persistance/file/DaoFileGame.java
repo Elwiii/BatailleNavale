@@ -103,7 +103,7 @@ public class DaoFileGame extends DaoFile<Game> implements DaoGame{
         persiste(g);    
     }
 
-    @Override
+    //@Override
     public static Dao getInstance()
     {			
         if (INSTANCE == null)
