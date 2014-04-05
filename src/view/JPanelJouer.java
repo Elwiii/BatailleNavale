@@ -10,6 +10,7 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.util.Observable;
 import java.util.Observer;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
@@ -25,21 +26,31 @@ import model.Coordinate;
 public class JPanelJouer extends JPanel implements Observer {
 
     public static final String id = "jpaneljouer";
+    
+    private JPanel grilleEnnemi;
+    private JPanel grilleFlotte;
+    private final BatailleNavale model;
 
     public JPanelJouer(final BatailleNavale model) {
         super(new BorderLayout());
         model.addObserver(this);
+        this.model = model;
+        
+
+    }
+    
+    public void initialize(){
         add(new JLabel(id));
         JPanel center = new JPanel();
-        JPanel grilleEnnemi = new JPanel(new GridLayout(10, 10/* à recup sur model)*/));
-        JPanel grilleFlotte = new JPanel(new GridLayout(10, 10/* à recup sur model)*/));
-        for (int i = 0; i < 10; i++) {
-            for (int j = 0; j < 10; j++) {
+        grilleEnnemi = new JPanel(new GridLayout(model.getLargeurGrille(), model.getLongeurGrille()));
+        grilleFlotte = new JPanel(new GridLayout(model.getLargeurGrille(), model.getLongeurGrille()));
+        for (int i = 0; i < model.getLargeurGrille(); i++) {
+            for (int j = 0; j < model.getLongeurGrille(); j++) {
                 grilleEnnemi.add(new JButtonFire(model, new Coordinate(i, j)));
             }
         }
-        for (int i = 0; i < 100; i++) {
-            grilleFlotte.add(new JLabel("todo f"));
+        for (int i = 0; i < model.getLongeurGrille() * model.getLargeurGrille(); i++) {
+            grilleFlotte.add(new JButton());
 
         }
         center.add(grilleEnnemi);
@@ -55,7 +66,6 @@ public class JPanelJouer extends JPanel implements Observer {
         listScroller.setPreferredSize(new Dimension(250, 80));
         
         add(list,BorderLayout.EAST);
-
     }
 
     @Override
