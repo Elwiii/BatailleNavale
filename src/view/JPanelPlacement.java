@@ -153,7 +153,7 @@ public class JPanelPlacement extends JPanel implements Observer {
     }
 
     /**
-     * renvoi tout les boutons qui ne sont pas cliquable afin de determiner la
+     * renvoi tous les boutons qui ne sont pas cliquables afin de determiner la
      * queue du bateau (sachant une tête déjà choisie)
      *
      * @return
@@ -164,8 +164,8 @@ public class JPanelPlacement extends JPanel implements Observer {
 //        list.add(grilleButton[1][1]);
         for(int i = 0; i < grilleButton.length; i++){
             for(int j = 0; j < grilleButton[i].length; i++){
-                /* 1ere condition : bateau en ligne */
-                /* 2e condition : bateau en colonne */
+                /* 1ere condition : bateau en colonne */
+                /* 2e condition : bateau en ligne */
                 /* 3e condition : bateau en diagonale */
                 if(!(((Math.abs(headColonne - i)==this.typeShip.getPuissance() -1)&&(j==headLigne))
                         ||((i==headColonne) && (Math.abs(headLigne - j)== this.typeShip.getPuissance() - 1))
