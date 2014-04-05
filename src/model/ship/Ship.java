@@ -16,11 +16,18 @@ import model.Flotte;
  */
 public class Ship {
 
+    /**
+     * @return the representationGraphique
+     */
+    public Color getRepresentationGraphique() {
+        return representationGraphique;
+    }
+
     public class Etat {
 
         Coordinate c;
 
-        int etat;
+        private int etat;
 
         protected Etat(Coordinate c, int etat) {
             this.c = c;
@@ -31,12 +38,26 @@ public class Ship {
             return c;
         }
 
+        /**
+         * @return the etat
+         */
+        public int getEtat() {
+            return etat;
+        }
+
+        /**
+         * @param etat the etat to set
+         */
+        public void setEtat(int etat) {
+            this.etat = etat;
+        }
+
     }
 
-    protected static final int SAFE = 0;
-    protected static final int DAMAGED = 1;
+    public static final int SAFE = 0;
+    public static final int DAMAGED = 1;
     //protected URL representationGraphique;
-    protected Color representationGraphique; // on fait simple
+    private Color representationGraphique; // on fait simple
     protected List<Etat> etats;
     protected int puissance;
     protected TypeShip type;
@@ -81,7 +102,7 @@ public class Ship {
     public boolean isDetroy() {
         //@tester!!
         for (Etat e : this.etats) {
-            if (e.etat == SAFE) {
+            if (e.getEtat() == SAFE) {
                 return false;
             }
         }
@@ -173,7 +194,7 @@ public class Ship {
             i++;
         }
         if (i <= etats.size()) {
-            e.etat = DAMAGED;
+            e.setEtat(DAMAGED);
         } else {
             throw new Exception("le bateau ne possède aucune de ses parties à cette coordonée");
         }

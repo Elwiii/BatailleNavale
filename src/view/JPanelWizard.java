@@ -20,6 +20,7 @@ public class JPanelWizard extends JPanel implements Observer{
 
     private final CardLayout cl ;
     private final JPanelPlacement jpanelPlacement ; 
+    private final JPanelJouer jpanelJouer;
     
     public JPanelWizard(final BatailleNavale model){
         super();
@@ -27,9 +28,10 @@ public class JPanelWizard extends JPanel implements Observer{
         this.setLayout(cl);
         model.addObserver(this);
         jpanelPlacement= new JPanelPlacement(model,this);
+        jpanelJouer = new JPanelJouer(model);
         add(new JPanelAcceuil(model,this),JPanelAcceuil.id);
         add(new JPanelCreer(model,this),JPanelCreer.id);
-        add(new JPanelJouer(model),JPanelJouer.id);
+        add(jpanelJouer,JPanelJouer.id);
         add(new JPanelParties(model),JPanelParties.id);
         add(new JPanelScore(model),JPanelScore.id);
         add(jpanelPlacement,JPanelPlacement.id);
@@ -51,6 +53,13 @@ public class JPanelWizard extends JPanel implements Observer{
      */
     public JPanelPlacement getJpanelPlacement() {
         return jpanelPlacement;
+    }
+
+    /**
+     * @return the jpanelJouer
+     */
+    public JPanelJouer getJpanelJouer() {
+        return jpanelJouer;
     }
     
 }

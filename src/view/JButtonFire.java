@@ -15,7 +15,7 @@ import model.BatailleNavale;
 import model.Coordinate;
 
 /**
- *
+ * @todo thomas
  * @author nikolai
  */
 public class JButtonFire extends JButton implements Observer{

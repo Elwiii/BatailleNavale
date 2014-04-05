@@ -187,6 +187,7 @@ public class JPanelPlacement extends JPanel implements Observer {
 
             @Override
             public void actionPerformed(ActionEvent ae) {
+                wizard.getJpanelJouer().initialize();
                 wizard.show(JPanelJouer.id);
             }
         });

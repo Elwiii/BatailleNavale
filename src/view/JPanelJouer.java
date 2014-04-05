@@ -18,9 +18,11 @@ import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 import model.BatailleNavale;
 import model.Coordinate;
+import model.ship.Ship;
+import model.ship.Ship.Etat;
 
 /**
- *
+ * @todo thomas
  * @author nikolai
  */
 public class JPanelJouer extends JPanel implements Observer {
@@ -50,7 +52,9 @@ public class JPanelJouer extends JPanel implements Observer {
             }
         }
         for (int i = 0; i < model.getLongeurGrille() * model.getLargeurGrille(); i++) {
-            grilleFlotte.add(new JButton());
+            JButton j = new JButton("b");
+            j.setEnabled(false);
+            grilleFlotte.add(j);
 
         }
         center.add(grilleEnnemi);
@@ -66,6 +70,41 @@ public class JPanelJouer extends JPanel implements Observer {
         listScroller.setPreferredSize(new Dimension(250, 80));
         
         add(list,BorderLayout.EAST);
+        
+        updateGrilleEnnemi();
+        updateGrilleFlotte();
+    }
+    
+    private void updateGrilleEnnemi(){
+        
+    }
+    
+    private void updateGrilleFlotte(){
+//        grilleFlotte.removeAll();
+        for(Ship s : model.getJ1().getFlotte().getVaisseaux()){
+            for(Etat e : s.getEtats()){
+                JButton b = new JButton();
+                b.setEnabled(false);
+                String t = "";
+                switch(e.getEtat()){
+                    case Ship.DAMAGED :
+                        t = "X";
+                        break;
+                    case Ship.SAFE :
+                        t = "";
+                        break;
+                }
+                b.setText(t);
+                b.setBackground(s.getRepresentationGraphique());
+                System.out.println("x : "+e.getC().x);
+                System.out.println("y : "+e.getC().y);
+                int pos = e.getC().y+ model.getLargeurGrille() * e.getC().x;
+                System.out.println("pos : "+pos);
+                grilleFlotte.remove(pos);
+                grilleFlotte.add(b,pos);
+            }
+        }
+        
     }
 
     @Override
