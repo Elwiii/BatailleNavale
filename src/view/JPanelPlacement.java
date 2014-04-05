@@ -170,7 +170,7 @@ public class JPanelPlacement extends JPanel implements Observer {
                 if(!(((Math.abs(headColonne - i)==this.typeShip.getPuissance() -1)&&(j==headLigne))
                         ||((i==headColonne) && (Math.abs(headLigne - j)== this.typeShip.getPuissance() - 1))
                         ||((Math.abs(headColonne - i)==this.typeShip.getPuissance() -1)&&(Math.abs(headLigne - j)== this.typeShip.getPuissance() - 1))))
-                        ||(){
+                        {
                     list.add(grilleButton[i][j]);
                 }
             }
