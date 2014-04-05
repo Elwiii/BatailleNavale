@@ -8,7 +8,9 @@ package model.ship.shipscifi;
 
 import java.awt.Color;
 import model.Coordinate;
+import static model.ship.Ship.representationGraphique;
 import model.ship.ShipScifi;
+import model.ship.TypeShip;
 
 /**
  * @author Nikolai
@@ -16,8 +18,7 @@ import model.ship.ShipScifi;
 public class Viper extends ShipScifi{
     
     public Viper(Coordinate queue, Coordinate nez) throws Exception{
-        representationGraphique = new Color(155, 200,0);
-        puissance = 2;
+        super(TypeShip.VIPER);
         initializeEtats(queue,nez);
     }
 }

@@ -14,4 +14,8 @@ public class ShipScifi extends Ship{
     public ShipScifi(){
     }
     
+    protected ShipScifi(TypeShip type){
+        super(type);
+    }
+    
 }

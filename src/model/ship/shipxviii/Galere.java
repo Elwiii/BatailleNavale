@@ -8,7 +8,9 @@ package model.ship.shipxviii;
 
 import java.awt.Color;
 import model.Coordinate;
+import static model.ship.Ship.representationGraphique;
 import model.ship.ShipXVIII;
+import model.ship.TypeShip;
 
 /**
  * @author Nikolai
@@ -16,8 +18,7 @@ import model.ship.ShipXVIII;
 public class Galere extends ShipXVIII{
     
     public Galere(Coordinate queue, Coordinate nez) throws Exception{
-        representationGraphique = new Color(0, 100,0);
-        puissance = 5;
+        super(TypeShip.GALERE);
         initializeEtats(queue,nez);
     }
 }

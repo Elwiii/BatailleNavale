@@ -13,4 +13,8 @@ public class ShipXVIII extends Ship{
  
     public ShipXVIII(){
     }
+    
+    protected ShipXVIII(TypeShip type){
+        super(type);
+    }
 }

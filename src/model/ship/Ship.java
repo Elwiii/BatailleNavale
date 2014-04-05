@@ -39,6 +39,17 @@ public class Ship {
     public static Color representationGraphique; // on fait simple
     protected List<Etat> etats;
     protected int puissance;
+    protected TypeShip type;
+    
+    protected Ship(TypeShip type){
+        this.type = type;
+        representationGraphique = type.getRepresentationGraphique();
+        puissance = type.getPuissance();
+    }
+    
+    protected Ship(){
+        
+    };
 
     public List<Etat> getEtats() {
         return etats;
