@@ -36,7 +36,7 @@ public class Ship {
     protected static final int SAFE = 0;
     protected static final int DAMAGED = 1;
     //protected URL representationGraphique;
-    protected Color representationGraphique; // on fait simple
+    public static Color representationGraphique; // on fait simple
     protected List<Etat> etats;
     protected int puissance;
 
@@ -95,7 +95,7 @@ public class Ship {
         int tailLigne = queue.y;
         int incr_c = 0;
         int incr_l = 0;
-        
+
         if (headColonne > tailColonne) {
             incr_c = 1;
             if (headLigne > tailLigne) {
@@ -116,14 +116,14 @@ public class Ship {
         if (Math.abs(tailColonne - headColonne) == 0 || Math.abs(tailLigne - headLigne) == 0) {
             for (int c = 0; c <= max_c; c++) {
                 for (int l = 0; l <= max_l; l++) {
-                    etats.add(new Etat(new Coordinate(tailColonne + incr_c * c,tailLigne + incr_l * l), SAFE));
+                    etats.add(new Etat(new Coordinate(tailColonne + incr_c * c, tailLigne + incr_l * l), SAFE));
                     nombreCase++;
                 }
             }
         } else {
             for (int c = 0; c <= max_c; c++) {
-                etats.add(new Etat(new Coordinate(tailColonne + incr_c * c,tailLigne + incr_l * c), SAFE));
-                    nombreCase++;
+                etats.add(new Etat(new Coordinate(tailColonne + incr_c * c, tailLigne + incr_l * c), SAFE));
+                nombreCase++;
             }
         }
 
