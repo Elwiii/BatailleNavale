@@ -113,7 +113,7 @@ public class JPanelPlacement extends JPanel implements Observer {
                                     for (int l = 0; l <= max_l; l++) {
                                         System.out.println("(l,c) : " + l + "," + c);
                                         grilleButton[tailLigne + incr_l * l][tailColonne + incr_c * c].setEnabled(false);
-                                        grilleButton[tailLigne + incr_l * l][tailColonne + incr_c * c].setBackground(Color.red);
+                                        grilleButton[tailLigne + incr_l * l][tailColonne + incr_c * c].setBackground(typeShip.getRepresentationGraphique());
                                     }
                                 }
                             } else {
