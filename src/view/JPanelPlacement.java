@@ -163,13 +163,14 @@ public class JPanelPlacement extends JPanel implements Observer {
 //        list.add(grilleButton[0][0]);
 //        list.add(grilleButton[1][1]);
         for(int i = 0; i < grilleButton.length; i++){
-            for(int j = 0; j < grilleButton[i].length; i++){
+            for(int j = 0; j < grilleButton[i].length; j++){
                 /* 1ere condition : bateau en colonne */
                 /* 2e condition : bateau en ligne */
                 /* 3e condition : bateau en diagonale */
                 if(!(((Math.abs(headColonne - i)==this.typeShip.getPuissance() -1)&&(j==headLigne))
                         ||((i==headColonne) && (Math.abs(headLigne - j)== this.typeShip.getPuissance() - 1))
-                        ||((Math.abs(headColonne - i)==this.typeShip.getPuissance() -1)&&(Math.abs(headLigne - j)== this.typeShip.getPuissance() - 1)))){
+                        ||((Math.abs(headColonne - i)==this.typeShip.getPuissance() -1)&&(Math.abs(headLigne - j)== this.typeShip.getPuissance() - 1))))
+                        ||(){
                     list.add(grilleButton[i][j]);
                 }
             }
