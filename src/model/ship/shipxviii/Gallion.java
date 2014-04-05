@@ -6,9 +6,7 @@
 
 package model.ship.shipxviii;
 
-import java.awt.Color;
 import model.Coordinate;
-import static model.ship.Ship.representationGraphique;
 import model.ship.ShipXVIII;
 import model.ship.TypeShip;
 

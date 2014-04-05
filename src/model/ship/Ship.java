@@ -36,7 +36,7 @@ public class Ship {
     protected static final int SAFE = 0;
     protected static final int DAMAGED = 1;
     //protected URL representationGraphique;
-    public static Color representationGraphique; // on fait simple
+    protected Color representationGraphique; // on fait simple
     protected List<Etat> etats;
     protected int puissance;
     protected TypeShip type;
