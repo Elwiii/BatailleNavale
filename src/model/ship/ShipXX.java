@@ -6,10 +6,12 @@
 
 package model.ship;
 
+import java.io.Serializable;
+
 /**
  * @author Nikolai
  */
-public class ShipXX extends Ship{
+public class ShipXX extends Ship implements Serializable{
     
     public ShipXX(){
     }

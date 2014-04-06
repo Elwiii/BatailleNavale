@@ -6,6 +6,7 @@
 
 package model.ship.shipscifi;
 
+import java.io.Serializable;
 import model.Coordinate;
 import model.ship.ShipScifi;
 import model.ship.TypeShip;
@@ -13,7 +14,7 @@ import model.ship.TypeShip;
 /**
  * @author Nikolai
  */
-public class MotherShip extends ShipScifi{
+public class MotherShip extends ShipScifi implements Serializable{
     
     public MotherShip(Coordinate queue, Coordinate nez) throws Exception{
         super(TypeShip.MOTHER);

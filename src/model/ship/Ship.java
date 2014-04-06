@@ -6,6 +6,7 @@
 package model.ship;
 
 import java.awt.Color;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import model.Coordinate;
@@ -14,7 +15,7 @@ import model.Flotte;
 /**
  * @author Nikolai
  */
-public class Ship {
+public class Ship implements Serializable{
 
     /**
      * @return the representationGraphique

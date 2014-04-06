@@ -6,6 +6,7 @@
 
 package model.ship.shipscifi;
 
+import java.io.Serializable;
 import model.Coordinate;
 import model.ship.ShipScifi;
 import model.ship.TypeShip;
@@ -13,7 +14,7 @@ import model.ship.TypeShip;
 /**
  * @author Nikolai
  */
-public class Hunter extends ShipScifi{
+public class Hunter extends ShipScifi implements Serializable{
     
     public Hunter(Coordinate queue, Coordinate nez) throws Exception{
         super(TypeShip.HUNTER);

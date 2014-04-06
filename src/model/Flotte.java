@@ -5,6 +5,7 @@
  */
 package model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import model.ship.Ship;
@@ -15,7 +16,7 @@ import model.ship.Ship.Etat;
  *
  * @author nikolai
  */
-public class Flotte {
+public class Flotte implements Serializable{
 
     public static final int UNREACHABLE = 0;
     public static final int HIT = 1;

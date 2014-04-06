@@ -5,6 +5,7 @@
  */
 package model.player;
 
+import java.io.Serializable;
 import model.Flotte;
 import model.OrdreTir;
 import model.VisionBattlefield;
@@ -13,7 +14,7 @@ import model.VisionBattlefield;
  *
  * @author Nikolai
  */
-public class Human extends Player {
+public class Human extends Player implements Serializable{
 
     public Human(String nom, int score, int nombrePartieJouees) {
         this.nom = nom;

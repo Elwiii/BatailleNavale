@@ -6,10 +6,12 @@
 
 package model;
 
+import java.io.Serializable;
+
 /**
  * @author nikolai
  */
-public class OrdreTir {
+public class OrdreTir implements Serializable{
     
     private int launcherid;
     

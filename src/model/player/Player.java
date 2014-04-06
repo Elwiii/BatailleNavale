@@ -6,6 +6,7 @@
 
 package model.player;
 
+import java.io.Serializable;
 import model.Coordinate;
 import model.Flotte;
 import model.OrdreTir;
@@ -15,7 +16,7 @@ import model.ship.Ship;
 /**
  * @author Nikolai
  */
-public abstract class Player {
+public abstract class Player implements Serializable{
     protected String nom;
     protected int score;
     protected int nombrePartieJouees;   

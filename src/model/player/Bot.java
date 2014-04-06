@@ -6,6 +6,7 @@
 
 package model.player;
 
+import java.io.Serializable;
 import model.Flotte;
 import model.OrdreTir;
 import model.VisionBattlefield;
@@ -13,7 +14,7 @@ import model.VisionBattlefield;
 /**
  * @author Nikolai
  */
-public abstract class Bot extends Player{
+public abstract class Bot extends Player implements Serializable{
 
     /**
      * 

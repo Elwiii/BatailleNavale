@@ -6,9 +6,11 @@
 
 package model.ship;
 
+import java.io.Serializable;
+
 /**
  * @author Nikolai
  */
-public enum Epoque {
+public enum Epoque implements Serializable{
     XVIII, XX, SCIENCEFICTION;
 }

@@ -6,11 +6,12 @@
 package model.ship;
 
 import java.awt.Color;
+import java.io.Serializable;
 
 /**
  * @author Nikolai
  */
-public enum TypeShip {
+public enum TypeShip implements Serializable{
     CRUSADER(6,new Color(155, 200,255))
     , HUNTER(3,new Color(100, 200,255))
     , MOTHER(7,new Color(155, 200,255))

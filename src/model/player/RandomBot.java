@@ -6,6 +6,7 @@
 
 package model.player;
 
+import java.io.Serializable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Coordinate;
@@ -16,7 +17,7 @@ import model.VisionBattlefield;
 /**
  * @author Nikolai
  */
-public class RandomBot extends Bot{
+public class RandomBot extends Bot implements Serializable{
     
     
 

@@ -6,6 +6,7 @@
 
 package model.ship;
 
+import java.io.Serializable;
 import model.Coordinate;
 import model.ship.shipscifi.Crusader;
 import model.ship.shipscifi.Hunter;

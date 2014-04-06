@@ -6,6 +6,7 @@
 
 package model.player;
 
+import java.io.Serializable;
 import model.Flotte;
 import model.VisionBattlefield;
 
@@ -13,7 +14,7 @@ import model.VisionBattlefield;
  * @todo Rym
  * @author Nikolai
  */
-public class CrossBot extends Bot{
+public class CrossBot extends Bot implements Serializable{
 
     @Override
     public int autoFire(VisionBattlefield bf, Flotte target) {

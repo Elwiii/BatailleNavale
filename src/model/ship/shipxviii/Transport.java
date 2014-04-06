@@ -6,6 +6,7 @@
 
 package model.ship.shipxviii;
 
+import java.io.Serializable;
 import model.Coordinate;
 import model.ship.ShipXVIII;
 import model.ship.TypeShip;
@@ -13,7 +14,7 @@ import model.ship.TypeShip;
 /**
  * @author Nikolai
  */
-public class Transport extends ShipXVIII{
+public class Transport extends ShipXVIII implements Serializable{
     
     public Transport(Coordinate queue, Coordinate nez) throws Exception{
        super(TypeShip.TRANSPORT);

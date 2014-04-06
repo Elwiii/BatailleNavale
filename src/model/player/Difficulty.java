@@ -6,11 +6,13 @@
 
 package model.player;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Nikolai
  */
-public enum Difficulty {
+public enum Difficulty implements Serializable{
     CROSSBOT,
     RANDOMBOT
 }
