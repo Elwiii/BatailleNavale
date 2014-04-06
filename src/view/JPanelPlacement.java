@@ -126,8 +126,10 @@ public class JPanelPlacement extends JPanel implements Observer {
                             } else {
                                 for (int c = 0; c <= max_c; c++) {
 //                                    System.out.println("(l,c) : " + l + "," + c);
-                                    grilleButton[tailLigne + incr_l * c][tailColonne + incr_c * c].setEnabled(false);
-                                    grilleButton[tailLigne + incr_l * c][tailColonne + incr_c * c].setBackground(typeShip.getRepresentationGraphique());
+                                    JButtonPlacementBateau jbp = grilleButton[tailLigne + incr_l * c][tailColonne + incr_c * c];
+                                    jbp.setEnabled(false);
+                                    jbp.setBackground(typeShip.getRepresentationGraphique());
+                                    disabledJButton.remove(jbp);
                                 }
                             }
                             try {
