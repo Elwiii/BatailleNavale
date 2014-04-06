@@ -37,11 +37,11 @@ public class DaoFileGame extends DaoFile<Game> implements DaoGame{
         //On teste si le dossier existe
         if (dossier.exists() && dossier.isDirectory()){
             //On teste si le fichier existe
-            File fich = new File(id);
+            File fich = new File("Game/"+id+".ser");
             if(fich.exists()){
                 try {
                     //On déserialise le fichier
-                    FileInputStream fichier = new FileInputStream(id);
+                    FileInputStream fichier = new FileInputStream("Game/"+id+".ser");
                     ObjectInputStream ois = new ObjectInputStream(fichier);
                     Game game = (Game) ois.readObject();
                     return game;
@@ -74,13 +74,14 @@ public class DaoFileGame extends DaoFile<Game> implements DaoGame{
     @Override
     public int persiste(Game g) {
         File dossier = new File("Game");
+        
         //Si le dossier n'existe pas, on le crée
         if (!(dossier.exists() && dossier.isDirectory())){
             dossier.mkdir();
         }
         //Création du fichier
         try{
-            FileOutputStream fichier = new FileOutputStream(g.getId());
+            FileOutputStream fichier = new FileOutputStream("Game/"+g.getId()+".ser");
             ObjectOutputStream oos = new ObjectOutputStream(fichier);
             oos.writeObject(g);
             oos.flush();
