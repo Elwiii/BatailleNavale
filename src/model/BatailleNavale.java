@@ -159,6 +159,7 @@ public class BatailleNavale {
      */
     public void load(String id) {
         //@todo Rym (load)
+
     }
 
     /**
