@@ -56,6 +56,8 @@ public class JPanelPlacement extends JPanel implements Observer {
     private int state = NOTHING_SELECTED;
     private JButtonPlacementBateau[][] grilleButton;
 
+    private List<JButtonPlacementBateau> disabledJButton;
+    
     private class JButtonPlacementBateau extends JButton {
 
         final BatailleNavale model;
@@ -82,6 +84,7 @@ public class JPanelPlacement extends JPanel implements Observer {
                             // afficher les buttons higlight
                             for (JButtonPlacementBateau jbp : tailsImpossibles()) {
                                 jbp.setEnabled(false);
+                                disabledJButton.add(jbp);
                             }
                             state = HEAD_SELECTED;
                             break;
@@ -114,8 +117,10 @@ public class JPanelPlacement extends JPanel implements Observer {
                                 for (int c = 0; c <= max_c; c++) {
                                     for (int l = 0; l <= max_l; l++) {
                                         System.out.println("(l,c) : " + l + "," + c);
-                                        grilleButton[tailLigne + incr_l * l][tailColonne + incr_c * c].setEnabled(false);
-                                        grilleButton[tailLigne + incr_l * l][tailColonne + incr_c * c].setBackground(typeShip.getRepresentationGraphique());
+                                        JButtonPlacementBateau jbp = grilleButton[tailLigne + incr_l * l][tailColonne + incr_c * c];
+                                        jbp.setEnabled(false);
+                                        jbp.setBackground(typeShip.getRepresentationGraphique());
+                                        disabledJButton.remove(jbp);
                                     }
                                 }
                             } else {
@@ -132,9 +137,15 @@ public class JPanelPlacement extends JPanel implements Observer {
                             } catch (Exception ex) {
                                 Logger.getLogger(JPanelPlacement.class.getName()).log(Level.SEVERE, null, ex);
                             }
+                            // on enable les buttons disabled
+                            for(JButtonPlacementBateau jbp : disabledJButton){
+                                jbp.setEnabled(true);
+                            }
+                            disabledJButton.clear();
+                            state = TAIL_SELECTED;
                             break;
                         case TAIL_SELECTED:
-
+                            
                             break;
                         default:
                         //throw something
@@ -163,6 +174,7 @@ public class JPanelPlacement extends JPanel implements Observer {
     private List<JButtonPlacementBateau> tailsImpossibles() {
         List<JButtonPlacementBateau> list = new ArrayList<>();
         List<Ship> listShip = model.getJ1().getFlotte().getVaisseaux();
+        disabledJButton = new ArrayList<>();
 //        list.add(grilleButton[0][0]);
 //        list.add(grilleButton[1][1]);
         for (int i = 0; i < grilleButton.length; i++) {
