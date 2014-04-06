@@ -57,7 +57,7 @@ public class JPanelPlacement extends JPanel implements Observer {
     private JButtonPlacementBateau[][] grilleButton;
 
     private List<JButtonPlacementBateau> disabledJButton;
-    
+
     private class JButtonPlacementBateau extends JButton {
 
         final BatailleNavale model;
@@ -135,19 +135,19 @@ public class JPanelPlacement extends JPanel implements Observer {
                             try {
                                 // on ajoute le bateau à la flotte
                                 model.addShip(typeShip, new Coordinate(tailLigne, tailColonne), new Coordinate(headLigne, headColonne));
-                                System.out.println(""+model.getJ1().getFlotte().getVaisseaux());
+                                System.out.println("" + model.getJ1().getFlotte().getVaisseaux());
                             } catch (Exception ex) {
                                 Logger.getLogger(JPanelPlacement.class.getName()).log(Level.SEVERE, null, ex);
                             }
                             // on enable les buttons disabled
-                            for(JButtonPlacementBateau jbp : disabledJButton){
+                            for (JButtonPlacementBateau jbp : disabledJButton) {
                                 jbp.setEnabled(true);
                             }
                             disabledJButton.clear();
                             state = TAIL_SELECTED;
                             break;
                         case TAIL_SELECTED:
-                            
+
                             break;
                         default:
                         //throw something
@@ -176,11 +176,15 @@ public class JPanelPlacement extends JPanel implements Observer {
     private List<JButtonPlacementBateau> tailsImpossibles() {
         List<JButtonPlacementBateau> list = new ArrayList<>();
         List<Ship> listShip = model.getJ1().getFlotte().getVaisseaux();
+        boolean ajout = true;
         disabledJButton = new ArrayList<>();
+        int l_max,l_min;
+        int c_max,c_min;
 //        list.add(grilleButton[0][0]);
 //        list.add(grilleButton[1][1]);
         for (int i = 0; i < grilleButton.length; i++) {
             for (int j = 0; j < grilleButton[i].length; j++) {
+                ajout = true;
                 /* 1ere condition : bateau en colonne */
                 /* 2e condition : bateau en ligne */
                 /* 3e condition : bateau en diagonale */
@@ -188,47 +192,116 @@ public class JPanelPlacement extends JPanel implements Observer {
                         || ((j == headColonne) && (Math.abs(headLigne - i) == this.typeShip.getPuissance() - 1))
                         || ((Math.abs(headColonne - j) == this.typeShip.getPuissance() - 1) && (Math.abs(headLigne - i) == this.typeShip.getPuissance() - 1)))) {
                     list.add(grilleButton[i][j]);
-                    /* cas bateau vertical/horizontal, teste des chevauchements possibles */
-                    for (Ship s : model.getJ1().getFlotte().getVaisseaux()) {
-                        for (Etat e : s.getEtats()) {
-                            for (int k = headColonne; k <= j; k++) {
-                                for (int l = headLigne; l <= i; l++) {
-                                    if ((e.getC().x == l) && (e.getC().y == k)) {
-                                        list.remove(grilleButton[i][j]);
-                                    } /* cas bateau en diagonale, teste des croisements possibles */ else if ((headColonne != j) && (headLigne != i)) {
-                                        //si case voisine du dessous occupé par un bateau
-                                        if ((e.getC().x == l + 1) && (e.getC().y) == k) {
-                                            for (Etat ep : s.getEtats()) {
-                                                //on teste la case voisine de droite
-                                                if ((ep.getC().x == l) && (ep.getC().y == k + 1)) {
-                                                    list.remove(grilleButton[i][j]);
-                                                } //on teste la case voisine de gauche
-                                                else if ((ep.getC().x == l) && (ep.getC().y == k - 1)) {
-                                                    list.remove(grilleButton[i][j]);
-                                                }
+                }
+                /* cas bateau vertical/horizontal, teste des chevauchements possibles */
+                //On compare les coord de tous les bateaux du joueur
+                for (Ship s : model.getJ1().getFlotte().getVaisseaux()) {
+                    for (Etat e : s.getEtats()) {
+                        //Avec toutes les coordonées des placements possibles du bateau
+                        if(i>headLigne){
+                            l_max = i;
+                            l_min = headLigne;
+                        }
+                        else{
+                            l_max = headLigne;
+                            l_min = i;
+                        }
+                        if(j>headColonne){
+                            c_max = j;
+                            c_min = headColonne;
+                        }
+                        else{
+                            c_max=headColonne;
+                            c_min = j;
+                        }
+                        for(int k = l_min; k<=l_max; k++){
+                            for (int l = c_min; l <= c_max; l++) {
+                                if ((e.getC().x == k) && (e.getC().y == l)) {
+                                    list.add(grilleButton[i][j]);
+                                    System.out.println("Chevauchement");
+                                    //ajout = false;
+                                } /* cas bateau en diagonale, teste des croisements possibles */
+
+                                if ((headColonne != j) && (headLigne != i)) {
+                                    //si case voisine du dessous occupé par un bateau
+                                    if ((e.getC().x == k + 1) && (e.getC().y) == l) {
+                                        for (Etat ep : s.getEtats()) {
+                                            //on teste la case voisine de droite
+                                            if ((ep.getC().x == k) && (ep.getC().y == l + 1)) {
+                                                list.add(grilleButton[i][j]);
+                                                ajout = false;
+                                            } //on teste la case voisine de gauche
+                                            else if ((ep.getC().x == k) && (ep.getC().y == l - 1)) {
+                                                list.add(grilleButton[i][j]);
+                                                ajout = false;
                                             }
-                                        } //si case voisine de droite occupée par un bateau
-                                        else if ((e.getC().x == l) && (e.getC().y) == k + 1) {
-                                            for (Etat ep : s.getEtats()) {
-                                                //on teste case voisine du dessous
-                                                if ((ep.getC().x == l + 1) && (ep.getC().y == k)) {
-                                                    list.remove(grilleButton[i][j]);
-                                                }
+                                        }
+                                    } //si case voisine de droite occupée par un bateau
+                                    if ((e.getC().x == k) && (e.getC().y) == l + 1) {
+                                        for (Etat ep : s.getEtats()) {
+                                            //on teste case voisine du dessous
+                                            if ((ep.getC().x == k + 1) && (ep.getC().y == l)) {
+                                                list.add(grilleButton[i][j]);
                                             }
-                                        } //si case voisine de gauche occupée par un bateau
-                                        else if ((e.getC().x == l - 1) && (e.getC().y) == k) {
-                                            for (Etat ep : s.getEtats()) {
-                                                //on teste case voisine du dessous
-                                                if ((ep.getC().x == l) && (ep.getC().y == k + 1)) {
-                                                    list.remove(grilleButton[i][j]);
-                                                }
+                                        }
+                                    } //si case voisine de gauche occupée par un bateau
+                                    if ((e.getC().x == k - 1) && (e.getC().y) == l) {
+                                        for (Etat ep : s.getEtats()) {
+                                            //on teste case voisine du dessous
+                                            if ((ep.getC().x == k) && (ep.getC().y == l + 1)) {
+                                                list.add(grilleButton[i][j]);
                                             }
                                         }
                                     }
                                 }
                             }
+                            
                         }
+                            
+//                        for (int k = headLigne; k <= i; k++) {
+//                            for (int l = headColonne; l <= j; l++) {
+//                                if ((e.getC().x == k) && (e.getC().y == l)) {
+//                                    list.add(grilleButton[i][j]);
+//                                    System.out.println("Chevauchement");
+//                                    //ajout = false;
+//                                } /* cas bateau en diagonale, teste des croisements possibles */
+//
+//                                if ((headColonne != j) && (headLigne != i)) {
+//                                    //si case voisine du dessous occupé par un bateau
+//                                    if ((e.getC().x == k + 1) && (e.getC().y) == l) {
+//                                        for (Etat ep : s.getEtats()) {
+//                                            //on teste la case voisine de droite
+//                                            if ((ep.getC().x == k) && (ep.getC().y == l + 1)) {
+//                                                list.add(grilleButton[i][j]);
+//                                                ajout = false;
+//                                            } //on teste la case voisine de gauche
+//                                            else if ((ep.getC().x == k) && (ep.getC().y == l - 1)) {
+//                                                list.add(grilleButton[i][j]);
+//                                                ajout = false;
+//                                            }
+//                                        }
+//                                    } //si case voisine de droite occupée par un bateau
+//                                    if ((e.getC().x == k) && (e.getC().y) == l + 1) {
+//                                        for (Etat ep : s.getEtats()) {
+//                                            //on teste case voisine du dessous
+//                                            if ((ep.getC().x == k + 1) && (ep.getC().y == l)) {
+//                                                list.add(grilleButton[i][j]);
+//                                            }
+//                                        }
+//                                    } //si case voisine de gauche occupée par un bateau
+//                                    if ((e.getC().x == k - 1) && (e.getC().y) == l) {
+//                                        for (Etat ep : s.getEtats()) {
+//                                            //on teste case voisine du dessous
+//                                            if ((ep.getC().x == k) && (ep.getC().y == l + 1)) {
+//                                                list.add(grilleButton[i][j]);
+//                                            }
+//                                        }
+//                                    }
+//                                }
+//                            }
+//                        }
                     }
+
                 }
             }
         }
@@ -307,7 +380,7 @@ public class JPanelPlacement extends JPanel implements Observer {
         grilleButton = new JButtonPlacementBateau[width][height];
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
-                JButtonPlacementBateau jpb = new JButtonPlacementBateau(i, j,model);
+                JButtonPlacementBateau jpb = new JButtonPlacementBateau(i, j, model);
                 grille.add(jpb);
                 grilleButton[i][j] = jpb;
             }
