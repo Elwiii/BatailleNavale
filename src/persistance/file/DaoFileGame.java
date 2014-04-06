@@ -79,6 +79,10 @@ public class DaoFileGame extends DaoFile<Game> implements DaoGame{
         if (!(dossier.exists() && dossier.isDirectory())){
             dossier.mkdir();
         }
+        if (new File("Game/"+g.getId()+".ser").exists()){
+            System.out.println("fichier déjà existant");
+            return 1;
+        }
         //Création du fichier
         try{
             FileOutputStream fichier = new FileOutputStream("Game/"+g.getId()+".ser");
