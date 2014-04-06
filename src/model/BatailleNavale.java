@@ -69,6 +69,7 @@ public class BatailleNavale {
 
     
     private void initialisation() throws DaoFactoryException{
+        id = "idDeTest";// @todo
         bna = new BatailleNavaleAdapter();
         shipFactory = ShipFactory.getInstance();
         adf = AbstractDaoFactory.getAbstractDaoFactory(TypePersistance.FILE);
