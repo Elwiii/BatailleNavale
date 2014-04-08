@@ -22,14 +22,15 @@ public class JButtonFire extends JButton implements Observer{
     private final Coordinate c;
     
     public JButtonFire(final BatailleNavale model,final Coordinate c){
-        super("X");
+        super("D");
         this.c  = c;
         model.addObserver(this);
         addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent ae) {
-                System.out.println(""+c);
+                System.out.println("CLIQUE");
+                System.out.println("voici les coord"+c);
             }
         });
     }
