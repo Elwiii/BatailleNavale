@@ -72,6 +72,10 @@ public class Ship implements Serializable{
     protected Ship(){
         
     };
+    
+    public TypeShip getType(){
+        return type;
+    }
 
     public List<Etat> getEtats() {
         return etats;
@@ -88,7 +92,7 @@ public class Ship implements Serializable{
      */
     public boolean estAporteeDeTir(Coordinate coordonnee) {
         for (Etat e : this.etats) {
-            if ((Math.abs(e.c.x - coordonnee.x) < puissance) && (Math.abs(e.c.y - coordonnee.y) < puissance)) {
+            if ((Math.abs(e.c.x - coordonnee.x) <= puissance) && (Math.abs(e.c.y - coordonnee.y) <= puissance)) {
                 return true;
             }
         }
@@ -256,4 +260,10 @@ public class Ship implements Serializable{
 //    public void setNez(Coordinate nez) {
 //        this.nez = nez;
 //    }
+    @Override
+    public String toString() {
+        return "" + type;
+    }
+    
+    
 }

@@ -30,7 +30,7 @@ public class JButtonFire extends JButton implements Observer{
             @Override
             public void actionPerformed(ActionEvent ae) {
                 System.out.println(""+c);
-                System.out.println("lolilol");
+                System.out.println(""+model.getJ1().getFlotte().getVaisseaux().get(0));
             }
         });
     }
