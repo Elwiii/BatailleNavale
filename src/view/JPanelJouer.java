@@ -99,6 +99,7 @@ public class JPanelJouer extends JPanel implements Observer {
                 System.out.println("x : "+e.getC().x);
                 System.out.println("y : "+e.getC().y);
                 int pos = e.getC().y+ model.getLargeurGrille() * e.getC().x;
+                System.out.println("ICI");
                 System.out.println("pos : "+pos);
                 grilleFlotte.remove(pos);
                 grilleFlotte.add(b,pos);
