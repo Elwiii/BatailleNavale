@@ -130,38 +130,38 @@ public class JPanelJouer extends JPanel implements Observer {
         center.add(grilleFlotte);
         add(center, BorderLayout.CENTER);
         
-//        Ship[] tabShip = new Ship[model.getJ1().getFlotte().getVaisseaux().size()];
-//        int i = 0;
-//        for(Ship s : model.getJ1().getFlotte().getVaisseaux()){
-//            tabShip[i]=s;
-//            i++;
-//        }
-//        final JList list = new JList(tabShip); //data has type Object[]
-//        list.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
-//        list.setLayoutOrientation(JList.HORIZONTAL_WRAP);
-//        list.setVisibleRowCount(-1);
-//        JScrollPane listScroller = new JScrollPane(list);
-//        listScroller.setPreferredSize(new Dimension(250, 80));
-//              list.addListSelectionListener(new ListSelectionListener() {
-//
-//            @Override
-//            public void valueChanged(ListSelectionEvent e) {
-//                System.out.println("BATEAU CHOISI!");
-//                selectedShip = (Ship) list.getSelectedValue();
-//                state = SHIP_SELECTED;
-//                System.out.println("clique flotte ");
-//                for(JButtonFire jbf : listTir){
-//                if(selectedShip.estAporteeDeTir(jbf.getC())){
-//                    jbf.setEnabled(true);
-//                }
-//                else
-//                    jbf.setEnabled(false);
-//
-//            }
-//            }
-//        });
-//        
-//        add(list,BorderLayout.EAST);
+        Ship[] tabShip = new Ship[model.getJ1().getFlotte().getVaisseaux().size()];
+        int i = 0;
+        for(Ship s : model.getJ1().getFlotte().getVaisseaux()){
+            tabShip[i]=s;
+            i++;
+        }
+        final JList list = new JList(tabShip); //data has type Object[]
+        list.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+        list.setLayoutOrientation(JList.HORIZONTAL_WRAP);
+        list.setVisibleRowCount(-1);
+        JScrollPane listScroller = new JScrollPane(list);
+        listScroller.setPreferredSize(new Dimension(250, 80));
+              list.addListSelectionListener(new ListSelectionListener() {
+
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                System.out.println("BATEAU CHOISI!");
+                selectedShip = (Ship) list.getSelectedValue();
+                state = SHIP_SELECTED;
+                System.out.println("clique flotte ");
+                for(JButtonFire jbf : listTir){
+                if(selectedShip.estAporteeDeTir(jbf.getC())){
+                    jbf.setEnabled(true);
+                }
+                else
+                    jbf.setEnabled(false);
+
+            }
+            }
+        });
+        
+        add(list,BorderLayout.EAST);
         
         updateGrilleEnnemi();
         updateGrilleFlotte();
@@ -172,19 +172,19 @@ public class JPanelJouer extends JPanel implements Observer {
     }
     
     private void updateGrilleEnnemi(){
-        System.out.println("UPDATE GRILLE ENNEMI");
-        for(JButtonFire jbf : listTir){
-            for(Ship s : model.getJ1().getFlotte().getVaisseaux())
-            {
-                if(s.estAporteeDeTir(jbf.getC())){
-                    jbf.setEnabled(true);
-                    System.out.println("OUI");
-                }
-                else{
-                    jbf.setEnabled(false);
-                }
-            }
-        }
+//        System.out.println("UPDATE GRILLE ENNEMI");
+//        for(JButtonFire jbf : listTir){
+//            for(Ship s : model.getJ1().getFlotte().getVaisseaux())
+//            {
+//                if(s.estAporteeDeTir(jbf.getC())){
+//                    jbf.setEnabled(true);
+//                    System.out.println("OUI");
+//                }
+//                else{
+//                    jbf.setEnabled(false);
+//                }
+//            }
+//        }
     }
     
     private void updateGrilleFlotte(){
