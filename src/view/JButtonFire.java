@@ -34,6 +34,7 @@ public class JButtonFire extends JButton implements Observer{
                 System.out.println(""+c);
                 //System.out.println(""+model.getJ1().getFlotte().getVaisseaux().get(0));
                 model.update();
+                model.
             }
         });
     }
