@@ -62,12 +62,20 @@ public class DaoFileGame extends DaoFile<Game> implements DaoGame{
         File dossier = new File ("Game/");//Repertoire des fichiers
         File[] listFile = dossier.listFiles();//Liste de tous les fichiers contenus dans le repertoire
         ArrayList<Game> listGame = new ArrayList<>();//liste de Game à retourner
-        String nom;//utilisé pour le nom du fichier
+        String nom = "";//utilisé pour le nom du fichier
+        String nom_modif="";
+        String carAsup=".ser";
         
         for(File f : listFile){
             nom = f.getName();
-            listGame.add(find(nom));
+            nom_modif = nom.replaceAll(carAsup,"");
+            
+            listGame.add(find(nom_modif));
+
+            
         }
+        System.out.println("taille liste  = "+listGame.size());
+
         return listGame;
     }
     
