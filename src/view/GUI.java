@@ -20,17 +20,32 @@ import persistance.DaoFactoryException;
  * @author nikolai
  */
 public class GUI extends JFrame {
+    
+    private static GUI instance = null;
+    
+    public static GUI getInstance(){
+        if(instance == null){
+            try {
+                instance = new GUI();
+            } catch (DaoFactoryException ex) {
+                Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return instance;
+    }
 
     private final JPanelWizard cards;
 //    private final BatailleNavaleAdapter model_adapter;
     private final BatailleNavale model;
 
-    public GUI() throws DaoFactoryException {
+    private GUI() throws DaoFactoryException {
         super("bataille navale");
 //        model_adapter = new BatailleNavaleAdapter();
 
         model = new BatailleNavale();
 
+        
+        
         //Create the panel that contains the "cards".
         cards = new JPanelWizard(model);
 
@@ -45,10 +60,6 @@ public class GUI extends JFrame {
     }
 
     public static void main(String[] args) {
-        try {
-            new GUI();
-        } catch (DaoFactoryException ex) {
-            Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
-        }
+            GUI.getInstance();
     }
 }

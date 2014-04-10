@@ -32,8 +32,8 @@ public class JPanelWizard extends JPanel implements Observer{
         add(new JPanelAcceuil(model,this),JPanelAcceuil.id);
         add(new JPanelCreer(model,this),JPanelCreer.id);
         add(jpanelJouer,JPanelJouer.id);
-        add(new JPanelParties(model),JPanelParties.id);
-        add(new JPanelScore(model),JPanelScore.id);
+        add(new JPanelParties(model,this),JPanelParties.id);
+        add(new JPanelScore(model,this),JPanelScore.id);
         add(jpanelPlacement,JPanelPlacement.id);
         
         show(JPanelAcceuil.id);

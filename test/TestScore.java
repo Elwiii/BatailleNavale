@@ -45,9 +45,15 @@ public class TestScore {
     // TODO add test methods here.
      @Test
      public void hello() {
-         score.udpate("coucou", 5);
+         score.udpate("omg", 666);
+         for (int i = 0; i < 100; i++) {
+             score.udpate("test"+i, i);
+             
+         }
+         score.udpate("lol", 1000);
+         
          score.save();
-         System.out.println(""+score.getScoreOf("coucou"));
+         System.out.println(""+score.getScoreOf("test1"));
      }
      
      @Test

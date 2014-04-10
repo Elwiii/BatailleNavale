@@ -6,11 +6,14 @@
 
 package view;
 
+import java.awt.BorderLayout;
 import java.util.Observable;
 import java.util.Observer;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import model.BatailleNavale;
+import persistance.ScoreManager;
 
 /**
  * @author nikolai
@@ -19,15 +22,25 @@ public class JPanelScore extends JPanel implements Observer{
 
     public static final String id = "jpanelscore";
     
-    public JPanelScore(final BatailleNavale model){
-        super();
+    private JTable table;
+    
+    public JPanelScore(final BatailleNavale model,final JPanelWizard wizard){
+        super(new BorderLayout());
         model.addObserver(this);
-        add(new JLabel(id));
+        table = new JTable(ScoreManager.getInstance());
+        table.setFillsViewportHeight(true);
+        table.setAutoCreateRowSorter(true);
+        JScrollPane scrollPane = new JScrollPane(table);
         
+
+        add(scrollPane,BorderLayout.CENTER);
+        add(new JButtonBackToAcceuil(wizard),BorderLayout.SOUTH);
     }
     
     @Override
     public void update(Observable o, Object o1) {
+        //@todo reparation de fortune => faire moins moche, attaché un listener à la table ou un truc dans le genre
+        table = new JTable(ScoreManager.getInstance());
     }
     
 }
