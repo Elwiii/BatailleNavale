@@ -30,10 +30,10 @@ public class JPanelParties extends JPanel implements Observer {
 
     private JList list;
 
-    public JPanelParties(final BatailleNavale model, JPanelWizard wizard) {
+    public JPanelParties(final BatailleNavale model, final JPanelWizard wizard) {
         super(new BorderLayout());
         model.addObserver(this);
-        
+
         add(new JLabel(id));
         list = new JList(model.getAdf().getInstanceDaoGame().find().toArray());
 //        list.setSelectedIndex(0);
@@ -50,13 +50,24 @@ public class JPanelParties extends JPanel implements Observer {
                 System.out.println("game : " + game);
                 int n = JOptionPane.showConfirmDialog(
                         GUI.getInstance(),
-                        "Would you like green eggs and ham?",
-                        "An Inane Question",
+                        "Voulez vous charger cette partie ?",
+                        "",
                         JOptionPane.YES_NO_OPTION);
+                switch (n) {
+                    case 0:
+                        model.load(game);
+                        wizard.getJpanelJouer().initialize();
+                        wizard.show(JPanelJouer.id);
+                        break;
+                    case 1:
+                        break;
+                    default:
+                    //todo exception
+                }
             }
         });
         add(listScroller, BorderLayout.CENTER);
-        add(new JButtonBackToAcceuil(wizard),BorderLayout.SOUTH);
+        add(new JButtonBackToAcceuil(wizard), BorderLayout.SOUTH);
     }
 
     @Override

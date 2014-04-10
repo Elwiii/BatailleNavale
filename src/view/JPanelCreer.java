@@ -5,13 +5,14 @@
  */
 package view;
 
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Observable;
 import java.util.Observer;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import model.BatailleNavale;
@@ -38,11 +39,13 @@ public class JPanelCreer extends JPanel implements Observer {
     private Difficulty diff;
 
     public JPanelCreer(final BatailleNavale model, final JPanelWizard wizard) {
-        super();
+        super(new BorderLayout());
+        JPanel panelOption = new JPanel();
+        JPanel south = new JPanel(new GridLayout(1,2));
         model.addObserver(this);
-        add(new JLabel(id));
+//        add(new JLabel(id));
         nom = new JTextField("nom");
-        add(nom);
+        panelOption.add(nom);
 //        nom.addActionListener(new ActionListener() {
 //
 //            @Override
@@ -50,7 +53,7 @@ public class JPanelCreer extends JPanel implements Observer {
 //                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
 //            }
 //        });
-        add(new JButtonBackToAcceuil(wizard));
+        south.add(new JButtonBackToAcceuil(wizard),BorderLayout.SOUTH);
         epoque = new JComboBox(Epoque.values());
         epoque.addActionListener(new ActionListener() {
 
@@ -91,10 +94,10 @@ public class JPanelCreer extends JPanel implements Observer {
             }
         });
         largeur.setSelectedIndex(0);
-        add(epoque);
-        add(longueur);
-        add(largeur);
-        add(difficulty);
+        panelOption.add(epoque);
+        panelOption.add(longueur);
+        panelOption.add(largeur);
+        panelOption.add(difficulty);
 
         JButton valider = new JButton("valider");
         valider.addActionListener(new ActionListener() {
@@ -113,8 +116,9 @@ public class JPanelCreer extends JPanel implements Observer {
                 System.out.println("model : "+model.getPseudoHumun());
             }
         });
-        add(valider);
-
+        south.add(valider);
+        add(panelOption,BorderLayout.CENTER);
+        add(south,BorderLayout.SOUTH);
     }
 
     @Override

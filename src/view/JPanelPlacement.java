@@ -322,7 +322,7 @@ public class JPanelPlacement extends JPanel implements Observer {
         east = new JPanel();
         model.addObserver(this);
         add(new JLabel(id));
-        JPanel south = new JPanel();
+        JPanel south = new JPanel(new GridLayout(1,2));
         JButton backToCreer = new JButton("retour");
         backToCreer.addActionListener(new ActionListener() {
 

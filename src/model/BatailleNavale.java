@@ -152,11 +152,22 @@ public class BatailleNavale {
 
     /**
      *
-     * @param id
+     * @param game
      */
-    public void load(String id) {
-        //@todo Nicolas (load)
-
+    public void load(Game game) {
+        j1 = game.j1;
+        j2 = game.j2;
+        state = game.state;
+        id = game.id;
+        score = game.score;
+    }
+    
+    /**
+     * 
+     * @param idGame 
+     */
+    public void load(String idGame){
+        load((Game)adf.getInstanceDaoGame().find(idGame));
     }
 
     /**

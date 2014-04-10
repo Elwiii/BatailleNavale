@@ -14,11 +14,11 @@ import model.player.Player;
  * @author Nikolai
  */
 public class Game implements Serializable{
-    private final String id;
-    private final Player j1;
-    private final Player j2;
-    private int score;
-    private State state; 
+    final String id;
+    final Player j1;
+    final Player j2;
+    final int score;
+    final State state; 
     
     public Game(BatailleNavale bn){
         this.id = bn.getId();
@@ -34,7 +34,7 @@ public class Game implements Serializable{
 
     @Override
     public String toString() {
-        return "Game{" + "id=" + id + ", j1=" + j1 + ", j2=" + j2 + ", score=" + score + ", state=" + state + '}';
+        return "Game{" + "id=" + id + ", j1=" + j1.getNom() + ", j2=" + j2.getNom() + ", score=" + score + ", state=" + state + '}';
     }
     
 
