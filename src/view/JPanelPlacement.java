@@ -390,6 +390,7 @@ public class JPanelPlacement extends JPanel implements Observer {
 
     @Override
     public void update(Observable o, Object o1) {
+        System.out.println("UPDATE JPANELPLACEMENT");
 
     }
 }

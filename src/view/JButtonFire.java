@@ -20,23 +20,43 @@ import model.Coordinate;
  */
 public class JButtonFire extends JButton implements Observer{
     private final Coordinate c;
+    private final BatailleNavale model;
     
     public JButtonFire(final BatailleNavale model,final Coordinate c){
-        super("X");
+        super("?");
         this.c  = c;
+        this.model=model;
         model.addObserver(this);
         addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent ae) {
                 System.out.println(""+c);
-                System.out.println(""+model.getJ1().getFlotte().getVaisseaux().get(0));
+                //System.out.println(""+model.getJ1().getFlotte().getVaisseaux().get(0));
+                model.update();
             }
         });
+    }
+    
+    public Coordinate getC(){
+        return c;
     }
 
     @Override
     public void update(Observable o, Object o1) {
+        System.out.println("UPDATE JBUTTONFIRE");
+        int state = model.getJ2().getMap().getState(c);
+        if(state ==0){
+            this.setText("?");
+        }
+        else if(state == 1){
+            this.setText("X");
+            this.setEnabled(false);
+        }
+        else if(state == 2){
+            this.setText("");    
+            this.setEnabled(false);
+        }
     }
     
 }
