@@ -15,6 +15,7 @@ import model.ship.ShipFactory;
 import model.ship.TypeShip;
 import persistance.AbstractDaoFactory;
 import persistance.DaoFactoryException;
+import persistance.ScoreManager;
 import persistance.TypePersistance;
 
 /**
@@ -37,7 +38,7 @@ public class BatailleNavale {
     private String pseudoHumun;
     private int largeurGrille;
     private int hauteurGrille;
-
+    private ScoreManager scoreManager;
     private BatailleNavaleAdapter bna;
 
     public BatailleNavale() throws DaoFactoryException {
@@ -53,6 +54,7 @@ public class BatailleNavale {
     }
 
     public void constructPlayers() {
+        
         j1 = new Human(pseudoHumun, 0, 0); //@todo Nicolas
         j1.constructFlotte();
         j1.constructMap(hauteurGrille, largeurGrille);
@@ -86,9 +88,11 @@ public class BatailleNavale {
             switch (state) {
                 case JOUEUR1:
                     state = State.WINJ1;
+                    scoreManager.udpate(j1.getNom(), score);
                     break;
                 case JOUEUR2:
                     state = State.WINJ2;
+                    scoreManager.udpate(j2.getNom(), score);
                     break;
                 default:
                     throw new Exception("error");

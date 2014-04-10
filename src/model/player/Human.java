@@ -8,7 +8,6 @@ package model.player;
 import java.io.Serializable;
 import model.Flotte;
 import model.OrdreTir;
-import model.VisionBattlefield;
 
 /**
  *

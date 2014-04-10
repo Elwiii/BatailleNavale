@@ -11,8 +11,8 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 import persistance.DaoFactoryException;
+import persistance.ScoreManager;
 
 /**
  *
@@ -58,12 +58,13 @@ public class TestDao {
     
     @Test
     public void test2(){
-        System.out.println("game6 = "+bn.getAdf().getInstanceDaoGame().find("game6"));
-        assert(bn.getAdf().getInstanceDaoGame().find("game6")!=null);
+        System.out.println("game1 = "+bn.getAdf().getInstanceDaoGame().find("game6"));
+        assert(bn.getAdf().getInstanceDaoGame().find("game1")!=null);
     }
     
     @Test
     public void test3(){
-        System.out.println(""+bn.getAdf().getInstanceDaoGame().find());
+        System.out.println("test 3 :"+bn.getAdf().getInstanceDaoGame().find());
+        System.out.println(ScoreManager.getInstance().getScoreOf("coucou"));
     }
 }

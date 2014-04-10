@@ -19,7 +19,9 @@ import model.VisionBattlefield;
  */
 public class RandomBot extends Bot implements Serializable{
     
-    
+    public RandomBot(){
+        this.nom = "randomBot";
+    }
 
     @Override
     public int autoFire(VisionBattlefield bf, Flotte target) {

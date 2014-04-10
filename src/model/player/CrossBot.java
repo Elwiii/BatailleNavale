@@ -15,7 +15,12 @@ import model.VisionBattlefield;
  * @author Nikolai
  */
 public class CrossBot extends Bot implements Serializable{
+    
 
+    public CrossBot(){
+        this.nom = "crossBot";
+    }
+    
     @Override
     public int autoFire(VisionBattlefield bf, Flotte target) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
