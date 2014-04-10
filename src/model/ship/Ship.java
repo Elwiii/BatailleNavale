@@ -92,8 +92,10 @@ public class Ship implements Serializable{
      */
     public boolean estAporteeDeTir(Coordinate coordonnee) {
         for (Etat e : this.etats) {
-            if ((Math.abs(e.c.x - coordonnee.x) <= puissance) && (Math.abs(e.c.y - coordonnee.y) <= puissance)) {
-                return true;
+            if(e.getEtat()== 0){
+                if ((Math.abs(e.c.x - coordonnee.x) <= puissance) && (Math.abs(e.c.y - coordonnee.y) <= puissance)) {
+                    return true;
+                }
             }
         }
         return false;

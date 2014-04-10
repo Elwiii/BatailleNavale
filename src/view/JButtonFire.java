@@ -47,15 +47,16 @@ public class JButtonFire extends JButton implements Observer{
         System.out.println("UPDATE JBUTTONFIRE");
         int state = model.getJ2().getMap().getState(c);
         if(state ==0){
-            this.setText("?");
+            this.setText("?"); // ? pour dire "pas encore attaqué"
         }
+        /* Cas d'une case touchée */
         else if(state == 1){
-            this.setText("X");
-            this.setEnabled(false);
+            this.setText("X"); // Croix pour dire "touché"
+            this.setEnabled(false); //Desactivation pour ne pas tirer au même endroit
         }
         else if(state == 2){
-            this.setText("");    
-            this.setEnabled(false);
+            this.setText(""); // " " pour dire "raté"  
+            this.setEnabled(false); //Desactivation pour ne pas tirer au même endroit
         }
     }
     

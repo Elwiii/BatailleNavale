@@ -88,7 +88,7 @@ public class Flotte implements Serializable{
      * @return
      */
     private Ship getShipHit(Coordinate coordinate) {
-        //Attention : changement de la classe Etat en public pou acceder au coordonnées
+        //Attention : changement de la classe Etat en public pour acceder au coordonnées
         for(Ship s : this.vaisseaux){
             for(Etat e : s.getEtats()){
                 if (e.getC().equals(coordinate))
