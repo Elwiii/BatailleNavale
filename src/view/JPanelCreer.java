@@ -106,7 +106,7 @@ public class JPanelCreer extends JPanel implements Observer {
                 model.setPseudoHumun(nom.getText());
                 model.setLongeurGrille(lon);
                 model.setLargeurGrille(lar);
-                model.construct();
+                model.constructPlayers();
                 wizard.getJpanelPlacement().constuctGrille(lon, lar);
                 wizard.getJpanelPlacement().constructList(epo);
                 wizard.show(JPanelPlacement.id);

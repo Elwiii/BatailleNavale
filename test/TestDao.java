@@ -37,23 +37,33 @@ public class TestDao {
     @Before
     public void setUp() throws DaoFactoryException {
         bn = new BatailleNavale();
+        bn.setDifficulty(Difficulty.CROSSBOT);
+        bn.setPseudoHumun("testDao");
+        bn.setLongeurGrille(5);
+        bn.setLargeurGrille(5);
+        bn.constructPlayers();
+        bn.newGame();
     }
 
     @After
     public void tearDown() {
     }
 
-    // TODO add test methods here.
-    // The methods must be annotated with annotation @Test. For example:
-    //
     @Test
     public void test1() {
-        bn.setDifficulty(Difficulty.CROSSBOT);
-        bn.setPseudoHumun("testDao");
-        bn.setLongeurGrille(5);
-        bn.setLargeurGrille(5);
-        bn.construct();
+        
         bn.save();
 
+    }
+    
+    @Test
+    public void test2(){
+        System.out.println("game6 = "+bn.getAdf().getInstanceDaoGame().find("game6"));
+        assert(bn.getAdf().getInstanceDaoGame().find("game6")!=null);
+    }
+    
+    @Test
+    public void test3(){
+        System.out.println(""+bn.getAdf().getInstanceDaoGame().find());
     }
 }

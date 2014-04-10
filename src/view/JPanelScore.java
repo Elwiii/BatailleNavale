@@ -13,7 +13,6 @@ import javax.swing.JPanel;
 import model.BatailleNavale;
 
 /**
- *  @todo Rym
  * @author nikolai
  */
 public class JPanelScore extends JPanel implements Observer{
