@@ -13,7 +13,7 @@ import javax.swing.JPanel;
 import model.BatailleNavale;
 
 /**
- * @todo Rym
+ * @todo Nicolas
  * @author nikolai
  */
 public class JPanelParties extends JPanel implements Observer{

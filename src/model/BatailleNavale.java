@@ -151,7 +151,7 @@ public class BatailleNavale {
      * @param id
      */
     public void load(String id) {
-        //@todo Rym (load)
+        //@todo Nicolas (load)
 
     }
 
