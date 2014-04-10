@@ -17,7 +17,6 @@ import persistance.AbstractDaoFactory;
 import persistance.DaoFactoryException;
 import persistance.TypePersistance;
 
-
 /**
  * @author nikolai
  */
@@ -28,8 +27,8 @@ public class BatailleNavale {
     private State state;
     private Player j1;
     private Player j2; // le bot par defaut
-    private Player currentPlayer ;
-    private Player otherPlayer ;
+    private Player currentPlayer;
+    private Player otherPlayer;
     private ShipFactory shipFactory;
     private AbstractDaoFactory adf;
     private BatailleNavaleAdapter adapter;
@@ -42,51 +41,43 @@ public class BatailleNavale {
     private BatailleNavaleAdapter bna;
 
     public BatailleNavale() throws DaoFactoryException {
-        initialisation();
+        bna = new BatailleNavaleAdapter();
+        shipFactory = ShipFactory.getInstance();
+        adf = AbstractDaoFactory.getAbstractDaoFactory(TypePersistance.FILE);
         
     }
     
-    public void construct(){
-        j1 =  new Human(pseudoHumun, 0, 0); //@todo Nicolas
+    public void newGame(){
+        id = "game"+adf.getInstanceDaoGame().find().size();
+        state = State.JOUEUR1;
+    }
+
+    public void constructPlayers() {
+        j1 = new Human(pseudoHumun, 0, 0); //@todo Nicolas
         j1.constructFlotte();
-        j1.constructMap(hauteurGrille,largeurGrille);
+        j1.constructMap(hauteurGrille, largeurGrille);
         // faudrait faire une factory pour les bots ça serait plus propre
-        switch(difficulty){
-            case CROSSBOT :
+        switch (difficulty) {
+            case CROSSBOT:
                 j2 = new CrossBot();
                 j2.constructFlotte();
-                j2.constructMap(hauteurGrille,largeurGrille);
+                j2.constructMap(hauteurGrille, largeurGrille);
                 break;
-            case RANDOMBOT :
+            case RANDOMBOT:
                 j2 = new RandomBot();
                 j2.constructFlotte();
-                j2.constructMap(hauteurGrille,largeurGrille);
+                j2.constructMap(hauteurGrille, largeurGrille);
         }
         currentPlayer = j1;
         otherPlayer = j2;
         update();
     }
 
-    
-    private void initialisation() throws DaoFactoryException{
-        id = "idDeTest";// @todo
-        bna = new BatailleNavaleAdapter();
-        shipFactory = ShipFactory.getInstance();
-        adf = AbstractDaoFactory.getAbstractDaoFactory(TypePersistance.FILE);
-    }
-    
-    public void addObserver(Observer o) {
-        bna.addObserver(o);
-    }
-
-    public void update() {
-        bna.update();
-    }
 
     /**
      *
      * @param order
-     * @return 
+     * @return
      * @throws java.lang.Exception
      */
     public int fire(OrdreTir order) throws Exception {
@@ -102,7 +93,7 @@ public class BatailleNavale {
                 default:
                     throw new Exception("error");
             }
-        }else{
+        } else {
             // on met à jour la vison du battlefield qu'a le joueur courant
             currentPlayer.getMap().setState(order.getCoordinate(), res);
         }
@@ -151,6 +142,7 @@ public class BatailleNavale {
      */
     public void save() {
         save = new Game(this);
+        System.out.println("save : "+save);
         adf.getInstanceDaoGame().persiste(save);
     }
 
@@ -181,6 +173,15 @@ public class BatailleNavale {
      */
     public void addShip(TypeShip typeShip, Coordinate queue, Coordinate nez) throws Exception {
         currentPlayer.addShip(shipFactory.buildShip(typeShip, queue, nez));
+    }
+    
+    
+    public void addObserver(Observer o) {
+        bna.addObserver(o);
+    }
+
+    public void update() {
+        bna.update();
     }
 
     //---------------------------------getteur/setteurs ------------------------------------------

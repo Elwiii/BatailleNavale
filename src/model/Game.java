@@ -31,4 +31,11 @@ public class Game implements Serializable{
     public String getId() {
         return id;
     }
+
+    @Override
+    public String toString() {
+        return "Game{" + "id=" + id + ", j1=" + j1 + ", j2=" + j2 + ", score=" + score + ", state=" + state + '}';
+    }
+    
+
 }
