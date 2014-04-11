@@ -1,0 +1,303 @@
+
+
+<html><head>
+        <style type="text/css">
+            h1 {
+                font-size : 16px;
+                text-align : center;
+            }
+            h2 {
+                font-size : 14px;
+                text-decoration : underline;
+                margin-left : 5px;
+                color : blue;
+            }
+            h3 {
+                font-size : 12px;
+                text-decoration : underline;
+                margin-left : 10px;
+                color : green;
+            }
+            h4 {
+                font-size : 11px;
+                margin-left : 5px;
+            }
+            p {
+                font-size : 10px;
+                margin-left : 15px;
+                margin-right : 15px;
+                margin-bottom : 15px;
+            }
+            span.ref {
+                font-style : italic;
+                font-weight : bold;
+            }
+        </style>
+    </head>
+
+    <body> Rapport pour le conception de l'application Bataille navale
+
+
+        <br>
+        <!--<p><img src="1.jpg" border="0" align="center" WIDTH="50%"/></p>-->
+
+        <h2> Sommaire </h2>
+        <p>  . Préambule
+            <br>0. Introduction
+            <br>1. Installation
+            <br>2. Utilisation
+            <br>3. Am�lioration
+            <br>4. Conclusion</p>
+
+        <h2> Préambule</h2>
+
+        <p>Il faut tout d'abord se rendre compte qu'il y a deux types d'utilisateurs de cette application.
+            <br>L'utilisateur syst�me : celui qui configure l'application. La premi�re partie (installation) lui est destin�e.
+            <br>L'utilisateur naif : celui qui utilise l'application configur�e. La deuxi�me partie (utilisation) lui est destin�e</p>
+        <h2> 0. Introduction </h2>
+
+        <p> Cette application, une fois configur�e, permet de lancer de mani�re graphique une ligne de commande.
+            L'avantage de cette application, est qu'elle est enti�rement configurable pour �tre sp�cifique � une seule commande.<br>
+            Ainsi, si bien param�tr�e, l'application permet � un utilisateur non initi� � l'environnement de programmation de lancer des commandes compliqu�es.<br>
+            Elle permet aussi d'editer de mani�re simple des fichiers.
+
+        </p>
+
+
+
+        <h2> 1. Installation : </h2>
+
+        <h3> Pr� requis : </h3>
+
+        <p> Avant toutes choses, faites une copie du fichier IGG.jar original. Lors de la configuration du logiciel, vous devrez modifier ce fichier, en cas de probl�me, r�cup�rez la copie du fichier original pour recommencer. </p>
+
+        <h3> a. Environnement et java : </h3>
+
+        <p>       
+
+            Vous devez poss�der la version 1.7 de java ou versions ult�rieures , 
+            vous pouvez le t�l�charger � cette adresse : <a href="http://java.com/fr/download/index.jsp"> t�l�charger java </a>
+
+        </p>
+        <p>
+            Du fait de la portabilit� Java, le logiciel fonctionne sous les syst�mes d'exploitation de type Window Linux et MacOS.
+
+        </p>
+
+        <h3> b. G�n�ricit� : </h3>
+
+        <p>       
+
+            Avant de pouvoir utiliser le logiciel selon vos besoins ou ceux de l'utilisateur naif, il va falloir le configurer.Pour cela
+            ouvrez l'archive .jar et ouvrez le fichier IGG/Data/config.txt <br>
+
+            Ce fichier est en deux parties. La partie adaptation graphique et la partie adaptation interne. <br>
+
+            Voici le fichier original : <br>
+
+        <div style="margin:20px; margin-top:5px"><div class="quotetitle"> 
+                <input type="button" value="config.txt" style="width:45px;font-size:10px;margin:0px;padding:0px;" onclick="if (this.parentNode.parentNode.getElementsByTagName('div')[1].getElementsByTagName('div')[0].style.display != '') {
+                            this.parentNode.parentNode.getElementsByTagName('div')[1].getElementsByTagName('div')[0].style.display = '';
+                            this.innerText = '';
+                            this.value = 'Cacher';
+                        } else {
+                            this.parentNode.parentNode.getElementsByTagName('div')[1].getElementsByTagName('div')[0].style.display = 'none';
+                            this.innerText = '';
+                            this.value = 'Afficher';
+                        }" /></div>
+            <div class="quotecontent"><div style="display: none;"><p>
+                        /************** Adaptation graphique ***************/<br>
+                        /<br>
+                        /<br>
+                        /* titre de l'application */<br>
+                        titre="titre="exemple interpreteur java sur linux"<br>
+                        /<br>
+                        /<br>
+                        /* titre de la fenetre readme */<br>
+                        readmetitre="README#"<br>
+                        /<br>
+                        /<br>
+                        /* le titre des nouveaux onglets */<br>
+                        nouveauFichier="new#"<br>
+                        /<br>
+                        /<br>
+                        /* nom des panneaux  */<br>
+                        commande="commande#"<br>
+                        information="information#"<br>
+                        fichiers="fichiers#"<br>
+                        sortie="sortie#"<br>
+                        parametres="parametre1#","parametre2#","parametre3#"<br>
+                        /<br>
+                        /<br>
+                        /* nom des bouttons et de leur bulle d'aide */<br>
+                        enregistrer="enregistrer#"<br>
+                        enregistrerSous="enregistrer sous#"<br>
+                        ouvrir="ouvrir#"<br>
+                        fermer="fermer l'onglet courant#"<br>
+                        readme="readme#"<br>
+                        nouveau="nouveau#"<br>
+                        choix="choisir un param�tre#"<br>
+                        generer="generer#"<br>
+                        /<br>
+                        /<br>
+                        /************** Adapation interne ******************/<br>
+                        /<br>
+                        /<br>
+                        /* Commande ou path et commande.Pas d'option ou param�tre autoris� */<br>
+                        /* Reportez vous aux param�tres suscit� si vous voulez proposer des options/param�tres */<br>
+                        /* Vous avez aussi la possibilit� de choisir l'interpreteur via les param�tres (le 1er param�tre) et de laisser interpreteur="" */<br>
+                        interpreteur="/usr/bin/java"<br></p>
+                </div></div></div>
+
+
+
+        <p><h4>Adaptation graphique : </h4></p>
+
+    <p>
+
+    <p>
+        Elle concerne tout ce qui concerne le visuel du logiciel. Dans cette partie vous y changer le nom des boutons (si vous decidez de ne pas mettre d'image) , 
+        le nom des diff�rents panneaux , le nombre de param�tres/option etc.
+        Cette image permet d'identifier les lignes du fichier config.txt � changer pour modifi� son �lement graphique correspondant </p>
+    <p>
+        <img src="2.png" border="0" align="center" WIDTH="75%"/>
+    </p>
+    <p>Legende de l'image : 
+        <br><br> 1 : changement de titre :  titre="titre#"
+        <br> 2 : titre de la fenetre readme :  titre="README#"
+        <br> 3 : le titre des nouveaux onglets :  nouveauFichier="new#"
+        <br> 4 : panneau commande :  commande="commande#"
+        <br> 5 : panneau information :  information="information#"
+        <br> 6 : panneau fichier :  fichiers="fichiers#"
+        <br> 7 : panneau sortie  :  sortie="sortie#"
+        <br> 8 : panneau parametres :  parametres="parametre1#","parametre2#","parametre3#"
+        <br> 9 : label bouton enregistrer :  enregistrer="enregistrer#"
+        <br> 10 : label bouton enregistrer sous :  enregistrerSous="enregistrer sous#"
+        <br> 11 : label bouton ouvrir : ouvrir="ouvrir#"
+        <br> 12 : label bouton fermer onglet courant : fermer="fermer l'onglet courant#"
+        <br> 13 : label bouton readme : readme="readme#"
+        <br> 14 : label bouton nouveau fichier : nouveau="nouveau#"
+        <br> 15 : label bouton explorer pour param�tre : choix="choisir un param�tre#"
+        <br> 16 : label bouton generer : generer="generer#"
+
+    </p>
+
+    <p>A noter que pour changer un �l�ment il vous suffit de remplacer la chaine de caract�re entre les doubles quotes. Vous pouvez aussi laisser un champs vide.
+        Par exemple pour l'emplacement 3 on a nouveau="new#" , vous pouvez �crire nouveau="new" ou encore nouveau="" .</p>
+
+    <p> NOTE sur le fichier config.txt : <br><br>
+        Les lignes commen�ant par un "/" sont des lignes de commentaires. <br>
+        La derni�re ligne ne doit pas se finir sur un saut de ligne.<br>
+        L'ordre des instanciations n'a aucune importance. <br>
+        D'autre part si vous supprimez la ligne, une valeur par default sera utilis�e : <br><br>
+        information = "information"<br>
+        commande = "commande"<br>
+        fichiers = "fichiers"<br>
+        sortie = "sortie"<br>
+        generer = "Generer"<br>
+        parametres = "executable","fichier1","fichier2","fichier3","DossierOut"<br>
+        titre = "AppliOcaml"<br>
+        nouveauFichier = "new"<br>
+        enregistrer = "save"<br>
+        enregistrerSous = "save as"<br>
+        nouveau ="nouveau"<br>
+        readme = "readme"<br>
+        ouvrir ="ouvrir"<br>
+        fermer = "fermer l'onglet courant"<br>
+        choix = "choisir"<br>
+        readmetitre = "README"<br>
+        interpreteur = ""<br><br>
+        Pour rajouter plus de param�tre � la commande , il faut rajouter des champs � la ligne parametres="parametre1#","parametre2#","parametre3#" et � l'inverse pour en supprimer il vous suffit de supprimer un champs. Vous devez avoir au moins un param�tre.<br>
+    </p>
+
+
+</p>  
+
+<p><h4>Adaptation interne : </h4></p>
+
+<p>Pour le moment elle ne concerne que l'interpreteur utilis�. Cette valeur doit �tre en un seul mot par exemple "ocaml" ou encore "/usr/bin/java".<br>
+    Vous pouvez aussi choisir de ne pas sp�cifier l'interpr�teur et laisser � l'utilisateur la libert� de la choisir via les param�tres.
+    Pour cela �crivez interpreteur="". <br>
+    Dans une version ult�rieur j'essayerai de faire en sorte que l'on puisse directement mettre les options dans l'interpreteur, par exemple  interpreteur="java -jar" car pour le moment
+    la seule solution est de proposer de rajouter des options dans les param�tres.</p>
+
+
+<p>D'autres adaptation sont possibles : </p>
+
+<p><h4>Images  : </h4></p>
+
+<p> Tout les images des boutons sont configurables. Pour cela il vous suffit de remplace les fichiers se trouvant dans IGG/Data/icon en gardant les m�mes noms et extensions.
+    L'image choose.png est de taille 32x32, les autres sont en 48x48. Cependant il n'est pas obligatoire de garder ces dimensions. <br>
+    L'image �cran suivante fait correspondre les icons et leur nom de fichier. <br><br>
+    <img src="3.jpg" border="0" align="center" WIDTH="50%"/><br><br>
+
+    A not� qu'il vous est possible de ne pas mettre d'image sur un bouton. Pour ce faire , supprimer son fichier correspondant (ou renommez le).A la place de l'image , vous verrez apparaitre une string (cf config.txt pour d�finir cette string)
+<p><h4>Readme : </h4></p>
+
+<p>Le fichier README du logiciel (pas celui que vous �tes en train de lire) est configurable. Ainsi vous pouvez faire un readme personalis� en fonction de la commande � ex�cuter.
+    Par default le readme contient la valeur README GENERIQUE# <br><br>
+    <img src="4.jpg" border="0" align="center" WIDTH="20%"/><br><br>
+
+    Vous pouvez changer cette valeur en �crivant dans le fichier de l'archive au path IGG/Data/README.txt
+
+
+</p>
+
+<h2> 2. Utilisation : </h2>
+
+<h3> a. L'�diteur de texte : </h3>
+
+<p> Cette fonctionnalit� marche de mani�re relativement standard. <br><br>
+
+    <img src="new.png" border="0" align="center" WIDTH="5%"/> : Creer un nouveau fichier <br><br>
+    <img src="close.png" border="0" align="center" WIDTH="5%"/> : Fermer l'onglet courant (avec demande de sauvergarde) <br><br>
+    <img src="open.png" border="0" align="center" WIDTH="5%"/> : Ouvrir un fichier existant <br><br>
+    <img src="save.png" border="0" align="center" WIDTH="5%"/> : Sauvegarder le fichier correspondant � l'onglet courant si il existe deja, sinon sauvegarder � un emplacement avec un nom <br><br>
+    <img src="saveas.png" border="0" align="center" WIDTH="5%"/> : Sauvergarder le fichier correspondant � l'onglet courant sous un repertoire selon un certain nom  <br><br>
+
+    <br><br>L'edition des fichiers se fait sur ce panel : 
+
+<p><img src="5.jpg" border="0" align="center" WIDTH="30%"/></p>
+
+<h3> b. Readme : </h3>
+<p>
+    <img src="readme.png" border="0" align="center" WIDTH="5%"/> : Affiche le readme de l'application (pas celui que vous �tes en train de lire, celui configurable) <br><br>
+</p>
+
+<h3> c. Gen�rer : </h3>
+
+<p>Pour plus de simplicit� , prenons un exemple simple.
+    Admettons que j'ai param�tr� mon application pour qu'elle interpr�te du java avec la ligne :  interpreteur="C:\Program Files (x86)\Java\jre7\bin\java "</p>
+<p><img src="6.jpg" border="0" align="center" WIDTH="75%"/></p>
+<p>
+    1 : Je choisi la premier option de la commande , ici "-jar" qui permet de lancer des archive jar<br>
+    2 : Je stipule que je ne veux pas de deuxieme option en vidant ce champs (cette fonction sera am�lior�e ult�rieurement en donnant la possibilit� de gris� la cellule du champs)<br>
+    3 : Je clique sur l'image pour chercher le path de l'archive � lancer<br>
+    4 : Je lance la commande/Je g�n�re<br>
+    5 : On r�cup�re les information du lancement de la commande et la sortie d'erreurs eventuelle de la commande.<br>
+    6 : Mon archive est lanc�e (on a fait une mise en ab�me !)<br><br>
+    Finalement notre logiciel a lanc� la ligne de commande : "C:\...\java -jar C:\...\IGG.jar"<br>
+</p>
+<p> Attention, veillez � remplir tout les champs, meme si ils doivent �tre vide, sinon ces champs seront remplac� par le string "null". Par exemple si on avait laisser "option" au lieu de "" au param�tre option, on aurait eu :
+<p><img src="7.jpg" border="0" align="center" WIDTH="40%"/></p>
+
+<h2> 3. Am�lioration : </h2>
+
+<p>Pour le moment les am�liorations les plus prioritaires � ajouter � ce logiciel sont � mon sens : <br><br>
+
+    1 : la possibilit� de d�finir en adapatation interne les options et param�tres pr� choisi<br>
+    2 : avoir la possibilit� de gris� une cellule param�tre dans le cas ponctuel d'une inutilisation<br>
+    3 : n'affiche le bouton "choose" que si le param�tre demande un path<br>
+    4 : la possibilit� de faire un readme qui interpr�te le HMTL et des images.<br>
+    5 : Renomer le readme en documentation<br>
+    6 : Plus d'options sur l'edition de texte<br>
+</p>
+
+<h2> 4. Conclusion : </h2>
+
+<p> Voila vous savez tout sur l'interface g�n�rique de commande ! <br>
+
+    Si vous avez des questions ,si vous trouvez des bugs ou encore une id�e d'am�lioration, vous pouvez me contacter �
+    CARRARA Nicolas : carrara1u@etu.univ-lorraine.fr
+</p>
+</body></html>
