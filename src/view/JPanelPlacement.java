@@ -135,6 +135,8 @@ public class JPanelPlacement extends JPanel implements Observer {
                             try {
                                 // on ajoute le bateau à la flotte
                                 model.addShip(typeShip, new Coordinate(tailLigne, tailColonne), new Coordinate(headLigne, headColonne));
+                                //model.addShip2(typeShip, new Coordinate(tailLigne, tailColonne), new Coordinate(headLigne, headColonne));
+
                                 System.out.println("" + model.getJ1().getFlotte().getVaisseaux());
                             } catch (Exception ex) {
                                 Logger.getLogger(JPanelPlacement.class.getName()).log(Level.SEVERE, null, ex);

@@ -28,6 +28,7 @@ import javax.swing.event.ListSelectionListener;
 import model.BatailleNavale;
 import model.Coordinate;
 import model.Flotte;
+import model.OrdreTir;
 import model.ship.Epoque;
 import model.ship.Ship;
 import model.ship.Ship.Etat;
@@ -54,52 +55,72 @@ public class JPanelJouer extends JPanel implements Observer {
     private Ship selectedShip;
 
     
-//    public class JButtonFire extends JButton implements Observer{
-//        private final Coordinate c;
-//
-//        public JButtonFire(final BatailleNavale model,final Coordinate c){
-//            super("?");
-//            this.c  = c;
-//            model.addObserver(this);
-//            addActionListener(new ActionListener() {
-//
-//                @Override
-//                public void actionPerformed(ActionEvent ae) {
-//                    switch (state) {
-//                        case NOTHING_SELECTED:
-//                            break;
-//                        case SHIP_SELECTED:                            
-//                            if(selectedShip.estAporteeDeTir(getC())){
-//                                try {
-//                                    selectedShip.fire(model.getJ2().getFlotte(), c);
-//                                    System.out.println("TIR");
-//                                } catch (Exception ex) {
-//                                    Logger.getLogger(JPanelJouer.class.getName()).log(Level.SEVERE, null, ex);
-//                                }
-//                            }
-//                            else
-//                                System.out.println("TROP LOIN");
-//                              
-//                                 
-//                            
-//                    }
-//                        
-//                    System.out.println(""+c);
-//                    System.out.println(""+model.getJ1().getFlotte().getVaisseaux().get(0));
-//                    System.out.println("state = "+state);
-//                }
-//            });
-//        }
-//        
-//        public Coordinate getC(){
-//            return this.c;
-//        }
-//
-//        @Override
-//        public void update(Observable o, Object o1) {
-//        }
-//
-//    }
+    public class JButtonFire extends JButton implements Observer{
+        private final Coordinate c;
+        private final BatailleNavale model;
+        private int touche;
+
+        public JButtonFire(final BatailleNavale model,final Coordinate c){
+            super("?");
+            this.model=model;
+            this.c  = c;
+            model.addObserver(this);
+            addActionListener(new ActionListener() {
+
+                @Override
+                public void actionPerformed(ActionEvent ae) {
+                    int res;
+                    switch (state) {
+                        case NOTHING_SELECTED:
+                            break;
+                        case SHIP_SELECTED:                            
+                            if(selectedShip.estAporteeDeTir(getC())){
+                                try {
+                                    //selectedShip.fire(model.getJ2().getFlotte(), c);
+//                                    touche = model.getJ1().fire(new OrdreTir(c, 0),model.getJ2().getFlotte());
+                                    int launcherid=model.getJ1().getFlotte().getVaisseaux().indexOf(selectedShip);
+                                    res = model.fire(new OrdreTir(c, launcherid));
+                                    System.out.println("Touche = "+touche);
+                                } catch (Exception ex) {
+                                    Logger.getLogger(JPanelJouer.class.getName()).log(Level.SEVERE, null, ex);
+                                }
+                            }
+                            else
+                                System.out.println("TROP LOIN");
+                              
+                                 
+                            
+                    }
+                    model.update();
+                    System.out.println(""+c);
+                }
+            });
+        }
+        
+        public Coordinate getC(){
+            return this.c;
+        }
+
+        @Override
+        public void update(Observable o, Object o1) {
+            //System.out.println("Bateau : "+model.getJ2().getFlotte().getVaisseaux().get(0));
+            int etat = model.getJ1().getMap().getState(c);
+            System.out.println("etat = "+etat);
+            if(etat ==0){
+                this.setText("?"); // ? pour dire "pas encore attaqué"
+            }
+            /* Cas d'une case touchée */
+            else if(etat == 1){
+                this.setText("X"); // Croix pour dire "touché"
+                this.setEnabled(false); //Desactivation pour ne pas tirer au même endroit
+            }
+            else if(etat == 2){
+                this.setText(""); // " " pour dire "raté"  
+                this.setEnabled(false); //Desactivation pour ne pas tirer au même endroit
+            }
+        }
+
+    }
 
     public JPanelJouer(final BatailleNavale model) {
         super(new BorderLayout());
@@ -116,6 +137,7 @@ public class JPanelJouer extends JPanel implements Observer {
         for (int i = 0; i < model.getLargeurGrille(); i++) {
             for (int j = 0; j < model.getLongeurGrille(); j++) {
                 JButtonFire jbf = new JButtonFire(model, new Coordinate(i, j));
+                jbf.setEnabled(false);
                 grilleEnnemi.add(jbf);
                 listTir.add(jbf);
             }
@@ -149,7 +171,6 @@ public class JPanelJouer extends JPanel implements Observer {
                 System.out.println("BATEAU CHOISI!");
                 selectedShip = (Ship) list.getSelectedValue();
                 state = SHIP_SELECTED;
-                System.out.println("clique flotte ");
                 for(JButtonFire jbf : listTir){
                 if(selectedShip.estAporteeDeTir(jbf.getC())){
                     jbf.setEnabled(true);
