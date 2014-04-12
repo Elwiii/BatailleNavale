@@ -44,11 +44,11 @@ public class CrossBot extends Bot implements Serializable{
         VisionBattlefield v2;
         int scoreDst = Integer.MAX_VALUE;
         
-        for(Ship nShip : !list){
-            int score = bf.getState(coordinate);
+        for(Ship nShip : list){
+            int score = bf.getState(null);
             if (score < scoreDst){
                 scoreDst = score;
-                v2 = !bf;
+                v2 = bf;
                 return scoreDst;
             }
                 
