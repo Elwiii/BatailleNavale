@@ -31,14 +31,14 @@ public class CrossBot extends Bot implements Serializable{
         VisionBattlefield v;
         int totalShip = 0;
         int scoreSrc = Integer.MIN_VALUE;
-        
+     
         for(Ship ship : list){ 
             int score = bf.getState(null);
             if(score > scoreSrc){
                 scoreSrc = score;
                 v = bf;
                 return scoreSrc;
-            }
+}
         }
         
         VisionBattlefield v2;
