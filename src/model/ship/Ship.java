@@ -24,7 +24,7 @@ public class Ship implements Serializable{
         return representationGraphique;
     }
 
-    public class Etat {
+    public class Etat implements Serializable{
 
         Coordinate c;
 

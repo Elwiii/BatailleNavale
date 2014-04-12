@@ -131,7 +131,7 @@ public class JPanelJouer extends JPanel implements Observer {
     
     public void initialize(){
         add(new JLabel(id));
-        JPanel center = new JPanel();
+        JPanel center = new JPanel(new GridLayout(1,2));
         grilleEnnemi = new JPanel(new GridLayout(model.getLargeurGrille(), model.getLongeurGrille()));
         grilleFlotte = new JPanel(new GridLayout(model.getLargeurGrille(), model.getLongeurGrille()));
         for (int i = 0; i < model.getLargeurGrille(); i++) {

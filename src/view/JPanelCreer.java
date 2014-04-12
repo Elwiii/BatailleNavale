@@ -11,6 +11,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
@@ -18,6 +20,7 @@ import javax.swing.JTextField;
 import model.BatailleNavale;
 import model.player.Difficulty;
 import model.ship.Epoque;
+import persistance.PersistanceException;
 
 /**
  *
@@ -110,6 +113,11 @@ public class JPanelCreer extends JPanel implements Observer {
                 model.setLongeurGrille(lon);
                 model.setLargeurGrille(lar);
                 model.constructPlayers();
+                try {
+                    model.newGame();
+                } catch (PersistanceException ex) {
+                    Logger.getLogger(JPanelCreer.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 wizard.getJpanelPlacement().constuctGrille(lon, lar);
                 wizard.getJpanelPlacement().constructList(epo);
                 wizard.show(JPanelPlacement.id);

@@ -15,6 +15,7 @@ import model.ship.ShipFactory;
 import model.ship.TypeShip;
 import persistance.AbstractDaoFactory;
 import persistance.DaoFactoryException;
+import persistance.PersistanceException;
 import persistance.ScoreManager;
 import persistance.TypePersistance;
 
@@ -40,16 +41,20 @@ public class BatailleNavale {
     private int hauteurGrille;
     private ScoreManager scoreManager;
     private BatailleNavaleAdapter bna;
+    private final Metadata metadata;
 
     public BatailleNavale() throws DaoFactoryException {
+        metadata = Metadata.getInstance();
         bna = new BatailleNavaleAdapter();
         shipFactory = ShipFactory.getInstance();
         adf = AbstractDaoFactory.getAbstractDaoFactory(TypePersistance.FILE);
         
     }
     
-    public void newGame(){
-        id = "game"+adf.getInstanceDaoGame().find().size();
+    public void newGame() throws PersistanceException{
+        metadata.ids++;
+        id = "game"+metadata.ids;
+        metadata.save();
         state = State.JOUEUR1;
     }
 
@@ -143,11 +148,12 @@ public class BatailleNavale {
 
     /**
      *
+     * @throws persistance.PersistanceException
      */
-    public void save() {
+    public void save() throws PersistanceException {
         save = new Game(this);
         System.out.println("save : "+save);
-        adf.getInstanceDaoGame().persiste(save);
+        adf.getInstanceDaoGame().update(save);
     }
 
     /**
@@ -160,13 +166,20 @@ public class BatailleNavale {
         state = game.state;
         id = game.id;
         score = game.score;
+        currentPlayer = game.currentPlayer;
+        otherPlayer = game.otherPlayer;
+        difficulty = game.difficulty;
+        hauteurGrille = game.hauteurGrille;
+        largeurGrille = game.largeurGrille;
+        pseudoHumun = game.pseudoHumun;
+        
     }
     
     /**
      * 
      * @param idGame 
      */
-    public void load(String idGame){
+    public void load(String idGame) throws PersistanceException{
         load((Game)adf.getInstanceDaoGame().find(idGame));
     }
 

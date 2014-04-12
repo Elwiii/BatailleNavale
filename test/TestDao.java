@@ -56,11 +56,15 @@ public class TestDao {
 
     }
     
-    @Test
-    public void test2(){
-        System.out.println("game1 = "+bn.getAdf().getInstanceDaoGame().find("game6"));
-        assert(bn.getAdf().getInstanceDaoGame().find("game1")!=null);
-    }
+//    @Test
+//    public void test2(){
+//        System.out.println("game1 = "+bn.getAdf().getInstanceDaoGame().find("game6"));
+//     @Test
+//    public void test2(){
+//        System.out.println("game1 = "+bn.getAdf().getInstanceDaoGame().find("game6"));
+//        assert(bn.getAdf().getInstanceDaoGame().find("game1")!=null);
+//    }   assert(bn.getAdf().getInstanceDaoGame().find("game1")!=null);
+//    }
     
     @Test
     public void test3(){
