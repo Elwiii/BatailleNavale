@@ -7,8 +7,10 @@
 package model.player;
 
 import java.io.Serializable;
+import java.util.List;
 import model.Flotte;
 import model.VisionBattlefield;
+import model.ship.Ship;
 
 /**
  * @todo Rym
@@ -23,7 +25,27 @@ public class CrossBot extends Bot implements Serializable{
     
     @Override
     public int autoFire(VisionBattlefield bf, Flotte target) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List <Ship> list = target.getVaisseaux();
+        VisionBattlefield v;
+        int totalShip = 0;
+        int scoreSrc = Integer.MIN_VALUE;
+        for(Ship ship : list){ 
+            int score = bf.getState(null);
+            if(score > scoreSrc){
+                scoreSrc = score;
+                v = bf;
+            }
+        }
+        VisionBattlefield v2;
+        int scoreDst = Integer.MAX_VALUE;
+        for(Ship nShip : !list){
+            int score = bf.getState(coordinate);
+            if (score < scoreDst){
+                scoreDst = score;
+                v2 = !bf;
+            }
+                
+        }
     }
-    
 }
