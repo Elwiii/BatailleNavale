@@ -12,6 +12,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import persistance.DaoFactoryException;
+import persistance.PersistanceException;
 import persistance.ScoreManager;
 
 /**
@@ -35,7 +36,7 @@ public class TestDao {
     }
 
     @Before
-    public void setUp() throws DaoFactoryException {
+    public void setUp() throws DaoFactoryException, PersistanceException {
         bn = new BatailleNavale();
         bn.setDifficulty(Difficulty.CROSSBOT);
         bn.setPseudoHumun("testDao");
@@ -50,7 +51,7 @@ public class TestDao {
     }
 
     @Test
-    public void test1() {
+    public void test1() throws PersistanceException {
         
         bn.save();
 
@@ -67,7 +68,7 @@ public class TestDao {
 //    }
     
     @Test
-    public void test3(){
+    public void test3() throws PersistanceException{
         System.out.println("test 3 :"+bn.getAdf().getInstanceDaoGame().find());
         System.out.println(ScoreManager.getInstance().getScoreOf("coucou"));
     }
