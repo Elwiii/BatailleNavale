@@ -27,7 +27,7 @@ public class CrossBot extends Bot implements Serializable{
     public int autoFire(VisionBattlefield bf, Flotte target){
      //   throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     
-        List <Ship> list = target.getVaisseaux();
+        /*List <Ship> list = target.getVaisseaux();
         VisionBattlefield v;
         int totalShip = 0;
         int scoreSrc = Integer.MIN_VALUE;
@@ -52,7 +52,7 @@ public class CrossBot extends Bot implements Serializable{
                 return scoreDst;
             }   
                 
-         }
+         }*/
         return 0;
     }
 }
