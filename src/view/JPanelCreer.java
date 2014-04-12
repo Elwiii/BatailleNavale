@@ -99,7 +99,7 @@ public class JPanelCreer extends JPanel implements Observer {
         largeur.setSelectedIndex(0);
         panelOption.add(epoque);
         panelOption.add(longueur);
-        panelOption.add(largeur);
+//        panelOption.add(largeur); @todo
         panelOption.add(difficulty);
 
         JButton valider = new JButton("valider");
@@ -111,14 +111,14 @@ public class JPanelCreer extends JPanel implements Observer {
                 model.setDifficulty(diff);
                 model.setPseudoHumun(nom.getText());
                 model.setLongeurGrille(lon);
-                model.setLargeurGrille(lar);
+                model.setLargeurGrille(/*@todo*/lon/*lar*/);
                 model.constructPlayers();
                 try {
                     model.newGame();
                 } catch (PersistanceException ex) {
                     Logger.getLogger(JPanelCreer.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                wizard.getJpanelPlacement().constuctGrille(lon, lar);
+                wizard.getJpanelPlacement().constuctGrille(lon, lon/*lar @todo*/);
                 wizard.getJpanelPlacement().constructList(epo);
                 wizard.show(JPanelPlacement.id);
                 System.out.println("model : "+model.getPseudoHumun());
