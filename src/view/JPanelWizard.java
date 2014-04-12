@@ -21,6 +21,7 @@ public class JPanelWizard extends JPanel implements Observer{
     private final CardLayout cl ;
     private final JPanelPlacement jpanelPlacement ; 
     private final JPanelJouer jpanelJouer;
+    private String currentPanel = null;
     
     public JPanelWizard(final BatailleNavale model){
         super();
@@ -35,13 +36,16 @@ public class JPanelWizard extends JPanel implements Observer{
         add(new JPanelParties(model,this),JPanelParties.id);
         add(new JPanelScore(model,this),JPanelScore.id);
         add(jpanelPlacement,JPanelPlacement.id);
-        
-        show(JPanelAcceuil.id);
+        currentPanel = JPanelAcceuil.id;
+//        show(JPanelAcceuil.id);
         
     }
     
     public void show(String id){
+        System.out.println("show : "+id);
         cl.show(this, id);
+        currentPanel = id;
+        GUI.getInstance().updateMenu();
     }
     
     @Override
@@ -60,6 +64,20 @@ public class JPanelWizard extends JPanel implements Observer{
      */
     public JPanelJouer getJpanelJouer() {
         return jpanelJouer;
+    }
+
+    /**
+     * @return the currentPanel
+     */
+    public String getCurrentPanel() {
+        return currentPanel;
+    }
+
+    /**
+     * @param currentPanel the currentPanel to set
+     */
+    public void setCurrentPanel(String currentPanel) {
+        this.currentPanel = currentPanel;
     }
     
 }
