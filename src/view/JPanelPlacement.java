@@ -52,7 +52,7 @@ public class JPanelPlacement extends JPanel implements Observer {
     private final int TAIL_SELECTED = 2;
     private final int NOTHING_SELECTED = 3;
     private final JPanel east;
-    private final JButton add;
+//    private final JButton add;
     private int state = NOTHING_SELECTED;
     private JButtonPlacementBateau[][] grilleButton;
     private final JButton annulerHead;
@@ -76,6 +76,7 @@ public class JPanelPlacement extends JPanel implements Observer {
                 public void actionPerformed(ActionEvent e) {
                     switch (state) {
                         case NOTHING_SELECTED:
+                            System.out.println("NOTHING SELECTED");
                             break;
                         case SHIP_SELECTED:
                             headColonne = colonne;
@@ -89,7 +90,6 @@ public class JPanelPlacement extends JPanel implements Observer {
                                 jbp.setEnabled(false);
                                 disabledJButton.add(jbp);
                             }
-                            state = HEAD_SELECTED;
 
                             //@todo un truc moin bourrin pour savoir si on peut placer la tete ou pas, le mieux serait de faire un algo qui nous donne les heads possibles
                             boolean queuePossible = false;
@@ -107,6 +107,7 @@ public class JPanelPlacement extends JPanel implements Observer {
 
                             if (queuePossible) {
                                 state = HEAD_SELECTED;
+                                annulerHead.setEnabled(true);
                             } else {
                                 JOptionPane.showMessageDialog(GUI.getInstance(), "Impossible de placer la tete de ce bateau ici");
                                 // on enable les buttons disabled
@@ -116,8 +117,11 @@ public class JPanelPlacement extends JPanel implements Observer {
                                 disabledJButton.clear();
                                 grilleButton[headLigne][headColonne].setText("");
                                 grilleButton[headLigne][headColonne].setEnabled(true);
+                                annulerHead.setEnabled(false);
+//                                list.clearSelection();
+                                
                             }
-                            annulerHead.setEnabled(true);
+                            
                             break;
                         case HEAD_SELECTED:
                             tailColonne = colonne;
@@ -179,6 +183,7 @@ public class JPanelPlacement extends JPanel implements Observer {
                             disabledJButton.clear();
                             state = TAIL_SELECTED;
                             annulerHead.setEnabled(false);
+                            list.clearSelection();
                             break;
                         case TAIL_SELECTED:
 
@@ -186,15 +191,6 @@ public class JPanelPlacement extends JPanel implements Observer {
                         default:
                         //throw something
                     }
-//                    System.out.println("ligne : " + ligne + " colonne : " + colonne);
-//                    previousColonne = currentColonne;
-//                    previousLigne = currentLigne;
-//                    currentColonne = colonne;
-//                    currentLigne = ligne;
-//                    System.out.println("typeShip(button) : " + typeShip);
-//                    System.out.println("previous : " + previousLigne + " " + previousColonne);
-//                    System.out.println("current : " + currentLigne + " " + currentColonne);
-
                 }
             });
         }
@@ -376,14 +372,14 @@ public class JPanelPlacement extends JPanel implements Observer {
         });
         south.add(valider);
         add(south, BorderLayout.SOUTH);
-        add = new JButton("add");
-        add.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("add");
-            }
-        });
+//        add = new JButton("add");
+//        add.addActionListener(new ActionListener() {
+//
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                System.out.println("add");
+//            }
+//        });
         
         annulerHead = new JButton("annuler");
         annulerHead.addActionListener(new ActionListener() {
@@ -395,7 +391,9 @@ public class JPanelPlacement extends JPanel implements Observer {
                 }
                 disabledJButton.clear();
                 grilleButton[headLigne][headColonne].setText("");
-                state = NOTHING_SELECTED;
+                state = SHIP_SELECTED;
+                System.out.println("state : "+state);
+                annulerHead.setEnabled(false);
             }
         });
         annulerHead.setEnabled(false);
@@ -425,6 +423,7 @@ public class JPanelPlacement extends JPanel implements Observer {
                 System.out.println("type : " + typeShip);
             }
         });
+        list.clearSelection();
         east.add(list, BorderLayout.CENTER);
     }
 
