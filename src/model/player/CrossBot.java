@@ -24,28 +24,35 @@ public class CrossBot extends Bot implements Serializable{
     }
     
     @Override
-    public int autoFire(VisionBattlefield bf, Flotte target) {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public int autoFire(VisionBattlefield bf, Flotte target){
+     //   throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    
         List <Ship> list = target.getVaisseaux();
         VisionBattlefield v;
         int totalShip = 0;
         int scoreSrc = Integer.MIN_VALUE;
+        
         for(Ship ship : list){ 
             int score = bf.getState(null);
             if(score > scoreSrc){
                 scoreSrc = score;
                 v = bf;
+                return scoreSrc;
             }
         }
+        
         VisionBattlefield v2;
         int scoreDst = Integer.MAX_VALUE;
+        
         for(Ship nShip : !list){
             int score = bf.getState(coordinate);
             if (score < scoreDst){
                 scoreDst = score;
                 v2 = !bf;
-            }
+                return scoreDst;
+            }   
                 
-        }
+         }
+        return 0;
     }
 }
