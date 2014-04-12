@@ -26,7 +26,7 @@ public class JPanelAcceuil extends JPanel implements Observer{
     public JPanelAcceuil(final BatailleNavale model,final JPanelWizard wizard){
         super();
         model.addObserver(this);
-        add(new JLabel(id));
+//        add(new JLabel(id));
         JButton creerPartie = new JButton("Créer Partie");
         creerPartie.addActionListener(new ActionListener() {
 

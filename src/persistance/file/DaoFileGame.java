@@ -80,7 +80,7 @@ public class DaoFileGame extends DaoFile<Game> implements DaoGame{
     }
     
     @Override
-    public int persiste(Game g) {
+    public int persiste(Game g) throws FileAlreadyPersisted {
         File dossier = new File("Game");
         
         //Si le dossier n'existe pas, on le crée
@@ -88,8 +88,7 @@ public class DaoFileGame extends DaoFile<Game> implements DaoGame{
             dossier.mkdir();
         }
         if (new File("Game/"+g.getId()+".ser").exists()){
-            System.out.println("fichier déjà existant");
-            return 1;
+            throw new FileAlreadyPersisted((g));
         }
         //Création du fichier
         try{
@@ -106,10 +105,12 @@ public class DaoFileGame extends DaoFile<Game> implements DaoGame{
 
 
     @Override
-    public void update(Game g) {
-        File fichier = new File("Game/"+g.getId());
+    public void update(Game g) throws FileAlreadyPersisted {
+        System.out.println("Game/"+g.getId()+".ser");
+        File fichier = new File("Game/"+g.getId()+".ser");
         //Si le fichier a déjà été créé, on le supprime
         if(fichier.exists()){
+            System.out.println("Fichier déjà existant : deleting ...");
             fichier.delete();
         } 
         //On (re)crée le fichier correspondant

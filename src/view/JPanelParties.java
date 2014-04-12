@@ -9,6 +9,8 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
@@ -19,6 +21,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import model.BatailleNavale;
 import model.Game;
+import persistance.PersistanceException;
 
 /**
  * @todo Nicolas
@@ -35,7 +38,11 @@ public class JPanelParties extends JPanel implements Observer {
         model.addObserver(this);
 
         add(new JLabel(id));
-        list = new JList(model.getAdf().getInstanceDaoGame().find().toArray());
+        try {
+            list = new JList(model.getAdf().getInstanceDaoGame().find().toArray());
+        } catch (PersistanceException ex) {
+            Logger.getLogger(JPanelParties.class.getName()).log(Level.SEVERE, null, ex);
+        }
 //        list.setSelectedIndex(0);
         list.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
         list.setLayoutOrientation(JList.HORIZONTAL_WRAP);
