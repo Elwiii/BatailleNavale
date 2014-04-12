@@ -29,7 +29,7 @@ public class RandomBot extends Bot implements Serializable{
         int y = (int)(Math.random());
         int l = (int)(Math.random());
         Coordinate c = new Coordinate(x ,y);
-        OrdreTir o = new OrdreTir(c, l);
+        OrdreTir o = new OrdreTir(c, 0);
         if(bf != null)
             try {
                 return target.fire(target, o);

@@ -74,28 +74,33 @@ public class JPanelJouer extends JPanel implements Observer {
                         case NOTHING_SELECTED:
                             break;
                         case SHIP_SELECTED:                            
-                            if(selectedShip.estAporteeDeTir(getC())){
                                 try {
                                     //selectedShip.fire(model.getJ2().getFlotte(), c);
 //                                    touche = model.getJ1().fire(new OrdreTir(c, 0),model.getJ2().getFlotte());
                                     int launcherid=model.getJ1().getFlotte().getVaisseaux().indexOf(selectedShip);
                                     res = model.fire(new OrdreTir(c, launcherid));
-                                    System.out.println("Touche = "+touche);
+                                    model.update();
+                                    if (res == 2){
+                                        System.out.println("BOT");
+                                        model.switchTurn();
+                                        res = model.fire(null);
+                                        while(res ==1){
+                                            System.out.println("TOUCHE!!!!!");
+                                            res = model.fire(null);
+                                        }
+                                        model.switchTurn();
+                                    }
                                 } catch (Exception ex) {
                                     Logger.getLogger(JPanelJouer.class.getName()).log(Level.SEVERE, null, ex);
                                 }
                             }
-                            else
-                                System.out.println("TROP LOIN");
-                              
-                                 
-                            
-                    }
+                    
+                    System.out.println("SWITCH!!!!");
                     model.update();
                     System.out.println(""+c);
                 }
             });
-        }
+        };
         
         public Coordinate getC(){
             return this.c;
@@ -104,8 +109,7 @@ public class JPanelJouer extends JPanel implements Observer {
         @Override
         public void update(Observable o, Object o1) {
             //System.out.println("Bateau : "+model.getJ2().getFlotte().getVaisseaux().get(0));
-            int etat = model.getJ1().getMap().getState(c);
-            System.out.println("etat = "+etat);
+            int etat = model.getCurrentPlayer().getMap().getState(c);
             if(etat ==0){
                 this.setText("?"); // ? pour dire "pas encore attaqué"
             }
@@ -267,7 +271,7 @@ public class JPanelJouer extends JPanel implements Observer {
     @Override
     public void update(Observable o, Object o1) {
         System.out.println("UPDATE JPANELJOUER");
-//        updateGrilleFlotte();
+        updateGrilleFlotte();
 //        updateGrilleEnnemi();
     }
 }

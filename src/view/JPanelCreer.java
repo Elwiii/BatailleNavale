@@ -117,6 +117,7 @@ public class JPanelCreer extends JPanel implements Observer {
                     model.newGame();
                 } catch (PersistanceException ex) {
                     Logger.getLogger(JPanelCreer.class.getName()).log(Level.SEVERE, null, ex);
+                    System.out.println("NEW GAME ERREUR");
                 }
                 wizard.getJpanelPlacement().constuctGrille(lon, lon/*lar @todo*/);
                 wizard.getJpanelPlacement().constructList(epo);
