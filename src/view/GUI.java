@@ -60,10 +60,43 @@ public class GUI extends JFrame {
         JMenuBar menuBar = new JMenuBar();
 
         //Build the first menu.
+        
+        
+        
+        
         JMenu menu = new JMenu("Fichier");
         menu.getAccessibleContext().setAccessibleDescription(
                 "The only menu in this program that has menu items");
         menuBar.add(menu);
+        
+        
+        JMenuItem acceuil = new JMenuItem("acceuil");
+        acceuil.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                if (cards.getCurrentPanel().equals(JPanelJouer.id)) {
+                    int n = JOptionPane.showConfirmDialog(
+                            GUI.getInstance(),
+                            "Voulez vous enregistrer ?",
+                            "",
+                            JOptionPane.YES_NO_OPTION);
+                    switch (n) {
+                        case 0:
+                            try {
+                                model.save();
+                            } catch (PersistanceException ex) {
+                                Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                    }
+                }
+                cards.show(JPanelAcceuil.id);
+            }
+        });
+        
+        menu.add(acceuil);
+        
+        
         save = new JMenuItem("enregistrer");
         save.setEnabled(false);
         save.addActionListener(new ActionListener() {
@@ -85,7 +118,7 @@ public class GUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 int n;
-                System.out.println("cards : "+cards);
+                System.out.println("cards : " + cards);
                 switch (cards.getCurrentPanel()) {
                     case JPanelJouer.id:
                         n = JOptionPane.showConfirmDialog(
@@ -100,7 +133,7 @@ public class GUI extends JFrame {
                                 } catch (PersistanceException ex) {
                                     Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
                                 }
-                                
+
                                 break;
                         }
                         System.exit(0);
@@ -120,6 +153,8 @@ public class GUI extends JFrame {
             }
         });
         menu.add(quitter);
+
+        
         setJMenuBar(menuBar);
         //finalisation de la JFrame
         setPreferredSize(new Dimension(650, 600));

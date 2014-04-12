@@ -45,7 +45,7 @@ public class JPanelParties extends JPanel implements Observer {
         }
 //        list.setSelectedIndex(0);
         list.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
-        list.setLayoutOrientation(JList.HORIZONTAL_WRAP);
+        list.setLayoutOrientation(JList.VERTICAL_WRAP);
         list.setVisibleRowCount(-1);
         JScrollPane listScroller = new JScrollPane(list);
         listScroller.setPreferredSize(new Dimension(250, 80));
@@ -54,25 +54,30 @@ public class JPanelParties extends JPanel implements Observer {
             @Override
             public void valueChanged(ListSelectionEvent e) {
                 Game game = (Game) list.getSelectedValue();
-                System.out.println("game : " + game);
-                int n = JOptionPane.showConfirmDialog(
-                        GUI.getInstance(),
-                        "Voulez vous charger cette partie ?",
-                        "",
-                        JOptionPane.YES_NO_OPTION);
-                switch (n) {
-                    case 0:
-                        model.load(game);
-                        wizard.getJpanelJouer().initialize();
-                        wizard.show(JPanelJouer.id);
-                        break;
-                    case 1:
-                        break;
-                    default:
-                    //todo exception
+                if (game != null) {
+                    System.out.println("game : " + game);
+                    int n = JOptionPane.showConfirmDialog(
+                            GUI.getInstance(),
+                            "Voulez vous charger cette partie ?",
+                            "",
+                            JOptionPane.YES_NO_OPTION);
+                    switch (n) {
+                        case 0:
+                            model.load(game);
+                            wizard.getJpanelJouer().initialize();
+                            wizard.show(JPanelJouer.id);
+                            break;
+                        case 1:
+
+                            break;
+                        default:
+                        //todo exception
+                    }
+                    list.clearSelection();
                 }
             }
         });
+        list.clearSelection();
         add(listScroller, BorderLayout.CENTER);
         add(new JButtonBackToAcceuil(wizard), BorderLayout.SOUTH);
     }

@@ -52,7 +52,6 @@ public class JPanelPlacement extends JPanel implements Observer {
     private final int TAIL_SELECTED = 2;
     private final int NOTHING_SELECTED = 3;
     private final JPanel east;
-//    private final JButton add;
     private int state = NOTHING_SELECTED;
     private JButtonPlacementBateau[][] grilleButton;
     private final JButton annulerHead;
@@ -76,7 +75,8 @@ public class JPanelPlacement extends JPanel implements Observer {
                 public void actionPerformed(ActionEvent e) {
                     switch (state) {
                         case NOTHING_SELECTED:
-                            System.out.println("NOTHING SELECTED");
+                            JOptionPane.showMessageDialog(GUI.getInstance(), "Veuillez choisir le type de bateau que vous voulez placer, dans la liste");
+
                             break;
                         case SHIP_SELECTED:
                             headColonne = colonne;
@@ -119,9 +119,9 @@ public class JPanelPlacement extends JPanel implements Observer {
                                 grilleButton[headLigne][headColonne].setEnabled(true);
                                 annulerHead.setEnabled(false);
 //                                list.clearSelection();
-                                
+
                             }
-                            
+
                             break;
                         case HEAD_SELECTED:
                             tailColonne = colonne;
@@ -181,9 +181,10 @@ public class JPanelPlacement extends JPanel implements Observer {
                                 jbp.setEnabled(true);
                             }
                             disabledJButton.clear();
-                            state = TAIL_SELECTED;
+
                             annulerHead.setEnabled(false);
                             list.clearSelection();
+                            state = NOTHING_SELECTED;
                             break;
                         case TAIL_SELECTED:
 
@@ -349,13 +350,13 @@ public class JPanelPlacement extends JPanel implements Observer {
         this.model = model;
         east = new JPanel(new BorderLayout());
         model.addObserver(this);
-        add(new JLabel(id));
         JPanel south = new JPanel(new GridLayout(1, 2));
         JButton backToCreer = new JButton("retour");
         backToCreer.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent ae) {
+                state = NOTHING_SELECTED;
                 wizard.show(JPanelCreer.id);
             }
         });
@@ -372,15 +373,7 @@ public class JPanelPlacement extends JPanel implements Observer {
         });
         south.add(valider);
         add(south, BorderLayout.SOUTH);
-//        add = new JButton("add");
-//        add.addActionListener(new ActionListener() {
-//
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                System.out.println("add");
-//            }
-//        });
-        
+
         annulerHead = new JButton("annuler");
         annulerHead.addActionListener(new ActionListener() {
 
@@ -392,23 +385,20 @@ public class JPanelPlacement extends JPanel implements Observer {
                 disabledJButton.clear();
                 grilleButton[headLigne][headColonne].setText("");
                 state = SHIP_SELECTED;
-                System.out.println("state : "+state);
                 annulerHead.setEnabled(false);
             }
         });
         annulerHead.setEnabled(false);
-        east.add(annulerHead,BorderLayout.SOUTH);
-        
+        east.add(annulerHead, BorderLayout.SOUTH);
+
         add(east, BorderLayout.EAST);
     }
 
     public void constructList(Epoque epoque) {
         if (list != null) {
-            System.out.println("List already there ! ");
             east.remove(list);
         }
         list = new JList(TypeShip.get(epoque));
-//        list.setSelectedIndex(0);
         list.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
         list.setLayoutOrientation(JList.HORIZONTAL_WRAP);
         list.setVisibleRowCount(-1);
@@ -424,7 +414,7 @@ public class JPanelPlacement extends JPanel implements Observer {
             }
         });
         list.clearSelection();
-        east.add(list, BorderLayout.CENTER);
+        east.add(/*new JScrollPane(*/list/*)*/, BorderLayout.CENTER);
     }
 
     public void constuctGrille(int width, int height) {

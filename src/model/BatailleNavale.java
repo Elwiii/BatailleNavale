@@ -57,6 +57,10 @@ public class BatailleNavale {
         metadata.save();
         state = State.JOUEUR1;
     }
+    
+    public void quitter(){
+        //@todo really needed ?
+    }
 
     public void constructPlayers() {
         

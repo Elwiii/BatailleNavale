@@ -12,5 +12,6 @@ import java.io.Serializable;
  * @author Nikolai
  */
 public enum State implements Serializable{
-    JOUEUR1, JOUEUR2, WINJ1, WINJ2, GIVEUPJ1, GIVEUPJ2;
+    /* @todo thomas, travailler sur ce qui est en rapport avec le match_nul */
+    JOUEUR1, JOUEUR2, WINJ1, WINJ2, GIVEUPJ1, GIVEUPJ2, MATCH_NUL;
 }

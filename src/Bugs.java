@@ -22,5 +22,11 @@ Ca lag quand la grille est grande et les buttons sont grand
     
 @todo thomas cf test3 testDao, la liste renvoyé ne contient que des games nulls
     
+    
+BUG 5 :
+    
+    penser à MAJ la liste des parties et scores quand ya modif du model
+    
+    
     */
 }
