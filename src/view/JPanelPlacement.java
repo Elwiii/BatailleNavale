@@ -6,7 +6,6 @@
 package view;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -20,6 +19,7 @@ import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
@@ -55,6 +55,7 @@ public class JPanelPlacement extends JPanel implements Observer {
     private final JButton add;
     private int state = NOTHING_SELECTED;
     private JButtonPlacementBateau[][] grilleButton;
+    private final JButton annulerHead;
 
     private List<JButtonPlacementBateau> disabledJButton;
 
@@ -82,11 +83,41 @@ public class JPanelPlacement extends JPanel implements Observer {
                             grilleButton[headLigne][headColonne].setEnabled(false);
                             grilleButton[headLigne][headColonne].setText("head");
                             // afficher les buttons higlight
-                            for (JButtonPlacementBateau jbp : tailsImpossibles()) {
+                            List<JButtonPlacementBateau> tailsImpossibles = tailsImpossibles();
+
+                            for (JButtonPlacementBateau jbp : tailsImpossibles) {
                                 jbp.setEnabled(false);
                                 disabledJButton.add(jbp);
                             }
                             state = HEAD_SELECTED;
+
+                            //@todo un truc moin bourrin pour savoir si on peut placer la tete ou pas, le mieux serait de faire un algo qui nous donne les heads possibles
+                            boolean queuePossible = false;
+                            int j = 0;
+                            int i = 0;
+                            while (!queuePossible && i < grilleButton.length) {
+                                while (!queuePossible & j < grilleButton[0].length) {
+                                    System.out.println("grilleButton[" + i + "][" + j + "].isEnabled()" + grilleButton[i][j].isEnabled());
+                                    queuePossible = queuePossible || grilleButton[i][j].isEnabled();
+                                    j++;
+                                }
+                                j = 0;
+                                i++;
+                            }
+
+                            if (queuePossible) {
+                                state = HEAD_SELECTED;
+                            } else {
+                                JOptionPane.showMessageDialog(GUI.getInstance(), "Impossible de placer la tete de ce bateau ici");
+                                // on enable les buttons disabled
+                                for (JButtonPlacementBateau jbp : disabledJButton) {
+                                    jbp.setEnabled(true);
+                                }
+                                disabledJButton.clear();
+                                grilleButton[headLigne][headColonne].setText("");
+                                grilleButton[headLigne][headColonne].setEnabled(true);
+                            }
+                            annulerHead.setEnabled(true);
                             break;
                         case HEAD_SELECTED:
                             tailColonne = colonne;
@@ -147,6 +178,7 @@ public class JPanelPlacement extends JPanel implements Observer {
                             }
                             disabledJButton.clear();
                             state = TAIL_SELECTED;
+                            annulerHead.setEnabled(false);
                             break;
                         case TAIL_SELECTED:
 
@@ -180,8 +212,8 @@ public class JPanelPlacement extends JPanel implements Observer {
         List<Ship> listShip = model.getJ1().getFlotte().getVaisseaux();
         boolean ajout = true;
         disabledJButton = new ArrayList<>();
-        int l_max,l_min;
-        int c_max,c_min;
+        int l_max, l_min;
+        int c_max, c_min;
 //        list.add(grilleButton[0][0]);
 //        list.add(grilleButton[1][1]);
         for (int i = 0; i < grilleButton.length; i++) {
@@ -200,23 +232,21 @@ public class JPanelPlacement extends JPanel implements Observer {
                 for (Ship s : model.getJ1().getFlotte().getVaisseaux()) {
                     for (Etat e : s.getEtats()) {
                         //Avec toutes les coordonées des placements possibles du bateau
-                        if(i>headLigne){
+                        if (i > headLigne) {
                             l_max = i;
                             l_min = headLigne;
-                        }
-                        else{
+                        } else {
                             l_max = headLigne;
                             l_min = i;
                         }
-                        if(j>headColonne){
+                        if (j > headColonne) {
                             c_max = j;
                             c_min = headColonne;
-                        }
-                        else{
-                            c_max=headColonne;
+                        } else {
+                            c_max = headColonne;
                             c_min = j;
                         }
-                        for(int k = l_min; k<=l_max; k++){
+                        for (int k = l_min; k <= l_max; k++) {
                             for (int l = c_min; l <= c_max; l++) {
                                 /* cas des chevauchements */
                                 if ((e.getC().x == k) && (e.getC().y == l)) {
@@ -229,7 +259,7 @@ public class JPanelPlacement extends JPanel implements Observer {
                                     //si case voisine du dessous occupé par un bateau
                                     if ((e.getC().x == k + 1) && (e.getC().y) == l) {
                                         for (Etat ep : s.getEtats()) {
-                                            if(!(ep.equals(e))){
+                                            if (!(ep.equals(e))) {
                                                 //on teste la case voisine de droite
                                                 if ((ep.getC().x == k) && (ep.getC().y == l + 1)) {
                                                     list.add(grilleButton[i][j]);
@@ -241,7 +271,7 @@ public class JPanelPlacement extends JPanel implements Observer {
                                                 }
                                             }
                                         }
-                                    } 
+                                    }
 //                                    //si case voisine de droite occupée par un bateau
 //                                    if ((e.getC().x == k) && (e.getC().y) == l + 1) {
 //                                        for (Etat ep : s.getEtats()) {
@@ -265,9 +295,9 @@ public class JPanelPlacement extends JPanel implements Observer {
 //                                    }
                                 }
                             }
-                            
+
                         }
-                            
+
 //                        for (int k = headLigne; k <= i; k++) {
 //                            for (int l = headColonne; l <= j; l++) {
 //                                if ((e.getC().x == k) && (e.getC().y == l)) {
@@ -321,10 +351,10 @@ public class JPanelPlacement extends JPanel implements Observer {
     public JPanelPlacement(final BatailleNavale model, final JPanelWizard wizard) {
         super(new BorderLayout());
         this.model = model;
-        east = new JPanel();
+        east = new JPanel(new BorderLayout());
         model.addObserver(this);
         add(new JLabel(id));
-        JPanel south = new JPanel(new GridLayout(1,2));
+        JPanel south = new JPanel(new GridLayout(1, 2));
         JButton backToCreer = new JButton("retour");
         backToCreer.addActionListener(new ActionListener() {
 
@@ -354,14 +384,30 @@ public class JPanelPlacement extends JPanel implements Observer {
                 System.out.println("add");
             }
         });
-//        east.add(add);
-        add(east, BorderLayout.EAST);
+        
+        annulerHead = new JButton("annuler");
+        annulerHead.addActionListener(new ActionListener() {
 
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                for (JButtonPlacementBateau jbp : disabledJButton) {
+                    jbp.setEnabled(true);
+                }
+                disabledJButton.clear();
+                grilleButton[headLigne][headColonne].setText("");
+                state = NOTHING_SELECTED;
+            }
+        });
+        annulerHead.setEnabled(false);
+        east.add(annulerHead,BorderLayout.SOUTH);
+        
+        add(east, BorderLayout.EAST);
     }
 
     public void constructList(Epoque epoque) {
         if (list != null) {
-            remove(list);
+            System.out.println("List already there ! ");
+            east.remove(list);
         }
         list = new JList(TypeShip.get(epoque));
 //        list.setSelectedIndex(0);
@@ -379,7 +425,7 @@ public class JPanelPlacement extends JPanel implements Observer {
                 System.out.println("type : " + typeShip);
             }
         });
-        east.add(list);
+        east.add(list, BorderLayout.CENTER);
     }
 
     public void constuctGrille(int width, int height) {
