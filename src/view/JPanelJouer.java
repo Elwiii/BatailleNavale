@@ -76,10 +76,9 @@ public class JPanelJouer extends JPanel implements Observer {
                             break;
                         case SHIP_SELECTED:                            
                                 try {
-                                    //selectedShip.fire(model.getJ2().getFlotte(), c);
-//                                    touche = model.getJ1().fire(new OrdreTir(c, 0),model.getJ2().getFlotte());
                                     int launcherid=model.getJ1().getFlotte().getVaisseaux().indexOf(selectedShip);
                                     res = model.fire(new OrdreTir(c, launcherid));
+                                    /* Pas sur du tout*/
                                     model.update();
                                     if (res == 2){
                                         System.out.println("BOT");
@@ -95,8 +94,7 @@ public class JPanelJouer extends JPanel implements Observer {
                                     Logger.getLogger(JPanelJouer.class.getName()).log(Level.SEVERE, null, ex);
                                 }
                             }
-                    
-                    System.out.println("SWITCH!!!!");
+                    /* Toujours pas sur */
                     model.update();
                     System.out.println(""+c);
                 }
@@ -173,7 +171,6 @@ public class JPanelJouer extends JPanel implements Observer {
 
             @Override
             public void valueChanged(ListSelectionEvent e) {
-                System.out.println("BATEAU CHOISI!");
                 selectedShip = (Ship) list.getSelectedValue();
                 state = SHIP_SELECTED;
                 for(JButtonFire jbf : listTir){
@@ -255,18 +252,6 @@ public class JPanelJouer extends JPanel implements Observer {
         listScroller.setPreferredSize(new Dimension(250, 80));
   
     }
-    
-//    private List<JButtonFire> tailsImpossibles(Ship s) {
-//        List<JButtonFire> listTir = new ArrayList<>();
-//        for(int i = 0; i<model.getLargeurGrille();i++){
-//            for(int j=0;j<model.getLongeurGrille();j++){
-//                if(!(s.estAporteeDeTir(new Coordinate(i,j)))){
-//                    listTir.add(grilleEnnemi[i][j]);
-//                    grilleEnnemi.remove(new JButtonFire(new Coordinate(i,j)));
-//                }
-//            }
-//        }
-//    }
 
 
     @Override
