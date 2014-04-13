@@ -178,6 +178,7 @@ Scénario :
    
 Postconditions :
 Conclusion du test : La partie est enregistree
+Commentaires sur le test:
 Le test est t'il réussi ? OUI ~
     */    
     
@@ -192,14 +193,15 @@ Scénario :
    
 Postconditions :
 Conclusion du test : La partie enregistree s'affiche
+Commentaires sur le test:
 Le test est t'il réussi ? OUI
     */    
     
 /*
-  @todo Ticket : [[ ticket : 8 ]]
+   Ticket : [[ ticket : 8 ]]
 
 Test n°8 : Enregistrer une partie puis la charger
-Préconditions : Avoir cree une partie et placer les bateau
+Préconditions : Avoir cree une partie et place les bateau
 Scénario :
     Action 1 : Je clique sur le menu 'Fichier'
     Action 2 : Je clique sur enregistrer
@@ -208,11 +210,47 @@ Scénario :
     Action 5 : Je clique sur Oui
     Action 6 : Je clique sur 'Charger Partie' 
     
-Postconditions : La partie n'a pas ete enregistree, elle n'apparait pas dans la liste
+Postconditions : La partie est enregistree
 Conclusion du test : 
-Le test est t'il réussi ? BUG /!\ et si je recree une partie, que je positionne 
-                les bateaux et que je valide, la partie precedente s'affiche.
+Commentaires sur le test:
+Le test est t'il réussi ? OUI
+
     */    
+   
+/*
+    Ticket : [[ ticket : 9 ]]
+
+Test n°9 : Charger une partie
+Préconditions : Avoir sauvegarde une partie
+Scénario :
+    Action 1 : Je clique sur le bouton 'Charger Partie' -> La liste des parties 
+               sauvegardees 
+    Action 2 : Je choisis une partie -> Une fenetre me demande si je veux charger 
+               cette partie
+    Action 3 : Je clique sur oui
     
+Postconditions : La partie selectionnee s'affiche
+Conclusion du test : 
+Commentaires sur le test:
+Le test est t'il réussi ? OUI    
+*/
     
+/*
+    Ticket : [[ ticket : 10 ]]
+
+Test n°10 : Charger une partie
+Préconditions : Avoir sauvegarde une partie
+Scénario :
+    Action 1 : Je clique sur le bouton 'Charger Partie' -> La liste des parties 
+               sauvegardees 
+    Action 2 : Je choisis une partie -> Une fenetre me demande si je veux charger 
+               cette partie
+    Action 3 : Je clique sur oui
+    
+Postconditions : La partie est selectionnee s'affiche
+Conclusion du test : 
+Commentaires sur le test:
+Le test est t'il réussi ? OUI    
+*/    
+
 }

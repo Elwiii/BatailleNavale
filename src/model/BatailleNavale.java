@@ -158,6 +158,7 @@ public class BatailleNavale {
         save = new Game(this);
         System.out.println("save : "+save);
         adf.getInstanceDaoGame().update(save);
+        update();
     }
 
     /**

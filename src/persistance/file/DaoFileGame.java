@@ -74,7 +74,7 @@ public class DaoFileGame extends DaoFile<Game> implements DaoGame{
 
             
         }
-        System.out.println("taille liste  = "+listGame.size());
+//        System.out.println("taille liste  = "+listGame.size());
 
         return listGame;
     }
