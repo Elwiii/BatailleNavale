@@ -7,6 +7,7 @@
 package model.player;
 
 import java.io.Serializable;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Coordinate;
@@ -30,11 +31,16 @@ public class RandomBot extends Bot implements Serializable{
         int l = (int)(Math.random());
         Coordinate c = new Coordinate(x ,y);
         OrdreTir o = new OrdreTir(c, 0);
-        if(bf != null)
+        int nbShip = target.getVaisseaux().size();
+        Random rnd = new Random();
+        
+        if(bf != null){
+            int nb = rnd.nextInt(nbShip - 1);
             try {
-                return target.fire(target, o);
-        } catch (Exception ex) {
-            Logger.getLogger(RandomBot.class.getName()).log(Level.SEVERE, null, ex);
+                return nb;
+            } catch (Exception ex) {
+                Logger.getLogger(RandomBot.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return 0;
     }     

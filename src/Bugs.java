@@ -236,7 +236,7 @@ Le test est t'il réussi ? OUI
 */
     
 /*
-    Ticket : [[ ticket : 10 ]]
+  @todo  Ticket : [[ ticket : 10 ]]
 
 Test n°10 : Charger une partie
 Préconditions : Avoir sauvegarde une partie
@@ -246,11 +246,34 @@ Scénario :
     Action 2 : Je choisis une partie -> Une fenetre me demande si je veux charger 
                cette partie
     Action 3 : Je clique sur oui
-    
-Postconditions : La partie est selectionnee s'affiche
-Conclusion du test : 
+    Action 4 : Je clique sur le menu 'Fichier'
+    Action 5 : Je clique sur Acceuil
+    Action 6 : Je clique sur le bouton 'Créer Partie'
+    Action 7 : J'entre un nom dans le champ 'nom'
+    Action 8 : Je choisis l'Epoque XX
+    Action 9 : Je choisis la taille de la grille 10
+    Action 10 : Je choisis la difficulté randombot
+    Action 11 : J'appuie sur le bouton 'valider'
+    Action 12 : Je place les bateaux
+    Action 13 : Je valide
+Postconditions : 
+Conclusion du test : La grille affichee n'est pas celle cree mais celle chargee 
 Commentaires sur le test:
-Le test est t'il réussi ? OUI    
+Le test est t'il réussi ? NON
 */    
 
+/*
+    Ticket : [[ ticket : 11 ]]
+
+Test n°11 : Voir les scores
+Préconditions : Avoir sauvegarde une partie
+Scénario :
+    Action 1 : Je clique sur le bouton 'Voir scores'
+   
+Postconditions : La grille est chargee
+Conclusion du test :  
+Commentaires sur le test:
+Le test est t'il réussi ? OUI
+    */    
+    
 }
