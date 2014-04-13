@@ -30,24 +30,24 @@ import persistance.PersistanceException;
 public class JPanelParties extends JPanel implements Observer {
 
     public static final String id = "jpanelparties";
-
+    private final BatailleNavale model;
     private JList list;
+    private final JScrollPane listScroller;
+    private final JPanelWizard wizard;
+    private final SavedGameListModel listmodel;
 
     public JPanelParties(final BatailleNavale model, final JPanelWizard wizard) {
         super(new BorderLayout());
         model.addObserver(this);
-
+        this.model = model;
+        this.wizard = wizard;
         add(new JLabel(id));
-        try {
-            list = new JList(model.getAdf().getInstanceDaoGame().find().toArray());
-        } catch (PersistanceException ex) {
-            Logger.getLogger(JPanelParties.class.getName()).log(Level.SEVERE, null, ex);
-        }
-//        list.setSelectedIndex(0);
+        listmodel = new SavedGameListModel();
+        list = new JList(listmodel);
         list.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
         list.setLayoutOrientation(JList.VERTICAL_WRAP);
         list.setVisibleRowCount(-1);
-        JScrollPane listScroller = new JScrollPane(list);
+        listScroller = new JScrollPane(list);
         listScroller.setPreferredSize(new Dimension(250, 80));
         list.addListSelectionListener(new ListSelectionListener() {
 
@@ -55,7 +55,7 @@ public class JPanelParties extends JPanel implements Observer {
             public void valueChanged(ListSelectionEvent e) {
                 Game game = (Game) list.getSelectedValue();
                 if (game != null) {
-                    System.out.println("game : " + game);
+//                    System.out.println("game : " + game);
                     int n = JOptionPane.showConfirmDialog(
                             GUI.getInstance(),
                             "Voulez vous charger cette partie ?",
@@ -84,6 +84,7 @@ public class JPanelParties extends JPanel implements Observer {
 
     @Override
     public void update(Observable o, Object o1) {
+
     }
 
 }
