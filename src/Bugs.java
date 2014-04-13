@@ -28,6 +28,7 @@ BUG 5 :
     penser à MAJ la liste des parties et scores quand ya modif du model
     
     
+    
     */
     
     
@@ -212,4 +213,6 @@ Conclusion du test :
 Le test est t'il réussi ? BUG /!\ et si je recree une partie, que je positionne 
                 les bateaux et que je valide, la partie precedente s'affiche.
     */    
+    
+    
 }

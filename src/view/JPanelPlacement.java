@@ -27,6 +27,8 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import model.BatailleNavale;
 import model.Coordinate;
+import model.player.Bot;
+import model.player.Bot.structPlacement;
 import model.ship.Epoque;
 import model.ship.Ship;
 import model.ship.Ship.Etat;
@@ -170,9 +172,7 @@ public class JPanelPlacement extends JPanel implements Observer {
                             try {
                                 // on ajoute le bateau à la flotte
                                 model.addShip(typeShip, new Coordinate(tailLigne, tailColonne), new Coordinate(headLigne, headColonne));
-                                model.addShip2(typeShip, new Coordinate(tailLigne, tailColonne), new Coordinate(headLigne, headColonne));
-
-                                System.out.println("" + model.getJ1().getFlotte().getVaisseaux());
+                                //model.addShip2(typeShip, new Coordinate(tailLigne, tailColonne), new Coordinate(headLigne, headColonne));
                             } catch (Exception ex) {
                                 Logger.getLogger(JPanelPlacement.class.getName()).log(Level.SEVERE, null, ex);
                             }
@@ -367,6 +367,24 @@ public class JPanelPlacement extends JPanel implements Observer {
 
             @Override
             public void actionPerformed(ActionEvent ae) {
+                try {
+                    model.switchTurn();
+                    System.out.println("BIT place bateau");
+                    List<structPlacement> listStruct = new ArrayList<>();
+                    listStruct = model.getCurrentPlayer().placerBateau(model.getOtherPlayer().getFlotte());
+                    while(listStruct==null){
+                        System.out.println("en cours...");
+                        model.getCurrentPlayer().placerBateau(model.getOtherPlayer().getFlotte());
+                    }
+                    for(structPlacement sp : listStruct){
+                        model.addShip(sp.getType(), sp.getCHead(),sp.getCQueue());
+                    }
+                    System.out.println("Placement Bot effectué!");
+                    model.switchTurn();
+                } catch (Exception ex) {
+                    Logger.getLogger(JPanelPlacement.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
                 wizard.getJpanelJouer().initialize();
                 wizard.show(JPanelJouer.id);
             }

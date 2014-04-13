@@ -43,5 +43,9 @@ public class VisionBattlefield implements Serializable{
     public int getState(Coordinate coordinate){
         return map[coordinate.x][coordinate.y];
     }
+    
+    public int[][] getMap(){
+        return this.map;
+    }
 
 }

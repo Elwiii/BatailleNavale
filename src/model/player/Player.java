@@ -7,6 +7,7 @@
 package model.player;
 
 import java.io.Serializable;
+import java.util.List;
 import model.Coordinate;
 import model.Flotte;
 import model.OrdreTir;
@@ -52,6 +53,10 @@ public abstract class Player implements Serializable{
     
     public void removeShip(int idShip){
         flotte.removeShip(idShip);
+    }
+    
+    public List<Bot.structPlacement> placerBateau(Flotte fl){
+        return null;
     }
     
     /**

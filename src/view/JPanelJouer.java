@@ -29,6 +29,7 @@ import model.BatailleNavale;
 import model.Coordinate;
 import model.Flotte;
 import model.OrdreTir;
+import model.player.Human;
 import model.ship.Epoque;
 import model.ship.Ship;
 import model.ship.Ship.Etat;
@@ -109,7 +110,7 @@ public class JPanelJouer extends JPanel implements Observer {
         @Override
         public void update(Observable o, Object o1) {
             //System.out.println("Bateau : "+model.getJ2().getFlotte().getVaisseaux().get(0));
-            int etat = model.getCurrentPlayer().getMap().getState(c);
+            int etat = model.getJ1().getMap().getState(c);
             if(etat ==0){
                 this.setText("?"); // ? pour dire "pas encore attaqué"
             }
