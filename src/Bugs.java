@@ -208,10 +208,8 @@ Scénario :
     Action 5 : Je clique sur Oui
     Action 6 : Je clique sur 'Charger Partie' 
     
-Postconditions : La partie n'a pas ete enregistree, elle n'apparait pas dans la liste
+Postconditions : La partie est enregistree
 Conclusion du test : 
-Le test est t'il réussi ? BUG /!\ et si je recree une partie, que je positionne 
-                les bateaux et que je valide, la partie precedente s'affiche.
     */    
     
     
