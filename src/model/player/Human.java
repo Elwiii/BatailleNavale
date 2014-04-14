@@ -13,19 +13,24 @@ import model.OrdreTir;
  *
  * @author Nikolai
  */
-public class Human extends Player implements Serializable{
+public class Human extends Player implements Serializable {
 
     public Human(String nom, int score, int nombrePartieJouees) {
         this.nom = nom;
         this.score = score;
         this.nombrePartieJouees = nombrePartieJouees;
-        
+
     }
 
     @Override
     public int fire(OrdreTir order, Flotte target) throws Exception {
         int res = flotte.fire(target, order);
         return res;
+    }
+
+    @Override
+    public void updateBattlefield(OrdreTir order,int state) {
+        map.setState(order.getCoordinate(), state);
     }
 
 }

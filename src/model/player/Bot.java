@@ -22,6 +22,8 @@ import model.ship.TypeShip;
  * @author Nikolai
  */
 public abstract class Bot extends Player implements Serializable{
+    
+    protected Coordinate lastCoordinateFired ;
 
     /**
      * 
@@ -31,7 +33,9 @@ public abstract class Bot extends Player implements Serializable{
      */
     public abstract int autoFire(VisionBattlefield bf, Flotte target);
         
-    
+    public void updateBattlefield(OrdreTir order,int state){
+        map.setState( lastCoordinateFired, state);
+    }
     
     /**
      * 

@@ -34,6 +34,8 @@ public abstract class Player implements Serializable{
     public void constructMap(int hauteur,int largeur){
         map = new VisionBattlefield(hauteur, largeur);
     }
+    
+    public abstract void updateBattlefield(OrdreTir order,int state);
    
     /**
      * 

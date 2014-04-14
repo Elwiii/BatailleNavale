@@ -25,6 +25,7 @@ public class CrossBot extends Bot implements Serializable{
     
     @Override
     public int autoFire(VisionBattlefield bf, Flotte target){
+         lastCoordinateFired = null; // a modifier
      //   throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     
         /*List <Ship> list = target.getVaisseaux();
