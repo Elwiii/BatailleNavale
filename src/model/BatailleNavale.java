@@ -108,7 +108,8 @@ public class BatailleNavale {
             }
         } else {
             // on met à jour la vison du battlefield qu'a le joueur courant
-            currentPlayer.getMap().setState(order.getCoordinate(), res);
+            //currentPlayer.getMap().setState(order.getCoordinate(), res);
+            currentPlayer.updateBattlefield(order, res);
         }
         return res;
     }

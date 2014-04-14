@@ -16,7 +16,6 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -29,11 +28,8 @@ import model.BatailleNavale;
 import model.Coordinate;
 import model.Flotte;
 import model.OrdreTir;
-import model.player.Human;
-import model.ship.Epoque;
 import model.ship.Ship;
 import model.ship.Ship.Etat;
-import model.ship.TypeShip;
 
 /**
  * @todo thomas
@@ -80,13 +76,13 @@ public class JPanelJouer extends JPanel implements Observer {
                                     res = model.fire(new OrdreTir(c, launcherid));
                                     /* Pas sur du tout*/
                                     model.update();
-                                    if (res == 2){
+                                    if (res == Flotte.MISS /* 2 */ ){
                                         System.out.println("BOT");
                                         model.switchTurn();
-                                        res = model.fire(null);
+                                        res = model.fire(OrdreTir.NO_ORDER/*null*/);
                                         while(res ==1){
                                             System.out.println("TOUCHE!!!!!");
-                                            res = model.fire(null);
+                                            res = model.fire(OrdreTir.NO_ORDER/*null*/);
                                         }
                                         model.switchTurn();
                                     }
