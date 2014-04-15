@@ -6,10 +6,12 @@
 package model;
 
 import java.util.Observer;
+import model.player.CapitaineThomas;
 import model.player.CrossBot;
 import model.player.Difficulty;
 import model.player.Human;
 import model.player.Player;
+import model.player.Poseidon;
 import model.player.RandomBot;
 import model.ship.ShipFactory;
 import model.ship.TypeShip;
@@ -42,48 +44,41 @@ public class BatailleNavale {
     private ScoreManager scoreManager;
     private BatailleNavaleAdapter bna;
     private final Metadata metadata;
+    private final BotFactory botFactory;
 
     public BatailleNavale() throws DaoFactoryException {
         metadata = Metadata.getInstance();
         bna = new BatailleNavaleAdapter();
         shipFactory = ShipFactory.getInstance();
         adf = AbstractDaoFactory.getAbstractDaoFactory(TypePersistance.FILE);
-        
+        scoreManager = ScoreManager.getInstance();
+        botFactory = BotFactory.getInstance();
     }
-    
-    public void newGame() throws PersistanceException{
+
+    public void newGame() throws PersistanceException {
         metadata.ids++;
-        id = "game"+metadata.ids;
+        id = "game" + metadata.ids;
         metadata.save();
         state = State.JOUEUR1;
     }
-    
-    public void quitter(){
+
+    public void quitter() {
         //@todo really needed ?
     }
 
-    public void constructPlayers() {
-        
+    public void constructPlayers() throws Exception {
+
         j1 = new Human(pseudoHumun, 0, 0); //@todo Nicolas
         j1.constructFlotte();
         j1.constructMap(hauteurGrille, largeurGrille);
         // faudrait faire une factory pour les bots ça serait plus propre
-        switch (difficulty) {
-            case CROSSBOT:
-                j2 = new CrossBot();
-                j2.constructFlotte();
-                j2.constructMap(hauteurGrille, largeurGrille);
-                break;
-            case RANDOMBOT:
-                j2 = new RandomBot();
-                j2.constructFlotte();
-                j2.constructMap(hauteurGrille, largeurGrille);
-        }
+        j2 =  botFactory.getBot(difficulty);
+        j2.constructFlotte();
+        j2.constructMap(hauteurGrille, largeurGrille);
         currentPlayer = j1;
         otherPlayer = j2;
         update();
     }
-
 
     /**
      *
@@ -97,6 +92,7 @@ public class BatailleNavale {
             switch (state) {
                 case JOUEUR1:
                     state = State.WINJ1;
+                    System.out.println("j1 : " + j1);
                     scoreManager.udpate(j1.getNom(), score);
                     break;
                 case JOUEUR2:
@@ -157,7 +153,7 @@ public class BatailleNavale {
      */
     public void save() throws PersistanceException {
         save = new Game(this);
-        System.out.println("save : "+save);
+        System.out.println("save : " + save);
         adf.getInstanceDaoGame().update(save);
         update();
     }
@@ -178,15 +174,15 @@ public class BatailleNavale {
         hauteurGrille = game.hauteurGrille;
         largeurGrille = game.largeurGrille;
         pseudoHumun = game.pseudoHumun;
-        
+
     }
-    
+
     /**
-     * 
-     * @param idGame 
+     *
+     * @param idGame
      */
-    public void load(String idGame) throws PersistanceException{
-        load((Game)adf.getInstanceDaoGame().find(idGame));
+    public void load(String idGame) throws PersistanceException {
+        load((Game) adf.getInstanceDaoGame().find(idGame));
     }
 
     /**
@@ -208,12 +204,11 @@ public class BatailleNavale {
     public void addShip(TypeShip typeShip, Coordinate queue, Coordinate nez) throws Exception {
         currentPlayer.addShip(shipFactory.buildShip(typeShip, queue, nez));
     }
-    
+
     public void addShip2(TypeShip typeShip, Coordinate queue, Coordinate nez) throws Exception {
         otherPlayer.addShip(shipFactory.buildShip(typeShip, queue, nez));
     }
-    
-    
+
     public void addObserver(Observer o) {
         bna.addObserver(o);
     }

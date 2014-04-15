@@ -6,7 +6,9 @@
 package view;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,12 +18,14 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
+import javax.swing.border.TitledBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import model.BatailleNavale;
@@ -38,7 +42,7 @@ import model.ship.Ship.Etat;
 public class JPanelJouer extends JPanel implements Observer {
 
     public static final String id = "jpaneljouer";
-    
+
     private JPanel grilleEnnemi;
     private JPanel grilleFlotte;
     private final BatailleNavale model;
@@ -51,16 +55,16 @@ public class JPanelJouer extends JPanel implements Observer {
     private int state = NOTHING_SELECTED;
     private Ship selectedShip;
 
-    
-    public class JButtonFire extends JButton implements Observer{
+    public class JButtonFire extends JButton implements Observer {
+
         private final Coordinate c;
         private final BatailleNavale model;
         private int touche;
 
-        public JButtonFire(final BatailleNavale model,final Coordinate c){
+        public JButtonFire(final BatailleNavale model, final Coordinate c) {
             super("?");
-            this.model=model;
-            this.c  = c;
+            this.model = model;
+            this.c = c;
             model.addObserver(this);
             addActionListener(new ActionListener() {
 
@@ -70,34 +74,36 @@ public class JPanelJouer extends JPanel implements Observer {
                     switch (state) {
                         case NOTHING_SELECTED:
                             break;
-                        case SHIP_SELECTED:                            
-                                try {
-                                    int launcherid=model.getJ1().getFlotte().getVaisseaux().indexOf(selectedShip);
-                                    res = model.fire(new OrdreTir(c, launcherid));
-                                    /* Pas sur du tout*/
-                                    model.update();
-                                    if (res == Flotte.MISS /* 2 */ ){
-                                        System.out.println("BOT");
-                                        model.switchTurn();
+                        case SHIP_SELECTED:
+                            try {
+                                int launcherid = model.getJ1().getFlotte().getVaisseaux().indexOf(selectedShip);
+                                res = model.fire(new OrdreTir(c, launcherid));
+                                /* Pas sur du tout*/
+                                model.update();
+                                if (res == Flotte.MISS /* 2 */) {
+                                    System.out.println("BOT");
+                                    model.switchTurn();
+                                    res = model.fire(OrdreTir.NO_ORDER/*null*/);
+                                    while (res == 1) {
+                                        System.out.println("TOUCHE!!!!!");
                                         res = model.fire(OrdreTir.NO_ORDER/*null*/);
-                                        while(res ==1){
-                                            System.out.println("TOUCHE!!!!!");
-                                            res = model.fire(OrdreTir.NO_ORDER/*null*/);
-                                        }
-                                        model.switchTurn();
                                     }
-                                } catch (Exception ex) {
-                                    Logger.getLogger(JPanelJouer.class.getName()).log(Level.SEVERE, null, ex);
+                                    model.switchTurn();
                                 }
+                            } catch (Exception ex) {
+                                Logger.getLogger(JPanelJouer.class.getName()).log(Level.SEVERE, null, ex);
                             }
+                    }
                     /* Toujours pas sur */
                     model.update();
-                    System.out.println(""+c);
+                    System.out.println("" + c);
                 }
             });
-        };
+        }
+
+        ;
         
-        public Coordinate getC(){
+        public Coordinate getC() {
             return this.c;
         }
 
@@ -105,15 +111,12 @@ public class JPanelJouer extends JPanel implements Observer {
         public void update(Observable o, Object o1) {
             //System.out.println("Bateau : "+model.getJ2().getFlotte().getVaisseaux().get(0));
             int etat = model.getJ1().getMap().getState(c);
-            if(etat ==0){
+            if (etat == 0) {
                 this.setText("?"); // ? pour dire "pas encore attaqué"
-            }
-            /* Cas d'une case touchée */
-            else if(etat == 1){
+            } /* Cas d'une case touchée */ else if (etat == 1) {
                 this.setText("X"); // Croix pour dire "touché"
                 this.setEnabled(false); //Desactivation pour ne pas tirer au même endroit
-            }
-            else if(etat == 2){
+            } else if (etat == 2) {
                 this.setText(""); // " " pour dire "raté"  
                 this.setEnabled(false); //Desactivation pour ne pas tirer au même endroit
             }
@@ -127,10 +130,17 @@ public class JPanelJouer extends JPanel implements Observer {
         this.model = model;
         listTir = new ArrayList<>();
     }
-    
-    public void initialize(){
+
+    /**
+     * enlève toute chose spécifique à une partie en particulier sur ce panel
+     */
+    public void clear() {
+        removeAll(); // what else ? Nespresso
+    }
+
+    public void initialize() {
         add(new JLabel(id));
-        JPanel center = new JPanel(new GridLayout(1,2));
+        JPanel center = new JPanel(new GridLayout(1, 2));
         grilleEnnemi = new JPanel(new GridLayout(model.getLargeurGrille(), model.getLongeurGrille()));
         grilleFlotte = new JPanel(new GridLayout(model.getLargeurGrille(), model.getLongeurGrille()));
         for (int i = 0; i < model.getLargeurGrille(); i++) {
@@ -148,49 +158,51 @@ public class JPanelJouer extends JPanel implements Observer {
 
         }
         center.add(grilleEnnemi);
+        grilleEnnemi.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.GRAY), "Battlefield", TitledBorder.LEFT, TitledBorder.TOP, new Font(Font.SERIF, Font.ITALIC, 16), Color.GRAY));
         center.add(grilleFlotte);
         add(center, BorderLayout.CENTER);
-        
+        grilleFlotte.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.GRAY), "Etats de vos bateaux", TitledBorder.LEFT, TitledBorder.TOP, new Font(Font.SERIF, Font.ITALIC, 16), Color.GRAY));
+
         Ship[] tabShip = new Ship[model.getJ1().getFlotte().getVaisseaux().size()];
         int i = 0;
-        for(Ship s : model.getJ1().getFlotte().getVaisseaux()){
-            tabShip[i]=s;
+        for (Ship s : model.getJ1().getFlotte().getVaisseaux()) {
+            tabShip[i] = s;
             i++;
         }
         final JList list = new JList(tabShip); //data has type Object[]
+        list.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.GRAY), "Flotte", TitledBorder.LEFT, TitledBorder.TOP, new Font(Font.SERIF, Font.ITALIC, 16), Color.GRAY));
+
         list.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
         list.setLayoutOrientation(JList.HORIZONTAL_WRAP);
         list.setVisibleRowCount(-1);
         JScrollPane listScroller = new JScrollPane(list);
         listScroller.setPreferredSize(new Dimension(250, 80));
-              list.addListSelectionListener(new ListSelectionListener() {
+        list.addListSelectionListener(new ListSelectionListener() {
 
             @Override
             public void valueChanged(ListSelectionEvent e) {
                 selectedShip = (Ship) list.getSelectedValue();
                 state = SHIP_SELECTED;
-                for(JButtonFire jbf : listTir){
-                if(selectedShip.estAporteeDeTir(jbf.getC())){
-                    jbf.setEnabled(true);
-                }
-                else
-                    jbf.setEnabled(false);
+                for (JButtonFire jbf : listTir) {
+                    if (selectedShip.estAporteeDeTir(jbf.getC())) {
+                        jbf.setEnabled(true);
+                    } else {
+                        jbf.setEnabled(false);
+                    }
 
-            }
+                }
             }
         });
-        
-        add(list,BorderLayout.EAST);
-        
+
+        add(list, BorderLayout.EAST);
+
         updateGrilleEnnemi();
         updateGrilleFlotte();
         //updateList();
-        
-        
 
     }
-    
-    private void updateGrilleEnnemi(){
+
+    private void updateGrilleEnnemi() {
 //        System.out.println("UPDATE GRILLE ENNEMI");
 //        for(JButtonFire jbf : listTir){
 //            for(Ship s : model.getJ1().getFlotte().getVaisseaux())
@@ -205,19 +217,19 @@ public class JPanelJouer extends JPanel implements Observer {
 //            }
 //        }
     }
-    
-    private void updateGrilleFlotte(){
+
+    private void updateGrilleFlotte() {
 //        grilleFlotte.removeAll();
-        for(Ship s : model.getJ1().getFlotte().getVaisseaux()){
-            for(Etat e : s.getEtats()){
+        for (Ship s : model.getJ1().getFlotte().getVaisseaux()) {
+            for (Etat e : s.getEtats()) {
                 JButton b = new JButton();
                 b.setEnabled(false);
                 String t = "";
-                switch(e.getEtat()){
-                    case Ship.DAMAGED :
+                switch (e.getEtat()) {
+                    case Ship.DAMAGED:
                         t = "X";
                         break;
-                    case Ship.SAFE :
+                    case Ship.SAFE:
                         t = "";
                         break;
                 }
@@ -225,17 +237,17 @@ public class JPanelJouer extends JPanel implements Observer {
                 b.setBackground(s.getRepresentationGraphique());
 //                System.out.println("x : "+e.getC().x);
 //                System.out.println("y : "+e.getC().y);
-                int pos = e.getC().y+ model.getLargeurGrille() * e.getC().x;
+                int pos = e.getC().y + model.getLargeurGrille() * e.getC().x;
 //                System.out.println("pos : "+pos);
                 grilleFlotte.remove(pos);
-                grilleFlotte.add(b,pos);
+                grilleFlotte.add(b, pos);
 //                updateList();
             }
         }
-        
+
     }
-    
-    public void updateList(){
+
+    public void updateList() {
         Flotte f = model.getJ1().getFlotte();
         if (list != null) {
             remove(list);
@@ -246,9 +258,8 @@ public class JPanelJouer extends JPanel implements Observer {
         list.setVisibleRowCount(-1);
         JScrollPane listScroller = new JScrollPane(list);
         listScroller.setPreferredSize(new Dimension(250, 80));
-  
-    }
 
+    }
 
     @Override
     public void update(Observable o, Object o1) {

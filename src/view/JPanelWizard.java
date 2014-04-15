@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package view;
 
 import java.awt.CardLayout;
+import java.awt.Dimension;
 import java.util.Observable;
 import java.util.Observer;
 import javax.swing.JPanel;
@@ -16,38 +16,83 @@ import model.BatailleNavale;
  *
  * @author nikolai
  */
-public class JPanelWizard extends JPanel implements Observer{
+public class JPanelWizard extends JPanel implements Observer {
 
-    private final CardLayout cl ;
-    private final JPanelPlacement jpanelPlacement ; 
+//    private final GUI gui;
+    private final CardLayout cl;
+    private final JPanelPlacement jpanelPlacement;
     private final JPanelJouer jpanelJouer;
-    private String currentPanel = null;
-    
-    public JPanelWizard(final BatailleNavale model){
+    private final JPanelAcceuil jpanelAcceuil;
+    private final JPanelCreer jpanelCreer;
+    private final JPanelParties jpanelParties;
+    private final JPanelScore jPanelScore;
+
+    private String currentPanelId = null;
+    private JPanel currentPanel;
+
+    public JPanelWizard(final BatailleNavale model) {
         super();
+        //gui = GUI.getInstance();
         cl = new CardLayout();
         this.setLayout(cl);
         model.addObserver(this);
-        jpanelPlacement= new JPanelPlacement(model,this);
+
+        jpanelPlacement = new JPanelPlacement(model, this);
         jpanelJouer = new JPanelJouer(model);
-        add(new JPanelAcceuil(model,this),JPanelAcceuil.id);
-        add(new JPanelCreer(model,this),JPanelCreer.id);
-        add(jpanelJouer,JPanelJouer.id);
-        add(new JPanelParties(model,this),JPanelParties.id);
-        add(new JPanelScore(model,this),JPanelScore.id);
-        add(jpanelPlacement,JPanelPlacement.id);
-        currentPanel = JPanelAcceuil.id;
-//        show(JPanelAcceuil.id);
-        
+        jpanelAcceuil = new JPanelAcceuil(model, this);
+        jpanelCreer = new JPanelCreer(model, this);
+        jpanelParties = new JPanelParties(model, this);
+        jPanelScore = new JPanelScore(model, this);
+
+        add(jpanelAcceuil,JPanelAcceuil.id);
+        add(jpanelCreer, JPanelCreer.id);
+        add(jpanelJouer, JPanelJouer.id);
+        add(jpanelParties, JPanelParties.id);
+        add(jPanelScore, JPanelScore.id);
+        add(jpanelPlacement, JPanelPlacement.id);
+
+        currentPanelId = JPanelAcceuil.id;
+        currentPanel = jpanelAcceuil;
     }
-    
-    public void show(String id){
-        System.out.println("show : "+id);
+
+    public void show(String id) {
+        switchJPanel(id);
+        System.out.println("showing ...");
         cl.show(this, id);
-        currentPanel = id;
         GUI.getInstance().updateMenu();
+        GUI.getInstance().pack();
     }
-    
+
+    private void switchJPanel(String id) {
+        currentPanelId = id;
+        switch (id) {
+            case JPanelAcceuil.id:
+                currentPanel = jpanelAcceuil;
+                GUI.getInstance().setPreferredSize(new Dimension(250, 200));
+                break;
+            case JPanelCreer.id:
+                currentPanel = jpanelCreer;
+                GUI.getInstance().setPreferredSize(new Dimension(250, 200));
+                break;
+            case JPanelJouer.id:
+                currentPanel = jpanelJouer;
+                GUI.getInstance().setPreferredSize(new Dimension(800, 450));
+                break;
+            case JPanelParties.id:
+                currentPanel = jpanelParties;
+                GUI.getInstance().setPreferredSize(new Dimension(250, 200));
+                break;
+            case JPanelPlacement.id:
+                currentPanel = jpanelPlacement;
+                GUI.getInstance().setPreferredSize(new Dimension(440,400));
+                break;
+            case JPanelScore.id:
+                currentPanel = jPanelScore;
+                GUI.getInstance().setPreferredSize(new Dimension(250, 200));
+                break;
+        }
+    }
+
     @Override
     public void update(Observable o, Object o1) {
     }
@@ -67,17 +112,24 @@ public class JPanelWizard extends JPanel implements Observer{
     }
 
     /**
+     * @return the currentPanelId
+     */
+    public String getCurrentPanelId() {
+        return currentPanelId;
+    }
+
+    /**
      * @return the currentPanel
      */
-    public String getCurrentPanel() {
+    public JPanel getCurrentPanel() {
         return currentPanel;
     }
 
     /**
      * @param currentPanel the currentPanel to set
      */
-    public void setCurrentPanel(String currentPanel) {
+    public void setCurrentPanel(JPanel currentPanel) {
         this.currentPanel = currentPanel;
     }
-    
+
 }

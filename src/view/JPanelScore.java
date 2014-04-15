@@ -34,7 +34,7 @@ public class JPanelScore extends JPanel implements Observer{
         
 
         add(scrollPane,BorderLayout.CENTER);
-        add(new JButtonBackToAcceuil(wizard),BorderLayout.SOUTH);
+        add(new JButtonBackToAcceuil(model,wizard),BorderLayout.SOUTH);
     }
     
     @Override

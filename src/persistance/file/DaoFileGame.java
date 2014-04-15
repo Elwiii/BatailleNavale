@@ -44,6 +44,7 @@ public class DaoFileGame extends DaoFile<Game> implements DaoGame{
                     FileInputStream fichier = new FileInputStream("Game/"+id+".ser");
                     ObjectInputStream ois = new ObjectInputStream(fichier);
                     Game game = (Game) ois.readObject();
+                    ois.close();
                     return game;
                   } 
                   catch (java.io.IOException e) {
@@ -96,6 +97,7 @@ public class DaoFileGame extends DaoFile<Game> implements DaoGame{
             ObjectOutputStream oos = new ObjectOutputStream(fichier);
             oos.writeObject(g);
             oos.flush();
+            oos.close();
         } 
         catch (java.io.IOException e) {
           e.printStackTrace();
@@ -110,10 +112,13 @@ public class DaoFileGame extends DaoFile<Game> implements DaoGame{
         File fichier = new File("Game/"+g.getId()+".ser");
         //Si le fichier a déjà été créé, on le supprime
         if(fichier.exists()){
-            System.out.println("Fichier déjà existant : deleting ...");
-            fichier.delete();
+            System.out.println("Fichier déjà existant : deleting "+fichier+"...");
+//            fichier.setWritable(true);
+            boolean b = fichier.delete();
+            System.out.println("is delete ? "+b);
         } 
         //On (re)crée le fichier correspondant
+        System.out.println("Recreating "+fichier+" ... ");
         persiste(g);    
     }
 

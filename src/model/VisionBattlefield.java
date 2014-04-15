@@ -21,10 +21,16 @@ public class VisionBattlefield implements Serializable{
     private final int UNKNOWN = 0;
     private final int HIT = 1;
     private final int MISS = 2;
+    
+    private final int hauteur;
+    private final int largeur;
 
     public VisionBattlefield(int hauteur, int largeur) {
         map = new int[hauteur][largeur];
+        this.hauteur = hauteur;
+        this.largeur = largeur;
     }
+    
     
     public void setState(Coordinate coordinate, int state){
         assert(!(state == UNKNOWN || state==HIT || state == MISS)):"Etat inconnu";
@@ -46,6 +52,20 @@ public class VisionBattlefield implements Serializable{
     
     public int[][] getMap(){
         return this.map;
+    }
+
+    /**
+     * @return the hauteur
+     */
+    public int getHauteur() {
+        return hauteur;
+    }
+
+    /**
+     * @return the largeur
+     */
+    public int getLargeur() {
+        return largeur;
     }
 
 }

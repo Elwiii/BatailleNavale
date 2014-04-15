@@ -9,8 +9,6 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.util.Observable;
 import java.util.Observer;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
@@ -21,7 +19,6 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import model.BatailleNavale;
 import model.Game;
-import persistance.PersistanceException;
 
 /**
  * @todo Nicolas
@@ -79,7 +76,7 @@ public class JPanelParties extends JPanel implements Observer {
         });
         list.clearSelection();
         add(listScroller, BorderLayout.CENTER);
-        add(new JButtonBackToAcceuil(wizard), BorderLayout.SOUTH);
+        add(new JButtonBackToAcceuil(model,wizard), BorderLayout.SOUTH);
     }
 
     @Override

@@ -33,6 +33,7 @@ public abstract class Bot extends Player implements Serializable{
      */
     public abstract int autoFire(VisionBattlefield bf, Flotte target);
         
+    @Override
     public void updateBattlefield(OrdreTir order,int state){
         map.setState( lastCoordinateFired, state);
     }
