@@ -5,9 +5,7 @@
  */
 package view;
 
-import control.BackToAcceuilListener;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import control.MoveToPanelListener;
 import javax.swing.JButton;
 import model.BatailleNavale;
 
@@ -20,7 +18,7 @@ public class JButtonBackToAcceuil extends JButton {
     public JButtonBackToAcceuil(final BatailleNavale model,final JPanelWizard wizard) {
         super("retour");
 
-        addActionListener(new BackToAcceuilListener(model, wizard));
+        addActionListener(new MoveToPanelListener(model, wizard, JPanelAcceuil.id));
 
     }
 }
