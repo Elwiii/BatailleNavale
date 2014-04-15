@@ -11,6 +11,7 @@ import model.player.CrossBot;
 import model.player.Difficulty;
 import model.player.Human;
 import model.player.Player;
+import model.player.Poseidon;
 import model.player.RandomBot;
 import model.ship.ShipFactory;
 import model.ship.TypeShip;
@@ -79,6 +80,9 @@ public class BatailleNavale {
                 break;
             case CAPTAIN_THOMAS:
                 j2 = new CapitaineThomas();
+                break;
+            case POSEIDON:
+                j2 = new Poseidon();
                 break;
         }
         j2.constructFlotte();

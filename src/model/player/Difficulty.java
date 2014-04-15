@@ -15,5 +15,6 @@ import java.io.Serializable;
 public enum Difficulty implements Serializable{
     CROSSBOT,
     RANDOMBOT,
-    CAPTAIN_THOMAS
+    CAPTAIN_THOMAS,
+    POSEIDON
 }
