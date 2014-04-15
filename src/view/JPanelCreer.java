@@ -34,8 +34,8 @@ public class JPanelCreer extends JPanel implements Observer {
     private final JComboBox longueur;
     private final JComboBox largeur;
     private final JComboBox difficulty;
-    private final String[] longeurs = {"5", "10", "20", "40", "80"};
-    private final String[] largeurs = {"5", "10", "20", "40", "80"};
+    private final String[] longeurs = {"5", "10", "20"};
+    private final String[] largeurs = {"5", "10", "20"};//todo dans config
     private int lon;
     private int lar;
     private Epoque epo;

@@ -6,6 +6,7 @@
 package view;
 
 import control.MoveToPanelListener;
+import control.QuitListener;
 import control.SaveListener;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -42,30 +43,24 @@ public class GUI extends JFrame {
     }
 
     private final JPanelWizard cards;
-//    private final BatailleNavaleAdapter model_adapter;
     private final BatailleNavale model;
     private final JMenuItem save;
 
     private GUI() throws DaoFactoryException {
         super("bataille navale");
-//        model_adapter = new BatailleNavaleAdapter();
 
         model = new BatailleNavale();
 
-        //Create the panel that contains the "cards".
+         //Create the panel that contains the "cards".
         cards = new JPanelWizard(model);
 
         add(cards, BorderLayout.CENTER);
-
-        // les menus
+  
+         // les menus
         //Create the menu bar.
         JMenuBar menuBar = new JMenuBar();
 
         //Build the first menu.
-        
-        
-        
-        
         JMenu menu = new JMenu("Fichier");
         menu.getAccessibleContext().setAccessibleDescription(
                 "The only menu in this program that has menu items");
@@ -97,45 +92,7 @@ public class GUI extends JFrame {
         
         
         JMenuItem quitter = new JMenuItem("quitter");
-        quitter.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent ae) {
-                int n;
-                System.out.println("cards : " + cards);
-                switch (cards.getCurrentPanel()) {
-                    case JPanelJouer.id:
-                        n = JOptionPane.showConfirmDialog(
-                                GUI.getInstance(),
-                                "Sauvergarder avant de quitter ?",
-                                "",
-                                JOptionPane.YES_NO_OPTION);
-                        switch (n) {
-                            case 0:
-                                try {
-                                    model.save();
-                                } catch (PersistanceException ex) {
-                                    Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
-                                }
-
-                                break;
-                        }
-                        System.exit(0);
-                        break;
-                    default:
-                        n = JOptionPane.showConfirmDialog(
-                                GUI.getInstance(),
-                                "Voulez vous vraiment quitter l'application ?",
-                                "",
-                                JOptionPane.YES_NO_OPTION);
-                        switch (n) {
-                            case 0:
-                                System.exit(0);
-                        }
-                        break;
-                }
-            }
-        });
+        quitter.addActionListener(new QuitListener(model, cards));
         menu.add(quitter);
 
         
@@ -149,7 +106,7 @@ public class GUI extends JFrame {
     }
 
     public void updateMenu() {
-        switch (cards.getCurrentPanel()) {
+        switch (cards.getCurrentPanelId()) {
             case JPanelJouer.id:
                 save.setEnabled(true);
                 break;

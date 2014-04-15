@@ -14,7 +14,6 @@ import model.BatailleNavale;
 import persistance.PersistanceException;
 import view.GUI;
 import view.JPanelJouer;
-import view.JPanelParties;
 import view.JPanelWizard;
 
 /**
@@ -37,7 +36,10 @@ public class MoveToPanelListener implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (cards.getCurrentPanel().equals(JPanelJouer.id)) {
+        if (cards.getCurrentPanelId().equals(JPanelJouer.id)) {
+
+            JPanelJouer jpj = (JPanelJouer) cards.getCurrentPanel();
+            
             int n = JOptionPane.showConfirmDialog(
                     GUI.getInstance(),
                     "Voulez vous enregistrer ?",
@@ -51,7 +53,10 @@ public class MoveToPanelListener implements ActionListener {
                         Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
                     }
             }
+            System.out.println("clearing ...");
+            jpj.clear();
         }
+        System.out.println("idPane : "+idPanel                 );
         cards.show(idPanel);
     }
 }
