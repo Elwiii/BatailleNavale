@@ -127,6 +127,13 @@ public class JPanelJouer extends JPanel implements Observer {
         this.model = model;
         listTir = new ArrayList<>();
     }
+
+    /**
+     * enlève toute chose spécifique à une partie en particulier sur ce panel
+     */
+    public void clear(){
+        removeAll(); // what else ? Nespresso
+    }
     
     public void initialize(){
         add(new JLabel(id));
