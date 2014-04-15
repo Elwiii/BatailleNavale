@@ -44,6 +44,7 @@ public class BatailleNavale {
     private ScoreManager scoreManager;
     private BatailleNavaleAdapter bna;
     private final Metadata metadata;
+    private final BotFactory botFactory;
 
     public BatailleNavale() throws DaoFactoryException {
         metadata = Metadata.getInstance();
@@ -51,7 +52,7 @@ public class BatailleNavale {
         shipFactory = ShipFactory.getInstance();
         adf = AbstractDaoFactory.getAbstractDaoFactory(TypePersistance.FILE);
         scoreManager = ScoreManager.getInstance();
-
+        botFactory = BotFactory.getInstance();
     }
 
     public void newGame() throws PersistanceException {
@@ -65,26 +66,13 @@ public class BatailleNavale {
         //@todo really needed ?
     }
 
-    public void constructPlayers() {
+    public void constructPlayers() throws Exception {
 
         j1 = new Human(pseudoHumun, 0, 0); //@todo Nicolas
         j1.constructFlotte();
         j1.constructMap(hauteurGrille, largeurGrille);
         // faudrait faire une factory pour les bots ça serait plus propre
-        switch (difficulty) {
-            case CROSSBOT:
-                j2 = new CrossBot();
-                break;
-            case RANDOMBOT:
-                j2 = new RandomBot();
-                break;
-            case CAPTAIN_THOMAS:
-                j2 = new CapitaineThomas();
-                break;
-            case POSEIDON:
-                j2 = new Poseidon();
-                break;
-        }
+        j2 =  botFactory.getBot(difficulty);
         j2.constructFlotte();
         j2.constructMap(hauteurGrille, largeurGrille);
         currentPlayer = j1;
