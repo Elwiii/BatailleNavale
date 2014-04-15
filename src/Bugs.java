@@ -261,6 +261,7 @@ Conclusion du test : La grille affichee n'est pas celle cree mais celle chargee
 Commentaires sur le test:
 Le test est t'il réussi ? NON
 */    
+    
 
 /*
     Ticket : [[ ticket : 11 ]]
@@ -276,4 +277,9 @@ Commentaires sur le test:
 Le test est t'il réussi ? OUI
     */    
     
+    
+    /*
+    @todo bug 12
+    grille 10*10: si bateau de taille max -> boucle 
+    */
 }
