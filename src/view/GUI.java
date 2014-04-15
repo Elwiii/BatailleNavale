@@ -5,6 +5,9 @@
  */
 package view;
 
+import control.BackToAcceuilListener;
+import control.NewGameListener;
+import control.SaveListener;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -71,7 +74,22 @@ public class GUI extends JFrame {
         
         
         JMenuItem acceuil = new JMenuItem("acceuil");
-        acceuil.addActionListener(new ActionListener() {
+        acceuil.addActionListener(new BackToAcceuilListener(model, cards));
+        menu.add(acceuil);
+        
+
+        JMenuItem newGame = new JMenuItem("nouvelle partie");
+        newGame.addActionListener(new NewGameListener(model,cards));
+        menu.add(newGame);
+        
+        
+        save = new JMenuItem("enregistrer");
+        save.setEnabled(false);
+        save.addActionListener(new SaveListener(model));
+        menu.add(save);
+
+        JMenuItem load = new JMenuItem("charger");
+        load.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent ae) {
@@ -90,28 +108,15 @@ public class GUI extends JFrame {
                             }
                     }
                 }
-                cards.show(JPanelAcceuil.id);
+                cards.show(JPanelParties.id);
             }
         });
-        
-        menu.add(acceuil);
-        
-        
-        save = new JMenuItem("enregistrer");
-        save.setEnabled(false);
-        save.addActionListener(new ActionListener() {
 
-            @Override
-            public void actionPerformed(ActionEvent ae) {
-                System.out.println("Saving ...");
-                try {
-                    model.save();
-                } catch (PersistanceException ex) {
-                    Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        });
-        menu.add(save);
+        menu.add(load);
+
+        
+        
+        
         JMenuItem quitter = new JMenuItem("quitter");
         quitter.addActionListener(new ActionListener() {
 

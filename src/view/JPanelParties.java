@@ -79,7 +79,7 @@ public class JPanelParties extends JPanel implements Observer {
         });
         list.clearSelection();
         add(listScroller, BorderLayout.CENTER);
-        add(new JButtonBackToAcceuil(wizard), BorderLayout.SOUTH);
+        add(new JButtonBackToAcceuil(model,wizard), BorderLayout.SOUTH);
     }
 
     @Override

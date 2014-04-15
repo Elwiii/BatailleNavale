@@ -5,9 +5,11 @@
  */
 package view;
 
+import control.BackToAcceuilListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
+import model.BatailleNavale;
 
 /**
  *
@@ -15,15 +17,11 @@ import javax.swing.JButton;
  */
 public class JButtonBackToAcceuil extends JButton {
 
-    public JButtonBackToAcceuil(final JPanelWizard wizard) {
+    public JButtonBackToAcceuil(final BatailleNavale model,final JPanelWizard wizard) {
         super("retour");
 
-        addActionListener(new ActionListener() {
+        addActionListener(new BackToAcceuilListener(model, wizard));
 
-            @Override
-            public void actionPerformed(ActionEvent ae) {
-                wizard.show(JPanelAcceuil.id);
-            }
-        });
     }
 }
+    

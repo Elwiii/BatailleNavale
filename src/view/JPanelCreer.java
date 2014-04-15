@@ -56,7 +56,7 @@ public class JPanelCreer extends JPanel implements Observer {
 //                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
 //            }
 //        });
-        south.add(new JButtonBackToAcceuil(wizard),BorderLayout.SOUTH);
+        south.add(new JButtonBackToAcceuil(model,wizard),BorderLayout.SOUTH);
         epoque = new JComboBox(Epoque.values());
         epoque.addActionListener(new ActionListener() {
 

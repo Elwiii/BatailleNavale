@@ -6,6 +6,7 @@
 
 package view;
 
+import control.NewGameListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Observable;
@@ -28,13 +29,7 @@ public class JPanelAcceuil extends JPanel implements Observer{
         model.addObserver(this);
 //        add(new JLabel(id));
         JButton creerPartie = new JButton("Créer Partie");
-        creerPartie.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent ae) {
-                wizard.show(JPanelCreer.id);
-            }
-        });
+        creerPartie.addActionListener(new NewGameListener(model,wizard));
         add(creerPartie);
         
         JButton chargerPartie = new JButton("Charger Partie");
