@@ -70,7 +70,7 @@ public class JPanelCreer extends JPanel implements Observer {
                 diff = (Difficulty) cb.getSelectedItem();
             }
         });
-        difficulty.setSelectedIndex(0);
+        difficulty.setSelectedIndex(2);
         longueur = new JComboBox(longeurs);
         longueur.addActionListener(new ActionListener() {
 
