@@ -6,6 +6,8 @@
 package view;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,10 +15,12 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.border.TitledBorder;
 import model.BatailleNavale;
 import model.player.Difficulty;
 import model.ship.Epoque;
@@ -43,7 +47,7 @@ public class JPanelCreer extends JPanel implements Observer {
 
     public JPanelCreer(final BatailleNavale model, final JPanelWizard wizard) {
         super(new BorderLayout());
-        JPanel panelOption = new JPanel();
+        JPanel panelOption = new JPanel(new GridLayout(4,1));
         JPanel south = new JPanel(new GridLayout(1, 2));
         model.addObserver(this);
 
@@ -126,6 +130,12 @@ public class JPanelCreer extends JPanel implements Observer {
         south.add(valider);
         add(panelOption, BorderLayout.CENTER);
         add(south, BorderLayout.SOUTH);
+
+        nom.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.GRAY), "Pseudo", TitledBorder.LEFT, TitledBorder.TOP, new Font(Font.SERIF, Font.ITALIC, 16), Color.GRAY));
+        longueur.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.GRAY), "Taille", TitledBorder.LEFT, TitledBorder.TOP, new Font(Font.SERIF, Font.ITALIC, 16), Color.GRAY));
+        epoque.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.GRAY), "Longeur", TitledBorder.LEFT, TitledBorder.TOP, new Font(Font.SERIF, Font.ITALIC, 16), Color.GRAY));
+        difficulty.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.GRAY), "Difficultée", TitledBorder.LEFT, TitledBorder.TOP, new Font(Font.SERIF, Font.ITALIC, 16), Color.GRAY));
+
     }
 
     @Override

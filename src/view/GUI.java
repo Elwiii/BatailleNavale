@@ -98,7 +98,7 @@ public class GUI extends JFrame {
         
         setJMenuBar(menuBar);
         //finalisation de la JFrame
-        setPreferredSize(new Dimension(650, 600));
+//        setPreferredSize(new Dimension(650, 600));
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
