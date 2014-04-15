@@ -8,20 +8,19 @@ package view;
 import control.MoveToPanelListener;
 import control.QuitListener;
 import control.SaveListener;
+import de.muntjak.tinylookandfeel.TinyLookAndFeel;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import model.BatailleNavale;
 import persistance.DaoFactoryException;
-import persistance.PersistanceException;
 
 /**
  *
@@ -47,7 +46,7 @@ public class GUI extends JFrame {
     private final JMenuItem save;
 
     private GUI() throws DaoFactoryException {
-        super("bataille navale");
+        super("Bataille navale");
 
         model = new BatailleNavale();
 
@@ -95,13 +94,16 @@ public class GUI extends JFrame {
         quitter.addActionListener(new QuitListener(model, cards));
         menu.add(quitter);
 
+//        JMenu menuMyst = new JMenu("Myst");
+        
         
         setJMenuBar(menuBar);
         //finalisation de la JFrame
-//        setPreferredSize(new Dimension(650, 600));
+        setPreferredSize(new Dimension(250, 200));
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
+//        setResizable(false);
         pack();
     }
 
@@ -116,7 +118,17 @@ public class GUI extends JFrame {
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws UnsupportedLookAndFeelException {
+//        NimRODTheme nt = new NimRODTheme();
+//nt.setPrimary1( new Color(10,10,10));
+//nt.setPrimary2( new Color(20,20,20));
+//nt.setPrimary3( new Color(30,30,30));
+//
+//NimRODLookAndFeel NimRODLF = new NimRODLookAndFeel();
+//NimRODLF.setCurrentTheme( nt);
+//UIManager.setLookAndFeel( NimRODLF);
+//        UIManager.setLookAndFeel( new com.nilo.plaf.nimrod.NimRODLookAndFeel());
+//        UIManager.setLookAndFeel(new TinyLookAndFeel());
         GUI.getInstance();
     }
 }

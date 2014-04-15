@@ -6,8 +6,6 @@
 package view;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,12 +13,12 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.border.TitledBorder;
+import javax.swing.SpringLayout;
 import model.BatailleNavale;
 import model.player.Difficulty;
 import model.ship.Epoque;
@@ -47,12 +45,20 @@ public class JPanelCreer extends JPanel implements Observer {
 
     public JPanelCreer(final BatailleNavale model, final JPanelWizard wizard) {
         super(new BorderLayout());
-        JPanel panelOption = new JPanel(new GridLayout(4,1));
+        SpringLayout layout = new SpringLayout();
+        JPanel panelOption = new JPanel(/*layout/**/new GridLayout(4,2)/**/);
         JPanel south = new JPanel(new GridLayout(1, 2));
         model.addObserver(this);
 
         nom = new JTextField("votre pseudo");
-        panelOption.add(nom);
+//        panelOption.add(nom);
+//
+//        layout.putConstraint(SpringLayout.WEST, nom,
+//                50,
+//                SpringLayout.WEST, panelOption);
+//        layout.putConstraint(SpringLayout.NORTH, nom,
+//                50,
+//                SpringLayout.NORTH, panelOption);
 
         south.add(new JButtonBackToAcceuil(model, wizard), BorderLayout.SOUTH);
         epoque = new JComboBox(Epoque.values());
@@ -95,11 +101,16 @@ public class JPanelCreer extends JPanel implements Observer {
             }
         });
         largeur.setSelectedIndex(0);
+        panelOption.add(new JLabel("Pseudo  "));
+        panelOption.add(nom);
+        panelOption.add(new JLabel("Epoque  "));
         panelOption.add(epoque);
+        panelOption.add(new JLabel("Taille  "));
         panelOption.add(longueur);
 //        panelOption.add(largeur); @todo
+        panelOption.add(new JLabel("Difficultée  "));
         panelOption.add(difficulty);
-
+        
         JButton valider = new JButton("valider");
         valider.addActionListener(new ActionListener() {
 
@@ -131,10 +142,10 @@ public class JPanelCreer extends JPanel implements Observer {
         add(panelOption, BorderLayout.CENTER);
         add(south, BorderLayout.SOUTH);
 
-        nom.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.GRAY), "Pseudo", TitledBorder.LEFT, TitledBorder.TOP, new Font(Font.SERIF, Font.ITALIC, 16), Color.GRAY));
-        longueur.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.GRAY), "Taille", TitledBorder.LEFT, TitledBorder.TOP, new Font(Font.SERIF, Font.ITALIC, 16), Color.GRAY));
-        epoque.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.GRAY), "Longeur", TitledBorder.LEFT, TitledBorder.TOP, new Font(Font.SERIF, Font.ITALIC, 16), Color.GRAY));
-        difficulty.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.GRAY), "Difficultée", TitledBorder.LEFT, TitledBorder.TOP, new Font(Font.SERIF, Font.ITALIC, 16), Color.GRAY));
+//        nom.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.GRAY), "Pseudo", TitledBorder.LEFT, TitledBorder.TOP, new Font(Font.SERIF, Font.ITALIC, 16), Color.GRAY));
+//        longueur.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.GRAY), "Taille", TitledBorder.LEFT, TitledBorder.TOP, new Font(Font.SERIF, Font.ITALIC, 16), Color.GRAY));
+//        epoque.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.GRAY), "Longeur", TitledBorder.LEFT, TitledBorder.TOP, new Font(Font.SERIF, Font.ITALIC, 16), Color.GRAY));
+//        difficulty.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.GRAY), "Difficultée", TitledBorder.LEFT, TitledBorder.TOP, new Font(Font.SERIF, Font.ITALIC, 16), Color.GRAY));
 
     }
 

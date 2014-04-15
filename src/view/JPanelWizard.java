@@ -6,6 +6,7 @@
 package view;
 
 import java.awt.CardLayout;
+import java.awt.Dimension;
 import java.util.Observable;
 import java.util.Observer;
 import javax.swing.JPanel;
@@ -17,6 +18,7 @@ import model.BatailleNavale;
  */
 public class JPanelWizard extends JPanel implements Observer {
 
+//    private final GUI gui;
     private final CardLayout cl;
     private final JPanelPlacement jpanelPlacement;
     private final JPanelJouer jpanelJouer;
@@ -30,6 +32,7 @@ public class JPanelWizard extends JPanel implements Observer {
 
     public JPanelWizard(final BatailleNavale model) {
         super();
+        //gui = GUI.getInstance();
         cl = new CardLayout();
         this.setLayout(cl);
         model.addObserver(this);
@@ -57,6 +60,7 @@ public class JPanelWizard extends JPanel implements Observer {
         System.out.println("showing ...");
         cl.show(this, id);
         GUI.getInstance().updateMenu();
+        GUI.getInstance().pack();
     }
 
     private void switchJPanel(String id) {
@@ -64,21 +68,27 @@ public class JPanelWizard extends JPanel implements Observer {
         switch (id) {
             case JPanelAcceuil.id:
                 currentPanel = jpanelAcceuil;
+                GUI.getInstance().setPreferredSize(new Dimension(250, 200));
                 break;
             case JPanelCreer.id:
                 currentPanel = jpanelCreer;
+                GUI.getInstance().setPreferredSize(new Dimension(250, 200));
                 break;
             case JPanelJouer.id:
                 currentPanel = jpanelJouer;
+                GUI.getInstance().setPreferredSize(new Dimension(800, 450));
                 break;
             case JPanelParties.id:
                 currentPanel = jpanelParties;
+                GUI.getInstance().setPreferredSize(new Dimension(250, 200));
                 break;
             case JPanelPlacement.id:
                 currentPanel = jpanelPlacement;
+                GUI.getInstance().setPreferredSize(new Dimension(440,400));
                 break;
             case JPanelScore.id:
                 currentPanel = jPanelScore;
+                GUI.getInstance().setPreferredSize(new Dimension(250, 200));
                 break;
         }
     }
