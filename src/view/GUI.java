@@ -5,6 +5,8 @@
  */
 package view;
 
+import control.MoveToPanelListener;
+import control.SaveListener;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -71,47 +73,29 @@ public class GUI extends JFrame {
         
         
         JMenuItem acceuil = new JMenuItem("acceuil");
-        acceuil.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent ae) {
-                if (cards.getCurrentPanel().equals(JPanelJouer.id)) {
-                    int n = JOptionPane.showConfirmDialog(
-                            GUI.getInstance(),
-                            "Voulez vous enregistrer ?",
-                            "",
-                            JOptionPane.YES_NO_OPTION);
-                    switch (n) {
-                        case 0:
-                            try {
-                                model.save();
-                            } catch (PersistanceException ex) {
-                                Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
-                            }
-                    }
-                }
-                cards.show(JPanelAcceuil.id);
-            }
-        });
-        
+        acceuil.addActionListener(new MoveToPanelListener(model, cards, JPanelAcceuil.id));
         menu.add(acceuil);
+        
+
+        JMenuItem newGame = new JMenuItem("nouvelle partie");
+        newGame.addActionListener(new MoveToPanelListener(model, cards, JPanelCreer.id));
+        menu.add(newGame);
         
         
         save = new JMenuItem("enregistrer");
         save.setEnabled(false);
-        save.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent ae) {
-                System.out.println("Saving ...");
-                try {
-                    model.save();
-                } catch (PersistanceException ex) {
-                    Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        });
+        save.addActionListener(new SaveListener(model));
         menu.add(save);
+
+        JMenuItem load = new JMenuItem("charger");
+        load.addActionListener(new MoveToPanelListener(model, cards, JPanelParties.id));
+        menu.add(load);
+
+        JMenuItem score = new JMenuItem("score");
+        score.addActionListener(new MoveToPanelListener(model, cards, JPanelScore.id));
+        menu.add(score);
+        
+        
         JMenuItem quitter = new JMenuItem("quitter");
         quitter.addActionListener(new ActionListener() {
 

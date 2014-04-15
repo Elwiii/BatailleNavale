@@ -44,19 +44,13 @@ public class JPanelCreer extends JPanel implements Observer {
     public JPanelCreer(final BatailleNavale model, final JPanelWizard wizard) {
         super(new BorderLayout());
         JPanel panelOption = new JPanel();
-        JPanel south = new JPanel(new GridLayout(1,2));
+        JPanel south = new JPanel(new GridLayout(1, 2));
         model.addObserver(this);
-//        add(new JLabel(id));
-        nom = new JTextField("nom");
+
+        nom = new JTextField("votre pseudo");
         panelOption.add(nom);
-//        nom.addActionListener(new ActionListener() {
-//
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-//            }
-//        });
-        south.add(new JButtonBackToAcceuil(wizard),BorderLayout.SOUTH);
+
+        south.add(new JButtonBackToAcceuil(model, wizard), BorderLayout.SOUTH);
         epoque = new JComboBox(Epoque.values());
         epoque.addActionListener(new ActionListener() {
 
@@ -117,17 +111,17 @@ public class JPanelCreer extends JPanel implements Observer {
                     model.newGame();
                 } catch (PersistanceException ex) {
                     Logger.getLogger(JPanelCreer.class.getName()).log(Level.SEVERE, null, ex);
-                    System.out.println("NEW GAME ERREUR");
+//                    System.out.println("NEW GAME ERREUR");
                 }
                 wizard.getJpanelPlacement().constuctGrille(lon, lon/*lar @todo*/);
                 wizard.getJpanelPlacement().constructList(epo);
                 wizard.show(JPanelPlacement.id);
-                System.out.println("model : "+model.getPseudoHumun());
+//                System.out.println("model : "+model.getPseudoHumun());
             }
         });
         south.add(valider);
-        add(panelOption,BorderLayout.CENTER);
-        add(south,BorderLayout.SOUTH);
+        add(panelOption, BorderLayout.CENTER);
+        add(south, BorderLayout.SOUTH);
     }
 
     @Override
