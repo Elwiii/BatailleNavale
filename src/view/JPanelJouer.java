@@ -84,6 +84,9 @@ public class JPanelJouer extends JPanel implements Observer {
                                     System.out.println("RES J1 = "+res);
                                     /* Pas sur du tout*/
                                     model.update();
+                                    if(model.getState()==State.MATCH_NUL){
+                                        JOptionPane.showMessageDialog(GUI.getInstance(), "Match nul! Dommage..");
+                                    }
                                     if (!(model.getState() == State.WINJ1)) {
                                         if (res == Flotte.MISS /* 2 */) {
                                             System.out.println("BOT");
@@ -99,11 +102,11 @@ public class JPanelJouer extends JPanel implements Observer {
                                                 model.switchTurn();
                                             }
                                             else
-                                                JOptionPane.showMessageDialog(GUI.getInstance(), "Vous avez perdu!");
+                                                JOptionPane.showMessageDialog(GUI.getInstance(), "Vous avez perdu! Retentez votre chance!");
                                         }
                                     }
                                     else
-                                        JOptionPane.showMessageDialog(GUI.getInstance(), "Vous avez gagné!");
+                                        JOptionPane.showMessageDialog(GUI.getInstance(), "Vous avez gagné! Bravo!");
                                 }
 
                             } catch (Exception ex) {
