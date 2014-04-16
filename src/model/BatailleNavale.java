@@ -72,7 +72,7 @@ public class BatailleNavale {
         j1.constructFlotte();
         j1.constructMap(hauteurGrille, largeurGrille);
         // faudrait faire une factory pour les bots ça serait plus propre
-        j2 =  botFactory.getBot(difficulty);
+        j2 = botFactory.getBot(difficulty);
         j2.constructFlotte();
         j2.constructMap(hauteurGrille, largeurGrille);
         currentPlayer = j1;
@@ -87,27 +87,34 @@ public class BatailleNavale {
      * @throws java.lang.Exception
      */
     public int fire(OrdreTir order) throws Exception {
-        int res = currentPlayer.fire(order, otherPlayer.getFlotte());
-        if (res == Flotte.FLOTTE_DETRUITE) {
-            switch (state) {
-                case JOUEUR1:
-                    state = State.WINJ1;
-                    System.out.println("j1 : " + j1);
-                    scoreManager.udpate(j1.getNom(), score);
-                    break;
-                case JOUEUR2:
-                    state = State.WINJ2;
-                    scoreManager.udpate(j2.getNom(), score);
-                    break;
-                default:
-                    throw new Exception("error");
-            }
-        } else {
-            // on met à jour la vison du battlefield qu'a le joueur courant
-            //currentPlayer.getMap().setState(order.getCoordinate(), res);
-            currentPlayer.updateBattlefield(order, res);
+        if ((currentPlayer.horsDePortee(otherPlayer.getFlotte())) && (otherPlayer.horsDePortee(currentPlayer.getFlotte()))) {
+            state = State.MATCH_NUL;
+            System.out.println("MATCH NUL");
+            return 10;
         }
-        return res;
+        else {
+            int res = currentPlayer.fire(order, otherPlayer.getFlotte());
+            if (res == Flotte.FLOTTE_DETRUITE) {
+                switch (state) {
+                    case JOUEUR1:
+                        state = State.WINJ1;
+                        System.out.println("j1 : " + j1);
+                        scoreManager.udpate(j1.getNom(), score);
+                        break;
+                    case JOUEUR2:
+                        state = State.WINJ2;
+                        scoreManager.udpate(j2.getNom(), score);
+                        break;
+                    default:
+                        throw new Exception("error");
+                }
+            } else {
+            // on met à jour la vison du battlefield qu'a le joueur courant
+                //currentPlayer.getMap().setState(order.getCoordinate(), res);
+                currentPlayer.updateBattlefield(order, res);
+            }
+            return res;
+        }
     }
 
     /**
@@ -147,6 +154,24 @@ public class BatailleNavale {
         }
     }
 
+//    public void play() {
+//        int res = 0;
+//        int launcherid = getCurrentPlayer().getFlotte().getVaisseaux().indexOf(selectedShip);
+//        try{
+//        res = fire(new OrdreTir(c, launcherid));
+//        /* Pas sur du tout*/
+//        update();
+//        if (res == Flotte.MISS /* 2 */) {
+//            System.out.println("BOT");
+//            switchTurn();
+//            res = fire(OrdreTir.NO_ORDER/*null*/);
+//            while (res == 1) {
+//                System.out.println("TOUCHE!!!!!");
+//                res = fire(OrdreTir.NO_ORDER/*null*/);
+//            }
+//            switchTurn();
+//        }
+//    }
     /**
      *
      * @throws persistance.PersistanceException

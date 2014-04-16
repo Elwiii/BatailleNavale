@@ -32,6 +32,7 @@ import model.BatailleNavale;
 import model.Coordinate;
 import model.Flotte;
 import model.OrdreTir;
+import model.State;
 import model.ship.Ship;
 import model.ship.Ship.Etat;
 
@@ -76,20 +77,25 @@ public class JPanelJouer extends JPanel implements Observer {
                             break;
                         case SHIP_SELECTED:
                             try {
-                                int launcherid = model.getJ1().getFlotte().getVaisseaux().indexOf(selectedShip);
-                                res = model.fire(new OrdreTir(c, launcherid));
-                                /* Pas sur du tout*/
-                                model.update();
-                                if (res == Flotte.MISS /* 2 */) {
-                                    System.out.println("BOT");
-                                    model.switchTurn();
-                                    res = model.fire(OrdreTir.NO_ORDER/*null*/);
-                                    while (res == 1) {
-                                        System.out.println("TOUCHE!!!!!");
-                                        res = model.fire(OrdreTir.NO_ORDER/*null*/);
+                                if ((model.getState() != State.WINJ2)&&(model.getState() != State.WINJ1)) {
+                                    int launcherid = model.getJ1().getFlotte().getVaisseaux().indexOf(selectedShip);
+                                    res = model.fire(new OrdreTir(c, launcherid));
+                                    /* Pas sur du tout*/
+                                    model.update();
+                                    if (!(model.getState() == State.WINJ1)) {
+                                        if (res == Flotte.MISS /* 2 */) {
+                                            System.out.println("BOT");
+                                            model.switchTurn();
+                                            res = model.fire(OrdreTir.NO_ORDER/*null*/);
+                                            while (res == Flotte.HIT) {
+                                                System.out.println("TOUCHE!!!!!");
+                                                res = model.fire(OrdreTir.NO_ORDER/*null*/);
+                                            }
+                                            model.switchTurn();
+                                        }
                                     }
-                                    model.switchTurn();
                                 }
+
                             } catch (Exception ex) {
                                 Logger.getLogger(JPanelJouer.class.getName()).log(Level.SEVERE, null, ex);
                             }
@@ -113,12 +119,16 @@ public class JPanelJouer extends JPanel implements Observer {
             int etat = model.getJ1().getMap().getState(c);
             if (etat == 0) {
                 this.setText("?"); // ? pour dire "pas encore attaqué"
-            } /* Cas d'une case touchée */ else if (etat == 1) {
+            } /* Cas d'une case touchée */ 
+            else if (etat == 1) {
                 this.setText("X"); // Croix pour dire "touché"
                 this.setEnabled(false); //Desactivation pour ne pas tirer au même endroit
             } else if (etat == 2) {
                 this.setText(""); // " " pour dire "raté"  
                 this.setEnabled(false); //Desactivation pour ne pas tirer au même endroit
+            }
+            if((model.getState()==State.WINJ1 )|| (model.getState()==State.WINJ2)||(model.getState() == State.MATCH_NUL)){
+                this.setEnabled(false);
             }
         }
 
