@@ -218,7 +218,7 @@ public class JPanelJouer extends JPanel implements Observer {
                         jbf.setEnabled(false);
                     }
                     int etat = model.getJ1().getMap().getState(jbf.getC());
-                    if(etat == 2){
+                    if((etat == 2)||(etat == 1)){
                         jbf.setEnabled(false);
                     }
 
