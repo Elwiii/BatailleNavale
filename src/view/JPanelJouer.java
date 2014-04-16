@@ -19,6 +19,7 @@ import java.util.Observer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.BorderFactory;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -34,6 +35,7 @@ import model.Coordinate;
 import model.Flotte;
 import model.OrdreTir;
 import model.State;
+import model.VisionBattlefield;
 import model.ship.Ship;
 import model.ship.Ship.Etat;
 
@@ -49,6 +51,7 @@ public class JPanelJouer extends JPanel implements Observer {
     private JPanel grilleFlotte;
     private final BatailleNavale model;
     private JList list;
+    DefaultListModel<String> listModel;
     private List<JButtonFire> listTir;
     private final int SHIP_SELECTED = 0;
     private final int HEAD_SELECTED = 1;
@@ -97,6 +100,8 @@ public class JPanelJouer extends JPanel implements Observer {
                                                 System.out.println("RES J22 = "+res);
                                                 res = model.fire(OrdreTir.NO_ORDER/*null*/);
                                                 model.update();
+                                                updateList();
+                                                
                                             }
                                             if (!(model.getState() == State.WINJ2)) {
                                                 model.switchTurn();
@@ -192,7 +197,7 @@ public class JPanelJouer extends JPanel implements Observer {
             tabShip[i] = s;
             i++;
         }
-        final JList list = new JList(tabShip); //data has type Object[]
+        /*final JList*/ list = new JList(tabShip); //data has type Object[]
         list.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.GRAY), "Flotte", TitledBorder.LEFT, TitledBorder.TOP, new Font(Font.SERIF, Font.ITALIC, 16), Color.GRAY));
 
         list.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
@@ -210,6 +215,10 @@ public class JPanelJouer extends JPanel implements Observer {
                     if (selectedShip.estAporteeDeTir(jbf.getC())) {
                         jbf.setEnabled(true);
                     } else {
+                        jbf.setEnabled(false);
+                    }
+                    int etat = model.getJ1().getMap().getState(jbf.getC());
+                    if((etat == 2)||(etat == 1)){
                         jbf.setEnabled(false);
                     }
 
@@ -271,16 +280,15 @@ public class JPanelJouer extends JPanel implements Observer {
     }
 
     public void updateList() {
-        Flotte f = model.getJ1().getFlotte();
-        if (list != null) {
-            remove(list);
+        Ship[] tabShip = new Ship[model.getJ1().getFlotte().getVaisseaux().size()];
+        int i = 0;
+        for (Ship s : model.getJ1().getFlotte().getVaisseaux()) {
+            tabShip[i] = s;
+            i++;
         }
-//        list.setSelectedIndex(0);
-        list.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
-        list.setLayoutOrientation(JList.HORIZONTAL_WRAP);
-        list.setVisibleRowCount(-1);
-        JScrollPane listScroller = new JScrollPane(list);
-        listScroller.setPreferredSize(new Dimension(250, 80));
+        list = new JList(tabShip);
+//        list.removeAll();
+//        list.setListData(tabShip);
 
     }
 
@@ -288,6 +296,7 @@ public class JPanelJouer extends JPanel implements Observer {
     public void update(Observable o, Object o1) {
         System.out.println("UPDATE JPANELJOUER");
         updateGrilleFlotte();
+        
 //        updateGrilleEnnemi();
     }
 }
