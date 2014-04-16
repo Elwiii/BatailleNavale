@@ -297,4 +297,22 @@ public class Bugs {
      Le test est t'il réussi ? NON
  
      */
+    
+    /*
+      @todo Ticket : [[ ticket : 14 ]]
+
+     Test n°14 : Jouer une partie
+     Préconditions : Avoir cree une partie (difficulte CROSSBOT, taille 5,
+                     epoque XVIII) et place les bateaux
+     Scénario :
+     Action 1 : Je place deux bateaux (barque et transport)
+     Action 2 : Je clique sur une case de la grille adverse 
+    
+     Postconditions : Grille bloquee
+     Conclusion du test : Une java.lang.NullPointerException est levee
+     Commentaires sur le test: 
+     Le test est t'il réussi ? NON
+ 
+     */
+    
 }
