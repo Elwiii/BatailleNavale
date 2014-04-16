@@ -15,7 +15,7 @@ import model.Flotte;
 /**
  * @author Nikolai
  */
-public class Ship implements Serializable{
+public class Ship implements Serializable,Comparable{
 
     /**
      * @return the representationGraphique
@@ -265,6 +265,18 @@ public class Ship implements Serializable{
     @Override
     public String toString() {
         return "" + type;
+    }
+    
+    @Override
+    public int compareTo(Object s) {
+        if(this.puissance>((Ship)s).puissance){
+            return -1;
+        }
+        else if(this.puissance<((Ship)s).puissance ){
+            return 1;
+        }
+        else
+            return 0;
     }
     
     

@@ -8,6 +8,7 @@ package model.player;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 import model.Coordinate;
@@ -54,16 +55,21 @@ public abstract class Bot extends Player implements Serializable{
     public List<structPlacement> placerBateau(Flotte fl){
         Random generator = new Random(); 
         List<Ship> listShip = fl.getVaisseaux();
-        List<Coordinate> listCoord = new ArrayList<>();
+        Collections.sort(listShip);
+        System.out.println("1er Bateau = "+listShip.get(0));
+        List<Coordinate> listCoord = null;
+        Coordinate c1 =null;
         List<structPlacement> listStruct= new ArrayList<>();
         int headColonne = 0;
         int headLigne = 0;
         int taille = this.getMap().getMap()[0].length;
         for(Ship s : listShip){
-            headColonne = 0 + generator.nextInt(taille - 0);
-            headLigne = 0 + generator.nextInt(taille - 0);
-            Coordinate c1 = new Coordinate(headLigne,headColonne);
-            listCoord = tailsPossible(c1, s.getType());
+            while(listCoord==null){
+                headColonne = 0 + generator.nextInt(taille - 0);
+                headLigne = 0 + generator.nextInt(taille - 0);
+                c1 = new Coordinate(headLigne,headColonne);
+                listCoord = tailsPossible(c1, s.getType());
+            }
             if(listCoord.size()==0){
                 return(null);
             }
