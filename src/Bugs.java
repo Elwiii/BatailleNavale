@@ -198,26 +198,6 @@ Le test est t'il réussi ? OUI
     */    
     
 /*
-   Ticket : [[ ticket : 8 ]]
-
-Test n°8 : Enregistrer une partie puis la charger
-Préconditions : Avoir cree une partie et place les bateau
-Scénario :
-    Action 1 : Je clique sur le menu 'Fichier'
-    Action 2 : Je clique sur enregistrer
-    Action 3 : Je clique sur le menu 'Fichier
-    Action 4 : Je clique sur Accueil -> un message s'affiche : "Voulez-vous enregistrer ?"
-    Action 5 : Je clique sur Oui
-    Action 6 : Je clique sur 'Charger Partie' 
-    
-Postconditions : La partie est enregistree
-Conclusion du test : 
-Commentaires sur le test:
-Le test est t'il réussi ? OUI
-
-    */    
-   
-/*
     Ticket : [[ ticket : 9 ]]
 
 Test n°9 : Charger une partie
@@ -277,9 +257,30 @@ Commentaires sur le test:
 Le test est t'il réussi ? OUI
     */    
     
-    
+
     /*
-    @todo bug 12
+   Ticket : [[ ticket : 12 ]]
+
+Test n°12 : Enregistrer une partie puis la charger
+Préconditions : Avoir cree une partie et place les bateau
+Scénario :
+    Action 1 : Je clique sur le menu 'Fichier'
+    Action 2 : Je clique sur enregistrer
+    Action 3 : Je clique sur le menu 'Fichier
+    Action 4 : Je clique sur Accueil -> un message s'affiche : "Voulez-vous enregistrer ?"
+    Action 5 : Je clique sur Oui
+    Action 6 : Je clique sur 'Charger Partie' 
+    
+Postconditions : La partie est enregistree
+Conclusion du test : 
+Commentaires sur le test:
+Le test est t'il réussi ? OUI
+
+    */    
+   
+
+    /*
+    @todo 13 
     grille 10*10: si bateau de taille max -> boucle 
     */
 }
