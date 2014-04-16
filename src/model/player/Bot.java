@@ -87,6 +87,7 @@ public abstract class Bot extends Player implements Serializable{
     public List<Coordinate> tailsPossible(Coordinate head,TypeShip s){
         int taille = this.getMap().getMap().length;
         List<Coordinate> list = new ArrayList<>();
+        list = null;
         boolean ajout = true;
         int l_max, l_min;
         int c_max, c_min;

@@ -90,6 +90,7 @@ public class JPanelJouer extends JPanel implements Observer {
                                             while (res == Flotte.HIT) {
                                                 System.out.println("TOUCHE!!!!!");
                                                 res = model.fire(OrdreTir.NO_ORDER/*null*/);
+                                                model.update();
                                             }
                                             model.switchTurn();
                                         }

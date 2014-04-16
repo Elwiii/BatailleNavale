@@ -42,6 +42,7 @@ public class Poseidon extends Bot implements Serializable{
             lastPartieShipHit = nextVictim.isDetroy()? 0 : lastPartieShipHit + 1;
             int res = flotte.fire(target, o);
             System.out.println("Poseidon a tiré en "+c+" et a eu le resultat suivant  : "+res);
+            return res;
         } catch (Exception ex) {
             Logger.getLogger(Poseidon.class.getName()).log(Level.SEVERE, null, ex);
         }
