@@ -6,7 +6,9 @@
 package view;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,6 +18,7 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -23,6 +26,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
+import javax.swing.border.TitledBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import model.BatailleNavale;
@@ -195,6 +199,8 @@ public class JPanelPlacement extends JPanel implements Observer {
                 }
             });
         }
+        
+        
 
     }
 
@@ -433,6 +439,7 @@ public class JPanelPlacement extends JPanel implements Observer {
         });
         list.clearSelection();
         east.add(/*new JScrollPane(*/list/*)*/, BorderLayout.CENTER);
+        list.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.GRAY), "Type", TitledBorder.LEFT, TitledBorder.TOP, new Font(Font.SERIF, Font.ITALIC, 16), Color.GRAY));
     }
 
     public void constuctGrille(int width, int height) {
@@ -449,6 +456,7 @@ public class JPanelPlacement extends JPanel implements Observer {
             }
         }
         add(grille, BorderLayout.CENTER);
+        grille.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.GRAY), "Placement de vos bateaux", TitledBorder.LEFT, TitledBorder.TOP, new Font(Font.SERIF, Font.ITALIC, 16), Color.GRAY));
     }
 
     @Override

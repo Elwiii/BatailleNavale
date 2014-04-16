@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package model.player;
 
 import java.io.Serializable;
@@ -13,61 +12,75 @@ import model.Flotte;
 import model.OrdreTir;
 import model.VisionBattlefield;
 import model.ship.Ship;
+import model.ship.Ship.Etat;
 
 /**
  * @author Nikolai
  */
-public abstract class Player implements Serializable{
+public abstract class Player implements Serializable {
+
     protected String nom;
     protected int score;
-    protected int nombrePartieJouees;   
+    protected int nombrePartieJouees;
     protected VisionBattlefield map;
     protected Flotte flotte;
-    
-    
+
     // bof bof mais ça m'emebete de mettre ça dans les constructeurs (vu que c'est abstract ...)
-    public void constructFlotte(){
+    public void constructFlotte() {
         flotte = new Flotte();
     }
-    
+
     // bof bof mais ça m'emebete de mettre ça dans les constructeurs (vu que c'est abstract ...)
-    public void constructMap(int hauteur,int largeur){
+    public void constructMap(int hauteur, int largeur) {
         map = new VisionBattlefield(hauteur, largeur);
     }
-    
-    public abstract void updateBattlefield(OrdreTir order,int state);
-   
+
+    public abstract void updateBattlefield(OrdreTir order, int state);
+
     /**
-     * 
+     *
      * @param order
      * @param target
-     * @return 
+     * @return
      */
     public abstract int fire(OrdreTir order, Flotte target) throws Exception;
-    
+
     /**
-     * 
-     * @param ship 
+     *
+     * @param ship
      */
-    public void addShip(Ship ship){
+    public boolean horsDePortee(Flotte target) {
+        for (Ship s : this.flotte.getVaisseaux()) {
+            for (Ship st : target.getVaisseaux()) {
+                for (Etat et : st.getEtats()) {
+                    if (s.estAporteeDeTir(et.getC())) {
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
+    }
+
+    public void addShip(Ship ship) {
         flotte.addShip(ship);
     }
-    
-    public void removeShip(int idShip){
+
+    public void removeShip(int idShip) {
         flotte.removeShip(idShip);
     }
-    
-    public List<Bot.structPlacement> placerBateau(Flotte fl){
+
+    public List<Bot.structPlacement> placerBateau(Flotte fl) {
         return null;
     }
-    
+
     /**
-     * 
-     * @param coordinate 
-     * @throws java.lang.Exception 
+     *
+     * @param coordinate
+     * @throws java.lang.Exception
      */
-    public void receivedDamage(Coordinate coordinate) throws Exception{
-                flotte.receiveDamage(coordinate);
+    public void receivedDamage(Coordinate coordinate) throws Exception {
+        flotte.receiveDamage(coordinate);
     }
 
     /**
@@ -125,5 +138,5 @@ public abstract class Player implements Serializable{
     public void setScore(int score) {
         this.score = score;
     }
-    
+
 }
