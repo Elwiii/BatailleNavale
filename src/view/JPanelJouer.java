@@ -22,6 +22,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
@@ -94,9 +95,15 @@ public class JPanelJouer extends JPanel implements Observer {
                                                 res = model.fire(OrdreTir.NO_ORDER/*null*/);
                                                 model.update();
                                             }
-                                            model.switchTurn();
+                                            if (!(model.getState() == State.WINJ2)) {
+                                                model.switchTurn();
+                                            }
+                                            else
+                                                JOptionPane.showMessageDialog(GUI.getInstance(), "Vous avez perdu!");
                                         }
                                     }
+                                    else
+                                        JOptionPane.showMessageDialog(GUI.getInstance(), "Vous avez gagné!");
                                 }
 
                             } catch (Exception ex) {

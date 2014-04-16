@@ -375,7 +375,6 @@ public class JPanelPlacement extends JPanel implements Observer {
             public void actionPerformed(ActionEvent ae) {
                 try {
                     model.switchTurn();
-                    System.out.println("BIT place bateau");
                     List<structPlacement> listStruct = new ArrayList<>();
                     listStruct = model.getCurrentPlayer().placerBateau(model.getOtherPlayer().getFlotte());
                     while(listStruct==null){
