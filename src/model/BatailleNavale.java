@@ -87,7 +87,7 @@ public class BatailleNavale {
      * @throws java.lang.Exception
      */
     public int fire(OrdreTir order) throws Exception {
-        if ((currentPlayer.horsDePortee(otherPlayer.getFlotte())) && (otherPlayer.horsDePortee(currentPlayer.getFlotte()))) {
+        if ((currentPlayer.horsDePortee(otherPlayer.getFlotte())==true) && (otherPlayer.horsDePortee(currentPlayer.getFlotte())==true)) {
             state = State.MATCH_NUL;
             System.out.println("MATCH NUL");
             return 10;

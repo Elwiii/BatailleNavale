@@ -53,8 +53,10 @@ public abstract class Player implements Serializable {
         for (Ship s : this.flotte.getVaisseaux()) {
             for (Ship st : target.getVaisseaux()) {
                 for (Etat et : st.getEtats()) {
-                    if (s.estAporteeDeTir(et.getC())) {
-                        return false;
+                    if(et.getEtat()==Ship.SAFE){
+                        if (s.estAporteeDeTir(et.getC())) {
+                            return false;
+                        }
                     }
                 }
             }
