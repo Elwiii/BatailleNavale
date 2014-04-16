@@ -36,7 +36,7 @@ public class TestDao {
     }
 
     @Before
-    public void setUp() throws DaoFactoryException, PersistanceException {
+    public void setUp() throws DaoFactoryException, PersistanceException, Exception {
         bn = new BatailleNavale();
         bn.setDifficulty(Difficulty.CROSSBOT);
         bn.setPseudoHumun("testDao");
