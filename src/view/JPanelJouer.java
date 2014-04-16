@@ -80,6 +80,7 @@ public class JPanelJouer extends JPanel implements Observer {
                                 if ((model.getState() != State.WINJ2)&&(model.getState() != State.WINJ1)) {
                                     int launcherid = model.getJ1().getFlotte().getVaisseaux().indexOf(selectedShip);
                                     res = model.fire(new OrdreTir(c, launcherid));
+                                    System.out.println("RES J1 = "+res);
                                     /* Pas sur du tout*/
                                     model.update();
                                     if (!(model.getState() == State.WINJ1)) {
@@ -87,8 +88,9 @@ public class JPanelJouer extends JPanel implements Observer {
                                             System.out.println("BOT");
                                             model.switchTurn();
                                             res = model.fire(OrdreTir.NO_ORDER/*null*/);
+                                            System.out.println("RES J2 = "+res);
                                             while (res == Flotte.HIT) {
-                                                System.out.println("TOUCHE!!!!!");
+                                                System.out.println("RES J22 = "+res);
                                                 res = model.fire(OrdreTir.NO_ORDER/*null*/);
                                                 model.update();
                                             }
