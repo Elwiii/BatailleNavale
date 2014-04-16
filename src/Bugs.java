@@ -311,8 +311,41 @@ public class Bugs {
      Postconditions : Grille bloquee
      Conclusion du test : Une java.lang.NullPointerException est levee
      Commentaires sur le test: 
-     Le test est t'il réussi ? NON
- 
+     Le test est t'il réussi ? NON BUG!!!!
+    
+        !!!! Le crossbot bug !!!!
      */
+    
+    
+    /*
+      @todo Ticket : [[ ticket : 15 ]]
+
+     Test n°15 : Jouer une partie
+     Préconditions : Avoir cree une partie (difficulte RANDOMBOT, taille 5,
+                     epoque XX)
+     Scénario :
+     Action 1 : Je place deux bateaux (fregate et jetski)
+     Action 2 : Je clique sur une case de la grille adverse 
+    
+     Postconditions : Apres avoir decouvert les bateaux aucune info n'est donnee
+     Conclusion du test : 
+     Commentaires sur le test: 
+     Le test est t'il réussi ? NON BUG!!!!
+     */
+    
+    /*
+    @todo ticket 16
+    Epoque XX, Taille 20, Difficultee RandomBot
+    Epoque sciencefiction, Taille 10, Difficultee RandomBot
+    Apres avoir joue plusieurs coups, la grille est bloquee
+    Quand je recharge la partie, la grille est debloquee
+    cf. Repertoire Bugs -> Image map2, map3
+    */
+    
+    /*
+    ticket 17
+     
+    
+    */
     
 }
