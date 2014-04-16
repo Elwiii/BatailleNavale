@@ -35,6 +35,7 @@ import model.Coordinate;
 import model.Flotte;
 import model.OrdreTir;
 import model.State;
+import model.VisionBattlefield;
 import model.ship.Ship;
 import model.ship.Ship.Etat;
 
@@ -214,6 +215,10 @@ public class JPanelJouer extends JPanel implements Observer {
                     if (selectedShip.estAporteeDeTir(jbf.getC())) {
                         jbf.setEnabled(true);
                     } else {
+                        jbf.setEnabled(false);
+                    }
+                    int etat = model.getJ1().getMap().getState(jbf.getC());
+                    if(etat == 2){
                         jbf.setEnabled(false);
                     }
 
