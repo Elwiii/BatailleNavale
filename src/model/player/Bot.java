@@ -57,29 +57,34 @@ public abstract class Bot extends Player implements Serializable{
         List<Ship> listShip = fl.getVaisseaux();
         Collections.sort(listShip);
         System.out.println("1er Bateau = "+listShip.get(0));
-        List<Coordinate> listCoord = null;
+        List<Coordinate> listCoord = new ArrayList<>();
         Coordinate c1 =null;
         List<structPlacement> listStruct= new ArrayList<>();
         int headColonne = 0;
         int headLigne = 0;
         int taille = this.getMap().getMap()[0].length;
         for(Ship s : listShip){
-            while(listCoord==null){
+            while(listCoord.isEmpty()){
                 headColonne = 0 + generator.nextInt(taille - 0);
                 headLigne = 0 + generator.nextInt(taille - 0);
                 c1 = new Coordinate(headLigne,headColonne);
                 listCoord = tailsPossible(c1, s.getType());
             }
-            if(listCoord.size()==0){
+            if(listCoord.isEmpty()){
+                System.out.println("list vide");
                 return(null);
             }
             else{
+                System.out.println("choix de la 2e coord");
                 Coordinate randCoord = listCoord.get(0 + generator.nextInt(listCoord.size() - 0));
                 structPlacement sp = new structPlacement(c1,randCoord, s.getType());
                 listStruct.add(sp);
                 //System.out.println("Type = "+s.getType()+" Puissance = "+s.getType().getPuissance()+" Coord head = ("+c1.x+","+c1.y+") Coord Queue =("+randCoord.x+","+randCoord.y+")");
             }
             listCoord.clear();
+            if(listCoord.isEmpty()){
+                System.out.println("liste vidé");
+            }
         }
         return listStruct;
     }
@@ -87,7 +92,6 @@ public abstract class Bot extends Player implements Serializable{
     public List<Coordinate> tailsPossible(Coordinate head,TypeShip s){
         int taille = this.getMap().getMap().length;
         List<Coordinate> list = new ArrayList<>();
-        list = null;
         boolean ajout = true;
         int l_max, l_min;
         int c_max, c_min;
