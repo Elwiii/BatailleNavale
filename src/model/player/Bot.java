@@ -7,7 +7,6 @@ package model.player;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 import java.util.logging.Level;
@@ -152,6 +151,10 @@ public abstract class Bot extends Player implements Serializable {
                         }
                     }
                 }
+            }
+        }
+    }
+}
 //                    
 //                }
 //   
@@ -188,4 +191,3 @@ public abstract class Bot extends Player implements Serializable {
 //        }
 //    }
 
-            }
