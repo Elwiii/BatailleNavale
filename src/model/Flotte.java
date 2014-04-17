@@ -37,6 +37,7 @@ public class Flotte implements Serializable{
      * @throws java.lang.Exception
      */
     public StateCase fire(Flotte target, OrdreTir order) throws Exception {
+        
         Ship launcher = vaisseaux.get(order.getLauncher());
         if (launcher.estAporteeDeTir(order.getCoordinate())) {
             return target.receiveDamage(order.getCoordinate());

@@ -118,6 +118,16 @@ public class Ship implements Serializable, Comparable {
         return true;
     }
 
+    public int getLife(){
+        int life = 0;
+        for (Etat e : this.etats) {
+            if (e.getEtat() == SAFE) {
+                life++;
+            }
+        }
+        return life;
+    }
+    
     /**
      * remplir la liste etats en fonction de la position de la tete et la queue
      * la queue est la tête doivent former une ligne ou une diagonale

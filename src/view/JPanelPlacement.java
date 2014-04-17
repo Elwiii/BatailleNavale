@@ -20,7 +20,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -32,7 +31,6 @@ import javax.swing.event.ListSelectionListener;
 import model.BatailleNavale;
 import model.Coordinate;
 import model.player.Bot;
-import model.player.Bot.structPlacement;
 import model.ship.Epoque;
 import model.ship.Ship;
 import model.ship.Ship.Etat;
@@ -49,6 +47,7 @@ public class JPanelPlacement extends JPanel implements Observer {
     private final BatailleNavale model;
     private JList list;
     private TypeShip typeShip;
+    private final List<TypeShip> bateauxChoisis;
     private int headColonne;
     private int headLigne;
     private int tailColonne;
@@ -82,7 +81,6 @@ public class JPanelPlacement extends JPanel implements Observer {
                     switch (state) {
                         case NOTHING_SELECTED:
                             JOptionPane.showMessageDialog(GUI.getInstance(), "Veuillez choisir le type de bateau que vous voulez placer, dans la liste");
-
                             break;
                         case SHIP_SELECTED:
                             headColonne = colonne;
@@ -127,7 +125,8 @@ public class JPanelPlacement extends JPanel implements Observer {
 //                                list.clearSelection();
 
                             }
-
+                            // on freeze la liste
+                            list.setEnabled(false);
                             break;
                         case HEAD_SELECTED:
                             tailColonne = colonne;
@@ -185,8 +184,9 @@ public class JPanelPlacement extends JPanel implements Observer {
                                 jbp.setEnabled(true);
                             }
                             disabledJButton.clear();
-
+                            list.setEnabled(true);
                             annulerHead.setEnabled(false);
+                            bateauxChoisis.add(typeShip);
                             list.clearSelection();
                             state = NOTHING_SELECTED;
                             break;
@@ -199,8 +199,6 @@ public class JPanelPlacement extends JPanel implements Observer {
                 }
             });
         }
-        
-        
 
     }
 
@@ -351,9 +349,11 @@ public class JPanelPlacement extends JPanel implements Observer {
         return list; // @todo thomas
     }
 
+    //--------------------------------------------------------------------------
     public JPanelPlacement(final BatailleNavale model, final JPanelWizard wizard) {
         super(new BorderLayout());
         this.model = model;
+        bateauxChoisis = new ArrayList<TypeShip>();
         east = new JPanel(new BorderLayout());
         model.addObserver(this);
         JPanel south = new JPanel(new GridLayout(1, 2));
@@ -373,23 +373,9 @@ public class JPanelPlacement extends JPanel implements Observer {
 
             @Override
             public void actionPerformed(ActionEvent ae) {
-                try {
-                    model.switchTurn();
-                    List<structPlacement> listStruct = new ArrayList<>();
-                    listStruct = model.getCurrentPlayer().placerBateau(model.getOtherPlayer().getFlotte());
-                    while(listStruct==null){
-                        System.out.println("en cours...");
-                        model.getCurrentPlayer().placerBateau(model.getOtherPlayer().getFlotte());
-                    }
-                    for(structPlacement sp : listStruct){
-                        model.addShip(sp.getType(), sp.getCHead(),sp.getCQueue());
-                    }
-                    System.out.println("Placement Bot effectué!");
-                    model.switchTurn();
-                } catch (Exception ex) {
-                    Logger.getLogger(JPanelPlacement.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                
+                // on dit au bot de placer ses bateaux
+                ((Bot)model.getJ2()).placerBateaux(bateauxChoisis); 
+
                 wizard.getJpanelJouer().initialize();
                 wizard.show(JPanelJouer.id);
             }
@@ -409,6 +395,7 @@ public class JPanelPlacement extends JPanel implements Observer {
                 grilleButton[headLigne][headColonne].setText("");
                 state = SHIP_SELECTED;
                 annulerHead.setEnabled(false);
+                list.setEnabled(true);
             }
         });
         annulerHead.setEnabled(false);

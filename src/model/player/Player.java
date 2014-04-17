@@ -73,10 +73,6 @@ public abstract class Player implements Serializable {
         flotte.removeShip(idShip);
     }
 
-    public List<Bot.structPlacement> placerBateau(Flotte fl) {
-        return null;
-    }
-
     /**
      *
      * @param coordinate
