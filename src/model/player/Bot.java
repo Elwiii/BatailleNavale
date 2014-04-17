@@ -12,6 +12,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 import model.Coordinate;
+import model.StateCase;
 import model.Flotte;
 import model.OrdreTir;
 import model.VisionBattlefield;
@@ -32,10 +33,10 @@ public abstract class Bot extends Player implements Serializable{
      * @param target
      * @return  
      */
-    public abstract int autoFire(VisionBattlefield bf, Flotte target);
+    public abstract StateCase autoFire(VisionBattlefield bf, Flotte target);
         
     @Override
-    public void updateBattlefield(OrdreTir order,int state){
+    public void updateBattlefield(OrdreTir order,StateCase state){
         map.setState( lastCoordinateFired, state);
     }
     
@@ -46,7 +47,7 @@ public abstract class Bot extends Player implements Serializable{
      * @return  
      */
     @Override
-    public int fire(OrdreTir order, Flotte target){
+    public StateCase fire(OrdreTir order, Flotte target){
         System.out.println("TIR BOT");
         return autoFire(getMap(),target);
     }

@@ -6,6 +6,9 @@
 package model;
 
 import java.io.Serializable;
+import static model.StateCase.HIT;
+import static model.StateCase.MISS;
+import static model.StateCase.UNKNOWN;
 
 /**
  * Permet de stocker une réprésentation du champs de bataille du point de vue
@@ -15,42 +18,42 @@ import java.io.Serializable;
  */
 public class VisionBattlefield implements Serializable{
 
-    private final int[][] map;
+    private final StateCase[][] map;
 
     /* état d'une case sur la carte */
-    private final int UNKNOWN = 0;
-    private final int HIT = 1;
-    private final int MISS = 2;
+//    private final int UNKNOWN = 0;
+//    private final int HIT = 1;
+//    private final int MISS = 2;
     
     private final int hauteur;
     private final int largeur;
 
     public VisionBattlefield(int hauteur, int largeur) {
-        map = new int[hauteur][largeur];
+        map = new StateCase[hauteur][largeur];
         this.hauteur = hauteur;
         this.largeur = largeur;
     }
     
     
-    public void setState(Coordinate coordinate, int state){
+    public void setState(Coordinate coordinate, StateCase state){
         assert(!(state == UNKNOWN || state==HIT || state == MISS)):"Etat inconnu";
         map[coordinate.x][coordinate.y] = state;
     }
     
-    public void setState(int x, int y, int state){
+    public void setState(int x, int y, StateCase state){
         assert(!(state == UNKNOWN || state==HIT || state == MISS)):"Etat inconnu";
         map[x][y] = state;
     }
     
-    public int getState(int x, int y){
+    public StateCase getState(int x, int y){
         return map[x][y];
     }
     
-    public int getState(Coordinate coordinate){
+    public StateCase getState(Coordinate coordinate){
         return map[coordinate.x][coordinate.y];
     }
     
-    public int[][] getMap(){
+    public StateCase[][] getMap(){
         return this.map;
     }
 

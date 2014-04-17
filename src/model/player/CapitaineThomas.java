@@ -10,6 +10,8 @@ import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Coordinate;
+import model.StateCase;
+import static model.StateCase.ERROR;
 import model.Flotte;
 import model.OrdreTir;
 import model.VisionBattlefield;
@@ -34,7 +36,7 @@ public class CapitaineThomas extends Bot implements Serializable {
     }
 
     @Override
-    public int autoFire(VisionBattlefield bf, Flotte target) {
+    public StateCase autoFire(VisionBattlefield bf, Flotte target) {
         try {
             int shooter = rand.nextInt(flotte.getVaisseaux().size());
 
@@ -43,7 +45,7 @@ public class CapitaineThomas extends Bot implements Serializable {
             OrdreTir o = new OrdreTir(c, shooter);
             System.out.println("Tire du captain Thomas  : " + c + " avec le bateau " + flotte.getVaisseaux().get(shooter));
 
-            int res = flotte.fire(target, o);
+            StateCase res = flotte.fire(target, o);
             System.out.println(" Captain thomas a t il touché ? "+res);
             if (lastColonneFired + 1 < map.getLargeur()) {
                 lastColonneFired++;
@@ -60,7 +62,7 @@ public class CapitaineThomas extends Bot implements Serializable {
         } catch (Exception ex) {
             Logger.getLogger(CapitaineThomas.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return -1;
+        return ERROR;
     }
 
 }

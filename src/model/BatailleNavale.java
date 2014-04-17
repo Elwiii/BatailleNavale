@@ -6,13 +6,11 @@
 package model;
 
 import java.util.Observer;
-import model.player.CapitaineThomas;
-import model.player.CrossBot;
+import static model.StateCase.ERROR;
+import static model.StateCase.FLOTTE_DETRUITE;
 import model.player.Difficulty;
 import model.player.Human;
 import model.player.Player;
-import model.player.Poseidon;
-import model.player.RandomBot;
 import model.ship.ShipFactory;
 import model.ship.TypeShip;
 import persistance.AbstractDaoFactory;
@@ -86,15 +84,15 @@ public class BatailleNavale {
      * @return
      * @throws java.lang.Exception
      */
-    public int fire(OrdreTir order) throws Exception {
+    public StateCase fire(OrdreTir order) throws Exception {
         if ((currentPlayer.horsDePortee(otherPlayer.getFlotte())==true) && (otherPlayer.horsDePortee(currentPlayer.getFlotte())==true)) {
             state = State.MATCH_NUL;
             System.out.println("MATCH NUL");
-            return 10;
+            return ERROR;
         }
         else {
-            int res = currentPlayer.fire(order, otherPlayer.getFlotte());
-            if (res == Flotte.FLOTTE_DETRUITE) {
+            StateCase res = currentPlayer.fire(order, otherPlayer.getFlotte());
+            if (res == FLOTTE_DETRUITE) {
                 switch (state) {
                     case JOUEUR1:
                         state = State.WINJ1;

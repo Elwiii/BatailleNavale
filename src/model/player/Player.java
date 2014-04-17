@@ -8,6 +8,7 @@ package model.player;
 import java.io.Serializable;
 import java.util.List;
 import model.Coordinate;
+import model.StateCase;
 import model.Flotte;
 import model.OrdreTir;
 import model.VisionBattlefield;
@@ -35,7 +36,7 @@ public abstract class Player implements Serializable {
         map = new VisionBattlefield(hauteur, largeur);
     }
 
-    public abstract void updateBattlefield(OrdreTir order, int state);
+    public abstract void updateBattlefield(OrdreTir order, StateCase state);
 
     /**
      *
@@ -43,7 +44,7 @@ public abstract class Player implements Serializable {
      * @param target
      * @return
      */
-    public abstract int fire(OrdreTir order, Flotte target) throws Exception;
+    public abstract StateCase fire(OrdreTir order, Flotte target) throws Exception;
 
     /**
      *

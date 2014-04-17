@@ -15,7 +15,7 @@ import model.Flotte;
 /**
  * @author Nikolai
  */
-public class Ship implements Serializable,Comparable{
+public class Ship implements Serializable, Comparable {
 
     /**
      * @return the representationGraphique
@@ -24,7 +24,7 @@ public class Ship implements Serializable,Comparable{
         return representationGraphique;
     }
 
-    public class Etat implements Serializable{
+    public class Etat implements Serializable {
 
         Coordinate c;
 
@@ -62,18 +62,20 @@ public class Ship implements Serializable,Comparable{
     protected List<Etat> etats;
     protected int puissance;
     protected TypeShip type;
-    
-    protected Ship(TypeShip type){
+
+    protected Ship(TypeShip type) {
         this.type = type;
         representationGraphique = type.getRepresentationGraphique();
         puissance = type.getPuissance();
     }
+
+    protected Ship() {
+
+    }
+
+    ;
     
-    protected Ship(){
-        
-    };
-    
-    public TypeShip getType(){
+    public TypeShip getType() {
         return type;
     }
 
@@ -92,7 +94,7 @@ public class Ship implements Serializable,Comparable{
      */
     public boolean estAporteeDeTir(Coordinate coordonnee) {
         for (Etat e : this.etats) {
-            if(e.getEtat()== 0){
+            if (e.getEtat() == 0) {
                 if ((Math.abs(e.c.x - coordonnee.x) <= puissance) && (Math.abs(e.c.y - coordonnee.y) <= puissance)) {
                     return true;
                 }
@@ -266,18 +268,16 @@ public class Ship implements Serializable,Comparable{
     public String toString() {
         return "" + type;
     }
-    
+
     @Override
     public int compareTo(Object s) {
-        if(this.puissance>((Ship)s).puissance){
+        if (this.puissance > ((Ship) s).puissance) {
             return -1;
-        }
-        else if(this.puissance<((Ship)s).puissance ){
+        } else if (this.puissance < ((Ship) s).puissance) {
             return 1;
-        }
-        else
+        } else {
             return 0;
+        }
     }
-    
-    
+
 }

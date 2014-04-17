@@ -11,6 +11,8 @@ import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Coordinate;
+import model.StateCase;
+import static model.StateCase.ERROR;
 import model.Flotte;
 import model.OrdreTir;
 import model.VisionBattlefield;
@@ -32,7 +34,7 @@ public class Poseidon extends Bot implements Serializable{
     }
 
     @Override
-    public int autoFire(VisionBattlefield bf, Flotte target) {
+    public StateCase autoFire(VisionBattlefield bf, Flotte target) {
         try {
             Ship nextVictim = target.getVaisseaux().get(lastShipHit);
             int shooter = rand.nextInt(flotte.getVaisseaux().size());
@@ -40,14 +42,14 @@ public class Poseidon extends Bot implements Serializable{
             lastCoordinateFired = c;
             OrdreTir o = new OrdreTir(c,shooter);
             
-            int res = flotte.fire(target, o);
+            StateCase res = flotte.fire(target, o);
             lastPartieShipHit = nextVictim.isDetroy()? 0 : lastPartieShipHit + 1;
             System.out.println("Poseidon a tiré en "+c+" et a eu le resultat suivant  : "+res);
             return res;
         } catch (Exception ex) {
             Logger.getLogger(Poseidon.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return -1;
+        return ERROR;
         
     }
     

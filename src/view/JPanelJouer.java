@@ -32,10 +32,12 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import model.BatailleNavale;
 import model.Coordinate;
-import model.Flotte;
 import model.OrdreTir;
 import model.State;
-import model.VisionBattlefield;
+import model.StateCase;
+import static model.StateCase.HIT;
+import static model.StateCase.MISS;
+import static model.StateCase.UNKNOWN;
 import model.ship.Ship;
 import model.ship.Ship.Etat;
 
@@ -75,7 +77,7 @@ public class JPanelJouer extends JPanel implements Observer {
 
                 @Override
                 public void actionPerformed(ActionEvent ae) {
-                    int res;
+                    StateCase res;
                     switch (state) {
                         case NOTHING_SELECTED:
                             break;
@@ -91,12 +93,12 @@ public class JPanelJouer extends JPanel implements Observer {
                                         JOptionPane.showMessageDialog(GUI.getInstance(), "Match nul! Dommage..");
                                     }
                                     if (!(model.getState() == State.WINJ1)) {
-                                        if (res == Flotte.MISS /* 2 */) {
+                                        if (res == MISS /* 2 */) {
                                             System.out.println("BOT");
                                             model.switchTurn();
                                             res = model.fire(OrdreTir.NO_ORDER/*null*/);
                                             System.out.println("RES J2 = "+res);
-                                            while (res == Flotte.HIT) {
+                                            while (res == HIT) {
                                                 System.out.println("RES J22 = "+res);
                                                 res = model.fire(OrdreTir.NO_ORDER/*null*/);
                                                 model.update();
@@ -134,14 +136,14 @@ public class JPanelJouer extends JPanel implements Observer {
         @Override
         public void update(Observable o, Object o1) {
             //System.out.println("Bateau : "+model.getJ2().getFlotte().getVaisseaux().get(0));
-            int etat = model.getJ1().getMap().getState(c);
-            if (etat == 0) {
+            StateCase etat = model.getJ1().getMap().getState(c);
+            if (etat == UNKNOWN) {
                 this.setText("?"); // ? pour dire "pas encore attaqué"
             } /* Cas d'une case touchée */ 
-            else if (etat == 1) {
+            else if (etat == HIT) {
                 this.setText("X"); // Croix pour dire "touché"
                 this.setEnabled(false); //Desactivation pour ne pas tirer au même endroit
-            } else if (etat == 2) {
+            } else if (etat == MISS) {
                 this.setText(""); // " " pour dire "raté"  
                 this.setEnabled(false); //Desactivation pour ne pas tirer au même endroit
             }
@@ -217,8 +219,8 @@ public class JPanelJouer extends JPanel implements Observer {
                     } else {
                         jbf.setEnabled(false);
                     }
-                    int etat = model.getJ1().getMap().getState(jbf.getC());
-                    if((etat == 2)||(etat == 1)){
+                    StateCase etat = model.getJ1().getMap().getState(jbf.getC());
+                    if((etat == HIT)||(etat == MISS)){
                         jbf.setEnabled(false);
                     }
 

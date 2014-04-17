@@ -8,6 +8,10 @@ package model;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import static model.StateCase.FLOTTE_DETRUITE;
+import static model.StateCase.HIT;
+import static model.StateCase.MISS;
+import static model.StateCase.UNREACHABLE;
 import model.ship.Ship;
 import model.ship.Ship.Etat;
 
@@ -18,10 +22,6 @@ import model.ship.Ship.Etat;
  */
 public class Flotte implements Serializable{
 
-    public static final int UNREACHABLE = 0;
-    public static final int HIT = 1;
-    public static final int MISS = 2;
-    public static final int FLOTTE_DETRUITE = 3;
     private final List<Ship> vaisseaux;
 
     public Flotte() {
@@ -36,7 +36,7 @@ public class Flotte implements Serializable{
      * @return UNREACHABLE HIT ou MISS
      * @throws java.lang.Exception
      */
-    public int fire(Flotte target, OrdreTir order) throws Exception {
+    public StateCase fire(Flotte target, OrdreTir order) throws Exception {
         Ship launcher = vaisseaux.get(order.getLauncher());
         if (launcher.estAporteeDeTir(order.getCoordinate())) {
             return target.receiveDamage(order.getCoordinate());
@@ -63,7 +63,7 @@ public class Flotte implements Serializable{
      * @return HIT si un des bateaux dla flotte est touché, MISS sinon
      * @throws java.lang.Exception
      */
-    public int receiveDamage(Coordinate coordinate) throws Exception {
+    public StateCase receiveDamage(Coordinate coordinate) throws Exception {
         Ship shiphit = getShipHit(coordinate);
         if (shiphit != null) {
             shiphit.receivedDamage(coordinate);

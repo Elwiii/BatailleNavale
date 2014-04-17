@@ -11,6 +11,10 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Coordinate;
+import model.StateCase;
+import static model.StateCase.ERROR;
+import static model.StateCase.HIT;
+import static model.StateCase.MISS;
 import model.Flotte;
 import model.OrdreTir;
 import model.VisionBattlefield;
@@ -45,18 +49,18 @@ public class CrossBot extends Bot implements Serializable {
     }
 
     @Override
-    public int autoFire(VisionBattlefield bf, Flotte target) {
+    public StateCase autoFire(VisionBattlefield bf, Flotte target) {
         boolean coord = false;
         int taille = this.map.getMap().length;
         boolean choixTir = false;
         boolean shipAPortee = false;
         boolean tirSurBateau = false;
-        int res = 0;
+        StateCase res = ERROR;
         Coordinate coordCalcul = null;
         Coordinate c = null;
 
         //Si on a coulé le bateau qu'on visait, on remet tout à zero
-        if ((this.bateauEnCours!=null)&&(this.bateauEnCours.isDetroy())) {
+        if ((this.bateauEnCours != null) && (this.bateauEnCours.isDetroy())) {
             bateauEnCours = null;
             this.shipFired = false;
         }
@@ -79,7 +83,7 @@ public class CrossBot extends Bot implements Serializable {
             if (bf != null) {
                 try {
                     res = target.fire(target, o);
-                    if (res == Flotte.HIT) {
+                    if (res == HIT) {
                         this.shipFired = true;
                         for (Ship bat : target.getVaisseaux()) {
                             for (Etat e : bat.getEtats()) {
@@ -110,7 +114,7 @@ public class CrossBot extends Bot implements Serializable {
                         if (s.estAporteeDeTir(coordCalcul)) {
                             if (!(listTirs.contains(coordCalcul))) {
                                 res = this.fire(new OrdreTir(coordCalcul, flotte.getVaisseaux().indexOf(s)), target);
-                                if (res == Flotte.MISS) {
+                                if (res == MISS) {
                                     this.state = HORIZONTAL_GAUCHE;
                                     this.lastCoordinateFired = this.firstCoordinate;
                                 }
@@ -125,7 +129,7 @@ public class CrossBot extends Bot implements Serializable {
                         if (s.estAporteeDeTir(coordCalcul)) {
                             if (!(listTirs.contains(coordCalcul))) {
                                 res = this.fire(new OrdreTir(coordCalcul, flotte.getVaisseaux().indexOf(s)), target);
-                                if (res == Flotte.MISS) {
+                                if (res == MISS) {
                                     this.state = HORIZONTAL_DROITE;
                                     this.lastCoordinateFired = this.firstCoordinate;
                                 }
@@ -140,7 +144,7 @@ public class CrossBot extends Bot implements Serializable {
                         if (s.estAporteeDeTir(coordCalcul)) {
                             if (!(listTirs.contains(coordCalcul))) {
                                 res = this.fire(new OrdreTir(coordCalcul, flotte.getVaisseaux().indexOf(s)), target);
-                                if (res == Flotte.MISS) {
+                                if (res == MISS) {
                                     this.state = VERTICAL_BAS;
                                     this.lastCoordinateFired = this.firstCoordinate;
                                 }
@@ -155,7 +159,7 @@ public class CrossBot extends Bot implements Serializable {
                         if (s.estAporteeDeTir(coordCalcul)) {
                             if (!(listTirs.contains(coordCalcul))) {
                                 res = this.fire(new OrdreTir(coordCalcul, flotte.getVaisseaux().indexOf(s)), target);
-                                if (res == Flotte.MISS) {
+                                if (res == MISS) {
                                     this.state = VERTICAL_HAUT;
                                     this.lastCoordinateFired = this.firstCoordinate;
                                 }
@@ -169,7 +173,7 @@ public class CrossBot extends Bot implements Serializable {
             }
 
         }
-        return 0;
+        return res;
     }
 }
 

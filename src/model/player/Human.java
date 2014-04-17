@@ -6,6 +6,7 @@
 package model.player;
 
 import java.io.Serializable;
+import model.StateCase;
 import model.Flotte;
 import model.OrdreTir;
 
@@ -23,13 +24,13 @@ public class Human extends Player implements Serializable {
     }
 
     @Override
-    public int fire(OrdreTir order, Flotte target) throws Exception {
-        int res = flotte.fire(target, order);
+    public StateCase fire(OrdreTir order, Flotte target) throws Exception {
+        StateCase res = flotte.fire(target, order);
         return res;
     }
 
     @Override
-    public void updateBattlefield(OrdreTir order,int state) {
+    public void updateBattlefield(OrdreTir order,StateCase state) {
         map.setState(order.getCoordinate(), state);
     }
 
