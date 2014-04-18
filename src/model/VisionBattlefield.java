@@ -14,9 +14,10 @@ import static model.StateCase.UNKNOWN;
  * Permet de stocker une réprésentation du champs de bataille du point de vue
  * d'un joueur Affiche les coups manqués , reussis et les positions encore
  * vierges.
+ *
  * @author nikolai
  */
-public class VisionBattlefield implements Serializable{
+public class VisionBattlefield implements Serializable {
 
     private final StateCase[][] map;
 
@@ -24,7 +25,6 @@ public class VisionBattlefield implements Serializable{
 //    private final int UNKNOWN = 0;
 //    private final int HIT = 1;
 //    private final int MISS = 2;
-    
     private final int hauteur;
     private final int largeur;
 
@@ -33,27 +33,26 @@ public class VisionBattlefield implements Serializable{
         this.hauteur = hauteur;
         this.largeur = largeur;
     }
-    
-    
-    public void setState(Coordinate coordinate, StateCase state){
-        assert(!(state == UNKNOWN || state==HIT || state == MISS)):"Etat inconnu";
+
+    public void setState(Coordinate coordinate, StateCase state) {
+        assert (state == UNKNOWN || state == HIT || state == MISS) : "Etat inconnu : " + state;
         map[coordinate.x][coordinate.y] = state;
     }
-    
-    public void setState(int x, int y, StateCase state){
-        assert(!(state == UNKNOWN || state==HIT || state == MISS)):"Etat inconnu";
+
+    public void setState(int x, int y, StateCase state) {
+        assert (state == UNKNOWN || state == HIT || state == MISS) : "Etat inconnu : " + state;
         map[x][y] = state;
     }
-    
-    public StateCase getState(int x, int y){
+
+    public StateCase getState(int x, int y) {
         return map[x][y];
     }
-    
-    public StateCase getState(Coordinate coordinate){
+
+    public StateCase getState(Coordinate coordinate) {
         return map[coordinate.x][coordinate.y];
     }
-    
-    public StateCase[][] getMap(){
+
+    public StateCase[][] getMap() {
         return this.map;
     }
 

@@ -96,7 +96,16 @@ public abstract class Bot extends Player implements Serializable {
     }
 
     public void placerBateaux(List<TypeShip> bateaux) {
-        placerBateaux((TypeShip[]) bateaux.toArray());
+        TypeShip[] typeships = new TypeShip[bateaux.size()];
+        for (int i = 0; i < typeships.length; i++) {
+            typeships[i] = bateaux.get(i);
+            
+        }
+        System.out.println("bateaux : "+bateaux);
+        for (int i = 0; i < typeships.length; i++) {
+            System.out.println(""+typeships[i]);            
+        }
+        placerBateaux(typeships);
     }
 
 //    

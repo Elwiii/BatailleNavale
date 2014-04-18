@@ -81,6 +81,7 @@ public class JPanelPlacement extends JPanel implements Observer {
                     switch (state) {
                         case NOTHING_SELECTED:
                             JOptionPane.showMessageDialog(GUI.getInstance(), "Veuillez choisir le type de bateau que vous voulez placer, dans la liste");
+                            list.setEnabled(true);
                             break;
                         case SHIP_SELECTED:
                             headColonne = colonne;
@@ -112,6 +113,7 @@ public class JPanelPlacement extends JPanel implements Observer {
                             if (queuePossible) {
                                 state = HEAD_SELECTED;
                                 annulerHead.setEnabled(true);
+                                 list.setEnabled(false);
                             } else {
                                 JOptionPane.showMessageDialog(GUI.getInstance(), "Impossible de placer la tete de ce bateau ici");
                                 // on enable les buttons disabled
@@ -122,11 +124,12 @@ public class JPanelPlacement extends JPanel implements Observer {
                                 grilleButton[headLigne][headColonne].setText("");
                                 grilleButton[headLigne][headColonne].setEnabled(true);
                                 annulerHead.setEnabled(false);
+                                list.setEnabled(true);
 //                                list.clearSelection();
 
                             }
                             // on freeze la liste
-                            list.setEnabled(false);
+                           
                             break;
                         case HEAD_SELECTED:
                             tailColonne = colonne;
@@ -353,7 +356,7 @@ public class JPanelPlacement extends JPanel implements Observer {
     public JPanelPlacement(final BatailleNavale model, final JPanelWizard wizard) {
         super(new BorderLayout());
         this.model = model;
-        bateauxChoisis = new ArrayList<TypeShip>();
+        bateauxChoisis = new ArrayList<>();
         east = new JPanel(new BorderLayout());
         model.addObserver(this);
         JPanel south = new JPanel(new GridLayout(1, 2));
