@@ -51,6 +51,7 @@ public class JPanelJouer extends JPanel implements Observer {
 
     private JPanel grilleEnnemi;
     private JPanel grilleFlotte;
+    private final JPanelWizard wizard;
     private final BatailleNavale model;
     private JList list;
     DefaultListModel<String> listModel;
@@ -62,13 +63,19 @@ public class JPanelJouer extends JPanel implements Observer {
     private int state = NOTHING_SELECTED;
     private Ship selectedShip;
 
+    private static class JPanelAccueil {
+
+        public JPanelAccueil() {
+        }
+    }
+
     public class JButtonFire extends JButton implements Observer {
 
         private final Coordinate c;
         private final BatailleNavale model;
         private int touche;
 
-        public JButtonFire(final BatailleNavale model, final Coordinate c) {
+        public JButtonFire(final BatailleNavale model, final Coordinate c, final JPanelWizard wizard) {
             super("?");
             this.model = model;
             this.c = c;
@@ -78,6 +85,9 @@ public class JPanelJouer extends JPanel implements Observer {
                 @Override
                 public void actionPerformed(ActionEvent ae) {
                     StateCase res;
+                    Object[] os = {"Rejouer", "Voir les scores","Quitter"};
+                    String s = null;
+                    
                     switch (state) {
                         case NOTHING_SELECTED:
                             break;
@@ -90,7 +100,14 @@ public class JPanelJouer extends JPanel implements Observer {
                                     /* Pas sur du tout*/
                                     model.update();
                                     if(model.getState()==State.MATCH_NUL){
-                                        JOptionPane.showMessageDialog(GUI.getInstance(), "Match nul! Dommage..");
+                                        System.out.println("ICI les amis");                   
+                                        s = (String)JOptionPane.showInputDialog(
+                                        GUI.getInstance(),
+                                        "Match nul! Dommage...\nQue voulez-vous faire?",
+                                        "Fin de partie",
+                                        JOptionPane.QUESTION_MESSAGE,
+                                        null,
+                                        os,"Rejouer");// valeur initiale
                                     }
                                     if (!(model.getState() == State.WINJ1)) {
                                         if (res == MISS /* 2 */) {
@@ -108,12 +125,27 @@ public class JPanelJouer extends JPanel implements Observer {
                                             if (!(model.getState() == State.WINJ2)) {
                                                 model.switchTurn();
                                             }
-                                            else
-                                                JOptionPane.showMessageDialog(GUI.getInstance(), "Vous avez perdu! Retentez votre chance!");
+                                            else{
+                                                s = (String)JOptionPane.showInputDialog(
+                                                GUI.getInstance(),
+                                                "Vous avez perdu!\nQue voulez-vous faire?",
+                                                "Fin de partie",
+                                                JOptionPane.QUESTION_MESSAGE,
+                                                null,
+                                                os,"Rejouer");// valeur initiale
+                                            }
+                                                
                                         }
                                     }
-                                    else
-                                        JOptionPane.showMessageDialog(GUI.getInstance(), "Vous avez gagné! Bravo!");
+                                    else{
+                                        s = (String)JOptionPane.showInputDialog(
+                                        GUI.getInstance(),
+                                        "Match nul! Dommage...\nQue voulez-vous faire?",
+                                        "Fin de partie",
+                                        JOptionPane.QUESTION_MESSAGE,
+                                        null,
+                                        os,"Voir les scores");// valeur initiale                                        
+                                    }
                                 }
 
                             } catch (Exception ex) {
@@ -123,6 +155,14 @@ public class JPanelJouer extends JPanel implements Observer {
                     /* Toujours pas sur */
                     model.update();
                     System.out.println("" + c);
+                    if(s.equals("Rejouer")){
+                        wizard.show(JPanelAcceuil.id);
+                    }
+                    else if(s.equals("Voir les scores")){
+                        wizard.show(JPanelScore.id);
+                    }
+                    else
+                        System.exit(0);
                 }
             });
         }
@@ -154,10 +194,11 @@ public class JPanelJouer extends JPanel implements Observer {
 
     }
 
-    public JPanelJouer(final BatailleNavale model) {
+    public JPanelJouer(final BatailleNavale model, JPanelWizard wizard) {
         super(new BorderLayout());
         model.addObserver(this);
         this.model = model;
+        this.wizard = wizard;
         listTir = new ArrayList<>();
     }
 
@@ -175,7 +216,7 @@ public class JPanelJouer extends JPanel implements Observer {
         grilleFlotte = new JPanel(new GridLayout(model.getLargeurGrille(), model.getLongeurGrille()));
         for (int i = 0; i < model.getLargeurGrille(); i++) {
             for (int j = 0; j < model.getLongeurGrille(); j++) {
-                JButtonFire jbf = new JButtonFire(model, new Coordinate(i, j));
+                JButtonFire jbf = new JButtonFire(model, new Coordinate(i, j),wizard);
                 jbf.setEnabled(false);
                 grilleEnnemi.add(jbf);
                 listTir.add(jbf);

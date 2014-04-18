@@ -38,7 +38,7 @@ public class JPanelWizard extends JPanel implements Observer {
         model.addObserver(this);
 
         jpanelPlacement = new JPanelPlacement(model, this);
-        jpanelJouer = new JPanelJouer(model);
+        jpanelJouer = new JPanelJouer(model,this);
         jpanelAcceuil = new JPanelAcceuil(model, this);
         jpanelCreer = new JPanelCreer(model, this);
         jpanelParties = new JPanelParties(model, this);
@@ -97,6 +97,13 @@ public class JPanelWizard extends JPanel implements Observer {
     public void update(Observable o, Object o1) {
     }
 
+    /**
+     * @return the jpanelPlacement
+     */
+    public JPanelAcceuil getJpanelAcceuil() {
+        return jpanelAcceuil;
+    }
+    
     /**
      * @return the jpanelPlacement
      */
