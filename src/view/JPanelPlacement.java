@@ -223,10 +223,14 @@ public class JPanelPlacement extends JPanel implements Observer {
         for (int i = 0; i < grilleButton.length; i++) {
             for (int j = 0; j < grilleButton[i].length; j++) {
                 ajout = true;
+                /* Cas du placement d'un bateau ni en horizontal ni en vertical */
+                if((headLigne!=i)&&(headColonne!=j)){
+                    list.add(grilleButton[i][j]);
+                }
                 /* 1ere condition : bateau en colonne */
                 /* 2e condition : bateau en ligne */
                 /* 3e condition : bateau en diagonale */
-                if (!(((Math.abs(headColonne - j) == this.typeShip.getPuissance() - 1) && (i == headLigne))
+                else if (!(((Math.abs(headColonne - j) == this.typeShip.getPuissance() - 1) && (i == headLigne))
                         || ((j == headColonne) && (Math.abs(headLigne - i) == this.typeShip.getPuissance() - 1))
                         || ((Math.abs(headColonne - j) == this.typeShip.getPuissance() - 1) && (Math.abs(headLigne - i) == this.typeShip.getPuissance() - 1)))) {
                     list.add(grilleButton[i][j]);
@@ -259,23 +263,23 @@ public class JPanelPlacement extends JPanel implements Observer {
                                     //ajout = false;
                                 } /* cas bateau en diagonale, teste des croisements possibles */
 
-                                if ((headColonne != j) && (headLigne != i)) {
-                                    //si case voisine du dessous occupé par un bateau
-                                    if ((e.getC().x == k + 1) && (e.getC().y) == l) {
-                                        for (Etat ep : s.getEtats()) {
-                                            if (!(ep.equals(e))) {
-                                                //on teste la case voisine de droite
-                                                if ((ep.getC().x == k) && (ep.getC().y == l + 1)) {
-                                                    list.add(grilleButton[i][j]);
-                                                    ajout = false;
-                                                } //on teste la case voisine de gauche
-                                                else if ((ep.getC().x == k) && (ep.getC().y == l - 1)) {
-                                                    list.add(grilleButton[i][j]);
-                                                    ajout = false;
-                                                }
-                                            }
-                                        }
-                                    }
+//                                if ((headColonne != j) && (headLigne != i)) {
+//                                    //si case voisine du dessous occupé par un bateau
+//                                    if ((e.getC().x == k + 1) && (e.getC().y) == l) {
+//                                        for (Etat ep : s.getEtats()) {
+//                                            if (!(ep.equals(e))) {
+//                                                //on teste la case voisine de droite
+//                                                if ((ep.getC().x == k) && (ep.getC().y == l + 1)) {
+//                                                    list.add(grilleButton[i][j]);
+//                                                    ajout = false;
+//                                                } //on teste la case voisine de gauche
+//                                                else if ((ep.getC().x == k) && (ep.getC().y == l - 1)) {
+//                                                    list.add(grilleButton[i][j]);
+//                                                    ajout = false;
+//                                                }
+//                                            }
+//                                        }
+//                                    }
 //                                    //si case voisine de droite occupée par un bateau
 //                                    if ((e.getC().x == k) && (e.getC().y) == l + 1) {
 //                                        for (Etat ep : s.getEtats()) {
@@ -297,7 +301,7 @@ public class JPanelPlacement extends JPanel implements Observer {
 //                                            }
 //                                        }
 //                                    }
-                                }
+//                                }
                             }
 
                         }
