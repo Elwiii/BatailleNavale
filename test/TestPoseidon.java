@@ -11,10 +11,12 @@ import model.Coordinate;
 import model.OrdreTir;
 import model.StateCase;
 import static model.StateCase.FLOTTE_DETRUITE;
+import static model.StateCase.HIT;
 import model.player.Bot;
 import model.player.Difficulty;
 import model.ship.TypeShip;
 import static model.ship.TypeShip.BARQUE;
+import static model.ship.TypeShip.TRANSPORT;
 import org.junit.After;
 import org.junit.AfterClass;
 import static org.junit.Assert.assertEquals;
@@ -53,10 +55,7 @@ public class TestPoseidon {
             bn.setLargeurGrille(5);
             bn.constructPlayers();
             bn.newGame();
-            bn.addShip(TypeShip.BARQUE, new Coordinate(0, 0), new Coordinate(0, 4));    
-            bn.switchTurn();
-            TypeShip[] bateaux = {BARQUE,BARQUE,BARQUE};
-            ((Bot)bn.getJ2()).placerBateaux(bateaux);
+
         } catch (DaoFactoryException ex) {
             Logger.getLogger(TestPoseidon.class.getName()).log(Level.SEVERE, null, ex);
         } catch (Exception ex) {
@@ -74,6 +73,10 @@ public class TestPoseidon {
     //
     @Test
     public void poseidonFire() throws Exception {
+        bn.addShip(TypeShip.BARQUE, new Coordinate(0, 0), new Coordinate(0, 4));    
+            bn.switchTurn();
+            TypeShip[] bateaux = {BARQUE,BARQUE,BARQUE};
+            ((Bot)bn.getJ2()).placerBateaux(bateaux);
         bn.fire(OrdreTir.NO_ORDER);
         bn.fire(OrdreTir.NO_ORDER);
         bn.fire(OrdreTir.NO_ORDER);
@@ -85,6 +88,10 @@ public class TestPoseidon {
     
     @Test
     public void poseidonFire2() throws Exception {
+        bn.addShip(TypeShip.BARQUE, new Coordinate(0, 0), new Coordinate(0, 4));    
+            bn.switchTurn();
+            TypeShip[] bateaux = {BARQUE,BARQUE,BARQUE};
+            ((Bot)bn.getJ2()).placerBateaux(bateaux);
         bn.fire(OrdreTir.NO_ORDER);
         bn.fire(OrdreTir.NO_ORDER);
         bn.fire(OrdreTir.NO_ORDER);
@@ -92,5 +99,28 @@ public class TestPoseidon {
         StateCase state = bn.fire(OrdreTir.NO_ORDER);
         assertEquals(FLOTTE_DETRUITE,state);
         
+    }
+    @Test
+    public void poseidonFire3() throws Exception {
+        bn.addShip(TypeShip.BARQUE, new Coordinate(0, 0), new Coordinate(0, 4));
+        bn.addShip(TypeShip.TRANSPORT, new Coordinate(1, 0), new Coordinate(1, 1));
+        bn.switchTurn();
+        TypeShip[] bateaux = {BARQUE, TRANSPORT};
+        ((Bot) bn.getJ2()).placerBateaux(bateaux);
+        int i = 0;
+//        int j = 0;
+        StateCase s;
+        while (i < 5) {
+            s = bn.fire(OrdreTir.NO_ORDER);
+            if (s == HIT) {
+                i++;
+            }
+        }
+//        bn.fire(OrdreTir.NO_ORDER);
+//        bn.fire(OrdreTir.NO_ORDER);
+//        bn.fire(OrdreTir.NO_ORDER);
+//        bn.fire(OrdreTir.NO_ORDER);
+        assertEquals(bn.getJ1().getFlotte().getVaisseaux().size(), 1);
+
     }
 }

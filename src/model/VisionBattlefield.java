@@ -35,12 +35,12 @@ public class VisionBattlefield implements Serializable {
     }
 
     public void setState(Coordinate coordinate, StateCase state) {
-        assert (state == UNKNOWN || state == HIT || state == MISS) : "Etat inconnu : " + state;
+//        assert (state == UNKNOWN || state == HIT || state == MISS) : "Etat inconnu : " + state;
         map[coordinate.x][coordinate.y] = state;
     }
 
     public void setState(int x, int y, StateCase state) {
-        assert (state == UNKNOWN || state == HIT || state == MISS) : "Etat inconnu : " + state;
+//        assert (state == UNKNOWN || state == HIT || state == MISS) : "Etat inconnu : " + state;
         map[x][y] = state;
     }
 
