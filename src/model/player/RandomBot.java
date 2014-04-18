@@ -37,7 +37,7 @@ public class RandomBot extends Bot implements Serializable{
             
             int nbShip = target.getVaisseaux().size();
             Random rand = new Random();
-            int nb = rand.nextInt(nbShip)+1;
+            int nb = rand.nextInt(nbShip);
             OrdreTir o = new OrdreTir(c, nb);
             return flotte.fire(target, o);
         } catch (Exception ex) {
