@@ -150,22 +150,15 @@ public abstract class Bot extends Player implements Serializable {
                             }
                         }
                     }
+                    if (ajout == true) {
+                        list.add(new Coordinate(i, j));
+                    }
                 }
             }
         }
+        return list;
     }
 }
-//                    
-//                }
-//   
-//                if(ajout == true){
-//                    list.add(new Coordinate(i,j));
-//                }
-//            }
-//        }
-//        return list;
-//        
-//    }
 //    
 //    public class structPlacement{
 //        protected Coordinate chead;
