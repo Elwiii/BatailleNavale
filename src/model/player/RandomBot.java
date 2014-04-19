@@ -30,8 +30,8 @@ public class RandomBot extends Bot implements Serializable{
     public StateCase autoFire(VisionBattlefield bf, Flotte target) {
         Random rand = new Random();
         try {
-            int x = rand.nextInt(this.getMap().getLargeur());
-            int y = rand.nextInt(this.getMap().getHauteur());
+            int x = rand.nextInt(bf.getLargeur());
+            int y = rand.nextInt(bf.getHauteur());
             Coordinate c = new Coordinate(x ,y);
             lastCoordinateFired = c;
             

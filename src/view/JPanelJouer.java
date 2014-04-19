@@ -114,6 +114,8 @@ public class JPanelJouer extends JPanel implements Observer {
                                             System.out.println("BOT");
                                             model.switchTurn();
                                             res = model.fire(OrdreTir.NO_ORDER/*null*/);
+                                            System.out.println("APRES TIR");
+                                            model.update();
                                             System.out.println("RES J2 = "+res);
                                             while (res == HIT) {
                                                 System.out.println("RES J22 = "+res);
@@ -340,7 +342,7 @@ public class JPanelJouer extends JPanel implements Observer {
 
     @Override
     public void update(Observable o, Object o1) {
-        System.out.println("UPDATE JPANELJOUER");
+//        System.out.println("UPDATE JPANELJOUER");
         updateGrilleFlotte();
         
 //        updateGrilleEnnemi();

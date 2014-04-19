@@ -228,10 +228,6 @@ public class BatailleNavale {
         currentPlayer.addShip(shipFactory.buildShip(typeShip, queue, nez));
     }
 
-    public void addShip2(TypeShip typeShip, Coordinate queue, Coordinate nez) throws Exception {
-        otherPlayer.addShip(shipFactory.buildShip(typeShip, queue, nez));
-    }
-
     public void addObserver(Observer o) {
         bna.addObserver(o);
     }
