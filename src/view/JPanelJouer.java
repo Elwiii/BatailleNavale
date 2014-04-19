@@ -137,10 +137,10 @@ public class JPanelJouer extends JPanel implements Observer {
                                                 
                                         }
                                     }
-                                    else{
+                                    else if (model.getState() == State.WINJ1){
                                         s = (String)JOptionPane.showInputDialog(
                                         GUI.getInstance(),
-                                        "Match nul! Dommage...\nQue voulez-vous faire?",
+                                        "Vous avez gagné! Bravo!\nQue voulez-vous faire?",
                                         "Fin de partie",
                                         JOptionPane.QUESTION_MESSAGE,
                                         null,

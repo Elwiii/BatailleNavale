@@ -28,15 +28,14 @@ public class RandomBot extends Bot implements Serializable{
 
     @Override
     public StateCase autoFire(VisionBattlefield bf, Flotte target) {
+        Random rand = new Random();
         try {
-            int x = (int)(Math.random());
-            int y = (int)(Math.random());
-            int l = (int)(Math.random());
+            int x = rand.nextInt(this.getMap().getLargeur());
+            int y = rand.nextInt(this.getMap().getHauteur());
             Coordinate c = new Coordinate(x ,y);
             lastCoordinateFired = c;
             
-            int nbShip = target.getVaisseaux().size();
-            Random rand = new Random();
+            int nbShip = this.flotte.getVaisseaux().size();
             int nb = rand.nextInt(nbShip);
             OrdreTir o = new OrdreTir(c, nb);
             return flotte.fire(target, o);

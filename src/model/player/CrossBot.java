@@ -76,7 +76,11 @@ public class CrossBot extends Bot implements Serializable {
                 choixCoordTir = generator.nextInt(tailsPossibles.size());
                 coordTir = tailsPossibles.get(choixCoordTir);
                 if (!(listTirs.contains(coordTir))) {
-                    res = fire(new OrdreTir(coordTir, choixBateau), target);
+                    try {
+                        res = flotte.fire(target,new OrdreTir(coordTir, choixBateau));
+                    } catch (Exception ex) {
+                        Logger.getLogger(CrossBot.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                     tirOK = true;
                 }
             }
