@@ -25,19 +25,17 @@ public class ShipsListModel extends AbstractListModel{
 
     
     public void update(){
-        fireIntervalAdded(this, getSize()-1,getSize()-1);
+        fireContentsChanged(this,0,getSize());
     }
     
     
     @Override
     public int getSize() {
-//        System.out.println("getSize");
         return model.getJ1().getFlotte().getVaisseaux().size();
     }
 
     @Override
     public Object getElementAt(int i) {
-//        System.out.println("getElementAt "+i);
         return model.getJ1().getFlotte().getVaisseaux().get(i);
     }
     

@@ -8,6 +8,7 @@ package model;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import static model.StateCase.DESTROYED_SHIP;
 import static model.StateCase.FLOTTE_DETRUITE;
 import static model.StateCase.HIT;
 import static model.StateCase.MISS;
@@ -70,10 +71,12 @@ public class Flotte implements Serializable{
             shiphit.receivedDamage(coordinate);
             if (shiphit.isDetroy()) {
                 vaisseaux.remove(shiphit);
-            }
-            if (vaisseaux.isEmpty()) {
-                return FLOTTE_DETRUITE;
-            } else {
+                if (vaisseaux.isEmpty()) {
+                    return FLOTTE_DETRUITE;
+                } else {
+                    return DESTROYED_SHIP;
+                }
+            }else{
                 return HIT;
             }
         } else {

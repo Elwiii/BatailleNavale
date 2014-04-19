@@ -6,9 +6,6 @@
 package model;
 
 import java.io.Serializable;
-import static model.StateCase.HIT;
-import static model.StateCase.MISS;
-import static model.StateCase.UNKNOWN;
 
 /**
  * Permet de stocker une réprésentation du champs de bataille du point de vue
@@ -21,26 +18,25 @@ public class VisionBattlefield implements Serializable {
 
     private final StateCase[][] map;
 
-    /* état d'une case sur la carte */
-//    private final int UNKNOWN = 0;
-//    private final int HIT = 1;
-//    private final int MISS = 2;
     private final int hauteur;
     private final int largeur;
 
     public VisionBattlefield(int hauteur, int largeur) {
         map = new StateCase[hauteur][largeur];
+        for (int i = 0; i < map.length; i++) {
+            for (int j = 0; j < map[i].length; j++) {
+               map[i][j] = StateCase.UNKNOWN;
+            }
+        }
         this.hauteur = hauteur;
         this.largeur = largeur;
     }
 
     public void setState(Coordinate coordinate, StateCase state) {
-//        assert (state == UNKNOWN || state == HIT || state == MISS) : "Etat inconnu : " + state;
         map[coordinate.x][coordinate.y] = state;
     }
 
     public void setState(int x, int y, StateCase state) {
-//        assert (state == UNKNOWN || state == HIT || state == MISS) : "Etat inconnu : " + state;
         map[x][y] = state;
     }
 

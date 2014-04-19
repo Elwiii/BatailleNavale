@@ -15,6 +15,7 @@ import model.StateCase;
 import static model.StateCase.ERROR;
 import model.Flotte;
 import model.OrdreTir;
+import static model.StateCase.HIT;
 import model.VisionBattlefield;
 import model.ship.Ship;
 
@@ -36,14 +37,14 @@ public class Poseidon extends Bot implements Serializable{
     @Override
     public StateCase autoFire(VisionBattlefield bf, Flotte target) {
         try {
-            Ship nextVictim = target.getVaisseaux().get(lastShipHit);
+            Ship nextVictim = target.getVaisseaux().get(0/*lastShipHit*/);
             int shooter = rand.nextInt(flotte.getVaisseaux().size());
             Coordinate c = nextVictim.getEtats().get(lastPartieShipHit).getC();
             lastCoordinateFired = c;
             OrdreTir o = new OrdreTir(c,shooter);
             
             StateCase res = flotte.fire(target, o);
-            lastPartieShipHit = nextVictim.isDetroy()? 0 : lastPartieShipHit + 1;
+            lastPartieShipHit = nextVictim.isDetroy()? 0 : res == HIT ?lastPartieShipHit + 1:lastPartieShipHit;
             System.out.println("Poseidon a tiré en "+c+" et a eu le resultat suivant  : "+res);
             return res;
         } catch (Exception ex) {
