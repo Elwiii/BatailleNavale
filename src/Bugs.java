@@ -342,10 +342,43 @@ public class Bugs {
     cf. Repertoire Bugs -> Image map2, map3
     */
     
+    
+     /*
+      Ticket : [[ ticket : 17 ]]
+
+     Test n°17 : Jouer une partie
+     Préconditions : Avoir cree une partie (Epoque: XVIII, Taille: 5, 
+                    Difficulté: Poseidon, Bateaau: Barque) 
+     Scénario :
+     Action 1 : Je choisis le bateau qui tire (Barque)
+     Action 2 : Je clique sur une case de la grille adverse --> j'ai touché le bâteau 
+                adverse
+     Action 3 : Je répéte l'Action 2
+    
+     Postconditions : Deux cas se présentent:
+                        1. A chaque coup je touche le bâteau adverse --> quand tout 
+                            bâteau a été touché, la partie est gagnée. Trois actions
+                            sont proposées, 'Voir les scores', 'Rejouer', 'Quitter'
+                        2. Au deuxième coup je ne touche pas le bâteau adverse -->
+                            
+     Conclusion du test : 
+     Commentaires sur le test: 
+     Le test est t'il réussi ? OUI
+     */
+    
+    
     /*
-    ticket 17
-     
+      @todo Ticket : [[ ticket : 18 ]]
+
+     Test n°18 : Voir les scores
+     Préconditions : Avoir gagné une partie (un pop-up s'affiche)
+     Scénario :
+     Action 1 : Je choisis de 'Voir les scores'
+     Action 2 : Je clique sur OK
     
-    */
-    
+     Postconditions : La grille des scores s'affiche.
+     Conclusion du test : 
+     Commentaires sur le test: 
+     Le test est t'il réussi ? OUI
+     */
 }
