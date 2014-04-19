@@ -66,9 +66,9 @@ public class CrossBot extends Bot implements Serializable {
 
         int choixBateau = 0;
         //Si on est pas en train de couler un bateau
-        System.out.println("AVANT premier tir");
+//        System.out.println("AVANT premier tir");
         if (this.shipFired == false) {
-            System.out.println("APRES");
+//            System.out.println("APRES");
             //Il faut choisir une coordonnée non utilisée
             while (tirOK == false) {
                 /* choix d'un bateau dans la flotte */
@@ -108,7 +108,7 @@ public class CrossBot extends Bot implements Serializable {
                 i++;
                 System.out.println("taille = "+taille_grille+" lastCoordinate.x = "+lastCoordinateFired.x+" lastCoordinate.y = "+lastCoordinateFired.y);
                 if(this.lastCoordinateFired.y + 1 < taille_grille){
-                    System.out.println("VAS Y RENTRE");
+//                    System.out.println("VAS Y RENTRE");
                 }
                 if (((state == NOTHING) || (state == HORIZONTAL_DROITE)) && (this.lastCoordinateFired.y + 1 < taille_grille)) {
                     coordCalcul = new Coordinate(this.lastCoordinateFired.x, this.lastCoordinateFired.y + 1);

@@ -39,13 +39,13 @@ public class JPanelWizard extends JPanel implements Observer {
         model.addObserver(this);
 
         jpanelPlacement = new JPanelPlacement(model, this);
-        jpanelJouer = new JPanelJouer(model,this);
+        jpanelJouer = new JPanelJouer(model, this);
         jpanelAcceuil = new JPanelAcceuil(model, this);
         jpanelCreer = new JPanelCreer(model, this);
         jpanelParties = new JPanelParties(model, this);
         jPanelScore = new JPanelScore(model, this);
 
-        add(jpanelAcceuil,JPanelAcceuil.id);
+        add(jpanelAcceuil, JPanelAcceuil.id);
         add(jpanelCreer, JPanelCreer.id);
         add(jpanelJouer, JPanelJouer.id);
         add(jpanelParties, JPanelParties.id);
@@ -58,7 +58,7 @@ public class JPanelWizard extends JPanel implements Observer {
 
     public void show(String id) {
         switchJPanel(id);
-        System.out.println("showing ...");
+//        System.out.println("showing ...");
         cl.show(this, id);
         GUI.getInstance().updateMenu();
         GUI.getInstance().pack();
@@ -85,7 +85,7 @@ public class JPanelWizard extends JPanel implements Observer {
                 break;
             case JPanelPlacement.id:
                 currentPanel = jpanelPlacement;
-                GUI.getInstance().setPreferredSize(new Dimension(440,400));
+                GUI.getInstance().setPreferredSize(new Dimension(440, 400));
                 break;
             case JPanelScore.id:
                 currentPanel = jPanelScore;
@@ -93,34 +93,31 @@ public class JPanelWizard extends JPanel implements Observer {
                 break;
         }
     }
-    
-    public void clean(BatailleNavale model){
-        jpanelAcceuil.removeAll();       
-        jpanelJouer.removeAll();       
+
+    public void clean(BatailleNavale model) {
+        jpanelAcceuil.removeAll();
+        jpanelJouer.removeAll();
 //        jpanelCreer.removeAll();
         jpanelPlacement.removeAll();
         jpanelParties.removeAll();
         jPanelScore.removeAll();
-        
-        
+
         jpanelPlacement = new JPanelPlacement(model, this);
-        jpanelJouer = new JPanelJouer(model,this);
+        jpanelJouer = new JPanelJouer(model, this);
         jpanelAcceuil = new JPanelAcceuil(model, this);
 //        jpanelCreer = new JPanelCreer(model, this);
         jpanelParties = new JPanelParties(model, this);
         jPanelScore = new JPanelScore(model, this);
 
-        add(jpanelAcceuil,JPanelAcceuil.id);
+        add(jpanelAcceuil, JPanelAcceuil.id);
         add(jpanelCreer, JPanelCreer.id);
         add(jpanelJouer, JPanelJouer.id);
         add(jpanelParties, JPanelParties.id);
         add(jPanelScore, JPanelScore.id);
         add(jpanelPlacement, JPanelPlacement.id);
-        
-        
-        
+
         currentPanel = jpanelAcceuil;
-        currentPanelId=jpanelAcceuil.id;
+        currentPanelId = JPanelAcceuil.id;
     }
 
     @Override
@@ -133,7 +130,7 @@ public class JPanelWizard extends JPanel implements Observer {
     public JPanelAcceuil getJpanelAcceuil() {
         return jpanelAcceuil;
     }
-    
+
     /**
      * @return the jpanelPlacement
      */

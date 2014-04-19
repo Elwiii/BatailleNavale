@@ -108,17 +108,17 @@ public class DaoFileGame extends DaoFile<Game> implements DaoGame{
 
     @Override
     public void update(Game g) throws FileAlreadyPersisted {
-        System.out.println("Game/"+g.getId()+".ser");
+//        System.out.println("Game/"+g.getId()+".ser");
         File fichier = new File("Game/"+g.getId()+".ser");
         //Si le fichier a déjà été créé, on le supprime
         if(fichier.exists()){
-            System.out.println("Fichier déjà existant : deleting "+fichier+"...");
+//            System.out.println("Fichier déjà existant : deleting "+fichier+"...");
 //            fichier.setWritable(true);
             boolean b = fichier.delete();
-            System.out.println("is delete ? "+b);
+//            System.out.println("is delete ? "+b);
         } 
         //On (re)crée le fichier correspondant
-        System.out.println("Recreating "+fichier+" ... ");
+//        System.out.println("Recreating "+fichier+" ... ");
         persiste(g);    
     }
 

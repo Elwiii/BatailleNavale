@@ -33,7 +33,7 @@ public class QuitListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         int n;
-        System.out.println("cards : " + cards);
+//        System.out.println("cards : " + cards);
         switch (cards.getCurrentPanelId()) {
             case JPanelJouer.id:
                 n = JOptionPane.showConfirmDialog(

@@ -46,7 +46,7 @@ public class CapitaineThomas extends Bot implements Serializable {
             System.out.println("Tire du captain Thomas  : " + c + " avec le bateau " + flotte.getVaisseaux().get(shooter));
 
             StateCase res = flotte.fire(target, o);
-            System.out.println(" Captain thomas a t il touché ? "+res);
+            System.out.println("Captain thomas a t il touché ? "+res);
             if (lastColonneFired + 1 < map.getLargeur()) {
                 lastColonneFired++;
 

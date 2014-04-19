@@ -28,6 +28,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.TitledBorder;
+import javax.swing.event.ListDataEvent;
+import javax.swing.event.ListDataListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import model.BatailleNavale;
@@ -54,7 +56,7 @@ public class JPanelJouer extends JPanel implements Observer {
     private final JPanelWizard wizard;
     private final BatailleNavale model;
     private JList list;
-    DefaultListModel<String> listModel;
+    private ShipsListModel listModel;
     private List<JButtonFire> listTir;
     private final int SHIP_SELECTED = 0;
     private final int HEAD_SELECTED = 1;
@@ -85,68 +87,67 @@ public class JPanelJouer extends JPanel implements Observer {
                 @Override
                 public void actionPerformed(ActionEvent ae) {
                     StateCase res;
-                    Object[] os = {"Rejouer", "Voir les scores","Quitter"};
+                    Object[] os = {"Rejouer", "Voir les scores", "Quitter"};
                     String s = null;
-                    
+
                     switch (state) {
                         case NOTHING_SELECTED:
                             break;
                         case SHIP_SELECTED:
                             try {
-                                if ((model.getState() != State.WINJ2)&&(model.getState() != State.WINJ1)) {
+                                if ((model.getState() != State.WINJ2) && (model.getState() != State.WINJ1)) {
                                     int launcherid = model.getJ1().getFlotte().getVaisseaux().indexOf(selectedShip);
                                     res = model.fire(new OrdreTir(c, launcherid));
-                                    System.out.println("RES J1 = "+res);
+//                                    System.out.println("RES J1 = " + res);
                                     /* Pas sur du tout*/
                                     model.update();
-                                    if(model.getState()==State.MATCH_NUL){
-                                        System.out.println("ICI les amis");                   
-                                        s = (String)JOptionPane.showInputDialog(
-                                        GUI.getInstance(),
-                                        "Match nul! Dommage...\nQue voulez-vous faire?",
-                                        "Fin de partie",
-                                        JOptionPane.QUESTION_MESSAGE,
-                                        null,
-                                        os,"Rejouer");// valeur initiale
-                                    }
-                                    if (!(model.getState() == State.WINJ1)) {
-                                        if (res == MISS /* 2 */) {
-                                            System.out.println("BOT");
-                                            model.switchTurn();
-                                            res = model.fire(OrdreTir.NO_ORDER/*null*/);
-                                            System.out.println("APRES TIR");
-                                            model.update();
-                                            System.out.println("RES J2 = "+res);
-                                            while (res == HIT) {
-                                                System.out.println("RES J22 = "+res);
-                                                res = model.fire(OrdreTir.NO_ORDER/*null*/);
-                                                model.update();
-                                                updateList();
-                                                
-                                            }
-                                            if (!(model.getState() == State.WINJ2)) {
-                                                model.switchTurn();
-                                            }
-                                            else{
-                                                s = (String)JOptionPane.showInputDialog(
+                                    if (model.getState() == State.MATCH_NUL) {
+//                                        System.out.println("ICI les amis");
+                                        s = (String) JOptionPane.showInputDialog(
                                                 GUI.getInstance(),
-                                                "Vous avez perdu!\nQue voulez-vous faire?",
+                                                "Match nul! Dommage...\nQue voulez-vous faire?",
                                                 "Fin de partie",
                                                 JOptionPane.QUESTION_MESSAGE,
                                                 null,
-                                                os,"Rejouer");// valeur initiale
-                                            }
-                                                
-                                        }
+                                                os, "Rejouer");// valeur initiale
                                     }
-                                    else if (model.getState() == State.WINJ1){
-                                        s = (String)JOptionPane.showInputDialog(
-                                        GUI.getInstance(),
-                                        "Vous avez gagné! Bravo!\nQue voulez-vous faire?",
-                                        "Fin de partie",
-                                        JOptionPane.QUESTION_MESSAGE,
-                                        null,
-                                        os,"Voir les scores");// valeur initiale                                        
+                                    if (!(model.getState() == State.WINJ1)) {
+                                        if (res == MISS /* 2 */) {
+//                                            System.out.println("BOT");
+                                            model.switchTurn();
+                                            res = model.fire(OrdreTir.NO_ORDER/*null*/);
+//                                            System.out.println("APRES TIR");
+                                            model.update();
+//                                            System.out.println("RES J2 = " + res);
+                                            while (res == HIT) {
+//                                                System.out.println("RES J22 = " + res);
+                                                res = model.fire(OrdreTir.NO_ORDER/*null*/);
+                                                model.update();
+//                                                updateList();
+                                                listModel.update();
+//                                                System.out.println(""+model.getJ1().getFlotte().getVaisseaux());
+                                            }
+                                            if (!(model.getState() == State.WINJ2)) {
+                                                model.switchTurn();
+                                            } else {
+                                                s = (String) JOptionPane.showInputDialog(
+                                                        GUI.getInstance(),
+                                                        "Vous avez perdu!\nQue voulez-vous faire?",
+                                                        "Fin de partie",
+                                                        JOptionPane.QUESTION_MESSAGE,
+                                                        null,
+                                                        os, "Rejouer");// valeur initiale
+                                            }
+
+                                        }
+                                    } else if (model.getState() == State.WINJ1) {
+                                        s = (String) JOptionPane.showInputDialog(
+                                                GUI.getInstance(),
+                                                "Vous avez gagné! Bravo!\nQue voulez-vous faire?",
+                                                "Fin de partie",
+                                                JOptionPane.QUESTION_MESSAGE,
+                                                null,
+                                                os, "Voir les scores");// valeur initiale                                        
                                     }
                                 }
 
@@ -156,17 +157,16 @@ public class JPanelJouer extends JPanel implements Observer {
                     }
                     /* Toujours pas sur */
                     model.update();
-                    System.out.println("" + c);
-                    if(s!=null){
+//                    System.out.println("" + c);
+                    if (s != null) {
                         wizard.clean(model);
-                        if(s.equals("Rejouer")){
+                        if (s.equals("Rejouer")) {
                             wizard.show(JPanelAcceuil.id);
-                        }
-                        else if(s.equals("Voir les scores")){
+                        } else if (s.equals("Voir les scores")) {
                             wizard.show(JPanelScore.id);
-                        }
-                        else
+                        } else {
                             System.exit(0);
+                        }
                     }
                 }
             });
@@ -184,15 +184,14 @@ public class JPanelJouer extends JPanel implements Observer {
             StateCase etat = model.getJ1().getMap().getState(c);
             if (etat == UNKNOWN) {
                 this.setText("?"); // ? pour dire "pas encore attaqué"
-            } /* Cas d'une case touchée */ 
-            else if (etat == HIT) {
+            } /* Cas d'une case touchée */ else if (etat == HIT) {
                 this.setText("X"); // Croix pour dire "touché"
                 this.setEnabled(false); //Desactivation pour ne pas tirer au même endroit
             } else if (etat == MISS) {
                 this.setText(""); // " " pour dire "raté"  
                 this.setEnabled(false); //Desactivation pour ne pas tirer au même endroit
             }
-            if((model.getState()==State.WINJ1 )|| (model.getState()==State.WINJ2)||(model.getState() == State.MATCH_NUL)){
+            if ((model.getState() == State.WINJ1) || (model.getState() == State.WINJ2) || (model.getState() == State.MATCH_NUL)) {
                 this.setEnabled(false);
             }
         }
@@ -205,6 +204,8 @@ public class JPanelJouer extends JPanel implements Observer {
         this.model = model;
         this.wizard = wizard;
         listTir = new ArrayList<>();
+        //Create and populate the list model
+        listModel = new ShipsListModel(model);
     }
 
     /**
@@ -221,7 +222,7 @@ public class JPanelJouer extends JPanel implements Observer {
         grilleFlotte = new JPanel(new GridLayout(model.getLargeurGrille(), model.getLongeurGrille()));
         for (int i = 0; i < model.getLargeurGrille(); i++) {
             for (int j = 0; j < model.getLongeurGrille(); j++) {
-                JButtonFire jbf = new JButtonFire(model, new Coordinate(i, j),wizard);
+                JButtonFire jbf = new JButtonFire(model, new Coordinate(i, j), wizard);
                 jbf.setEnabled(false);
                 grilleEnnemi.add(jbf);
                 listTir.add(jbf);
@@ -239,13 +240,13 @@ public class JPanelJouer extends JPanel implements Observer {
         add(center, BorderLayout.CENTER);
         grilleFlotte.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.GRAY), "Etats de vos bateaux", TitledBorder.LEFT, TitledBorder.TOP, new Font(Font.SERIF, Font.ITALIC, 16), Color.GRAY));
 
-        Ship[] tabShip = new Ship[model.getJ1().getFlotte().getVaisseaux().size()];
-        int i = 0;
-        for (Ship s : model.getJ1().getFlotte().getVaisseaux()) {
-            tabShip[i] = s;
-            i++;
-        }
-        /*final JList*/ list = new JList(tabShip); //data has type Object[]
+//        Ship[] tabShip = new Ship[model.getJ1().getFlotte().getVaisseaux().size()];
+//        int i = 0;
+//        for (Ship s : model.getJ1().getFlotte().getVaisseaux()) {
+//            tabShip[i] = s;
+//            i++;
+//        }
+        /*final JList*/ list = new JList(listModel/*tabShip*/); //data has type Object[]
         list.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.GRAY), "Flotte", TitledBorder.LEFT, TitledBorder.TOP, new Font(Font.SERIF, Font.ITALIC, 16), Color.GRAY));
 
         list.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
@@ -266,7 +267,7 @@ public class JPanelJouer extends JPanel implements Observer {
                         jbf.setEnabled(false);
                     }
                     StateCase etat = model.getJ1().getMap().getState(jbf.getC());
-                    if((etat == HIT)||(etat == MISS)){
+                    if ((etat == HIT) || (etat == MISS)) {
                         jbf.setEnabled(false);
                     }
 
@@ -327,24 +328,24 @@ public class JPanelJouer extends JPanel implements Observer {
 
     }
 
-    public void updateList() {
-        Ship[] tabShip = new Ship[model.getJ1().getFlotte().getVaisseaux().size()];
-        int i = 0;
-        for (Ship s : model.getJ1().getFlotte().getVaisseaux()) {
-            tabShip[i] = s;
-            i++;
-        }
-        list = new JList(tabShip);
-//        list.removeAll();
-//        list.setListData(tabShip);
-
-    }
+//    public void updateList() {
+//        Ship[] tabShip = new Ship[model.getJ1().getFlotte().getVaisseaux().size()];
+//        int i = 0;
+//        for (Ship s : model.getJ1().getFlotte().getVaisseaux()) {
+//            tabShip[i] = s;
+//            i++;
+//        }
+//        list = new JList(tabShip);
+////        list.removeAll();
+////        list.setListData(tabShip);
+//
+//    }
 
     @Override
     public void update(Observable o, Object o1) {
 //        System.out.println("UPDATE JPANELJOUER");
         updateGrilleFlotte();
-        
+
 //        updateGrilleEnnemi();
     }
 }

@@ -87,7 +87,7 @@ public class BatailleNavale {
     public StateCase fire(OrdreTir order) throws Exception {
         if ((currentPlayer.horsDePortee(otherPlayer.getFlotte())==true) && (otherPlayer.horsDePortee(currentPlayer.getFlotte())==true)) {
             state = State.MATCH_NUL;
-            System.out.println("MATCH NUL");
+//            System.out.println("MATCH NUL");
             return ERROR;
         }
         else {
@@ -96,7 +96,7 @@ public class BatailleNavale {
                 switch (state) {
                     case JOUEUR1:
                         state = State.WINJ1;
-                        System.out.println("j1 : " + j1);
+//                        System.out.println("j1 : " + j1);
                         scoreManager.udpate(j1.getNom(), score);
                         break;
                     case JOUEUR2:
@@ -176,7 +176,7 @@ public class BatailleNavale {
      */
     public void save() throws PersistanceException {
         save = new Game(this);
-        System.out.println("save : " + save);
+//        System.out.println("save : " + save);
         adf.getInstanceDaoGame().update(save);
         update();
     }

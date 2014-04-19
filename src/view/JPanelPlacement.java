@@ -102,7 +102,7 @@ public class JPanelPlacement extends JPanel implements Observer {
                             int i = 0;
                             while (!queuePossible && i < grilleButton.length) {
                                 while (!queuePossible & j < grilleButton[0].length) {
-                                    System.out.println("grilleButton[" + i + "][" + j + "].isEnabled()" + grilleButton[i][j].isEnabled());
+//                                    System.out.println("grilleButton[" + i + "][" + j + "].isEnabled()" + grilleButton[i][j].isEnabled());
                                     queuePossible = queuePossible || grilleButton[i][j].isEnabled();
                                     j++;
                                 }
@@ -159,7 +159,7 @@ public class JPanelPlacement extends JPanel implements Observer {
                             if (Math.abs(tailColonne - headColonne) == 0 || Math.abs(tailLigne - headLigne) == 0) {
                                 for (int c = 0; c <= max_c; c++) {
                                     for (int l = 0; l <= max_l; l++) {
-                                        System.out.println("(l,c) : " + l + "," + c);
+//                                        System.out.println("(l,c) : " + l + "," + c);
                                         JButtonPlacementBateau jbp = grilleButton[tailLigne + incr_l * l][tailColonne + incr_c * c];
                                         jbp.setEnabled(false);
                                         jbp.setBackground(typeShip.getRepresentationGraphique());
@@ -259,7 +259,7 @@ public class JPanelPlacement extends JPanel implements Observer {
                                 /* cas des chevauchements */
                                 if ((e.getC().x == k) && (e.getC().y == l)) {
                                     list.add(grilleButton[i][j]);
-                                    System.out.println("Chevauchement");
+//                                    System.out.println("Chevauchement");
                                     //ajout = false;
                                 } /* cas bateau en diagonale, teste des croisements possibles */
 
@@ -427,7 +427,7 @@ public class JPanelPlacement extends JPanel implements Observer {
             public void valueChanged(ListSelectionEvent e) {
                 typeShip = (TypeShip) list.getSelectedValue();
                 state = SHIP_SELECTED;
-                System.out.println("type : " + typeShip);
+//                System.out.println("type : " + typeShip);
             }
         });
         list.clearSelection();

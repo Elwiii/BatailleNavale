@@ -69,7 +69,7 @@ public class TestDao {
     
     @Test
     public void test3() throws PersistanceException{
-        System.out.println("test 3 :"+bn.getAdf().getInstanceDaoGame().find());
-        System.out.println(ScoreManager.getInstance().getScoreOf("coucou"));
+//        System.out.println("test 3 :"+bn.getAdf().getInstanceDaoGame().find());
+//        System.out.println(ScoreManager.getInstance().getScoreOf("coucou"));
     }
 }
