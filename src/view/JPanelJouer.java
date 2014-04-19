@@ -155,14 +155,17 @@ public class JPanelJouer extends JPanel implements Observer {
                     /* Toujours pas sur */
                     model.update();
                     System.out.println("" + c);
-                    if(s.equals("Rejouer")){
-                        wizard.show(JPanelAcceuil.id);
+                    if(s!=null){
+                        wizard.clean(model);
+                        if(s.equals("Rejouer")){
+                            wizard.show(JPanelAcceuil.id);
+                        }
+                        else if(s.equals("Voir les scores")){
+                            wizard.show(JPanelScore.id);
+                        }
+                        else
+                            System.exit(0);
                     }
-                    else if(s.equals("Voir les scores")){
-                        wizard.show(JPanelScore.id);
-                    }
-                    else
-                        System.exit(0);
                 }
             });
         }

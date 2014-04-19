@@ -11,6 +11,7 @@ import java.util.Observable;
 import java.util.Observer;
 import javax.swing.JPanel;
 import model.BatailleNavale;
+import persistance.DaoFactoryException;
 
 /**
  *
@@ -20,17 +21,17 @@ public class JPanelWizard extends JPanel implements Observer {
 
 //    private final GUI gui;
     private final CardLayout cl;
-    private final JPanelPlacement jpanelPlacement;
-    private final JPanelJouer jpanelJouer;
-    private final JPanelAcceuil jpanelAcceuil;
-    private final JPanelCreer jpanelCreer;
-    private final JPanelParties jpanelParties;
-    private final JPanelScore jPanelScore;
+    private JPanelPlacement jpanelPlacement;
+    private JPanelJouer jpanelJouer;
+    private JPanelAcceuil jpanelAcceuil;
+    private JPanelCreer jpanelCreer;
+    private JPanelParties jpanelParties;
+    private JPanelScore jPanelScore;
 
     private String currentPanelId = null;
     private JPanel currentPanel;
 
-    public JPanelWizard(final BatailleNavale model) {
+    public JPanelWizard(BatailleNavale model) {
         super();
         //gui = GUI.getInstance();
         cl = new CardLayout();
@@ -91,6 +92,35 @@ public class JPanelWizard extends JPanel implements Observer {
                 GUI.getInstance().setPreferredSize(new Dimension(250, 200));
                 break;
         }
+    }
+    
+    public void clean(BatailleNavale model){
+        jpanelAcceuil.removeAll();       
+        jpanelJouer.removeAll();       
+//        jpanelCreer.removeAll();
+        jpanelPlacement.removeAll();
+        jpanelParties.removeAll();
+        jPanelScore.removeAll();
+        
+        
+        jpanelPlacement = new JPanelPlacement(model, this);
+        jpanelJouer = new JPanelJouer(model,this);
+        jpanelAcceuil = new JPanelAcceuil(model, this);
+//        jpanelCreer = new JPanelCreer(model, this);
+        jpanelParties = new JPanelParties(model, this);
+        jPanelScore = new JPanelScore(model, this);
+
+        add(jpanelAcceuil,JPanelAcceuil.id);
+        add(jpanelCreer, JPanelCreer.id);
+        add(jpanelJouer, JPanelJouer.id);
+        add(jpanelParties, JPanelParties.id);
+        add(jPanelScore, JPanelScore.id);
+        add(jpanelPlacement, JPanelPlacement.id);
+        
+        
+        
+        currentPanel = jpanelAcceuil;
+        currentPanelId=jpanelAcceuil.id;
     }
 
     @Override
