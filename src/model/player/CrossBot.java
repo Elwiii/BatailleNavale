@@ -50,6 +50,267 @@ public class CrossBot extends Bot implements Serializable {
         this.shipFired = false;
     }
 
+
+    @Override
+    public StateCase autoFire(VisionBattlefield bf, Flotte target) {
+        int taille = flotte.getVaisseaux().size();
+        List<Coordinate> tailsPossibles = null;
+        Random generator = new Random();
+        int choixCoordTir = 0;
+        Coordinate coordTir = null;
+        StateCase res = null;
+        boolean tirOK = false;
+        Coordinate coordCalcul = null;
+        int i = 0;
+
+        int choixBateau = 0;
+        //Si on est pas en train de couler un bateau
+        if (this.shipFired == false) {
+            //Il faut choisir une coordonnée non utilisée
+            while (tirOK == false) {
+                /* choix d'un bateau dans la flotte */
+                choixBateau = generator.nextInt(taille);
+                Ship s = flotte.getVaisseaux().get(choixBateau);
+                /* choix de la coordonnée */
+                tailsPossibles = tailsPossibles(s);
+                choixCoordTir = generator.nextInt(tailsPossibles.size());
+                coordTir = tailsPossibles.get(choixCoordTir);
+                if (!(listTirs.contains(coordTir))) {
+                    res = fire(new OrdreTir(coordTir, choixBateau), target);
+                    tirOK = true;
+                }
+            }
+            if (res == HIT) {
+                firstCoordinate = coordTir;
+                lastCoordinateFired = coordTir;
+                /* on commence à couler un bateau */
+                shipFired = true;
+                /* on ne connait pas encore sa direction : HORIZONTAL, VERTICAL */
+                aDirection = false;
+            }
+            listTirs.add(coordTir);
+            return res;
+        } else {
+            //On laisse 50 coups à l'ordinateur pour choisir une coordonnée valide
+            while (i != 50) {
+                i++;
+                if (((state == NOTHING) || (state == HORIZONTAL_DROITE)) && (this.lastCoordinateFired.x + 1 < taille) && (this.lastCoordinateFired.y < taille)) {
+                    coordCalcul = new Coordinate(this.lastCoordinateFired.x + 1, this.lastCoordinateFired.y);
+                    //Si on a pas déjà utilisé cette coordonnée
+                    if (!(listTirs.contains(coordCalcul))) {
+                        /* On regarde si on peut atteindre cette coordonnée */
+                        for (Ship s : this.flotte.getVaisseaux()) {
+                            if (s.estAporteeDeTir(coordCalcul)) {
+                                try {
+                                    res = flotte.fire(target,new OrdreTir(coordCalcul, flotte.getVaisseaux().indexOf(s)));
+                                } catch (Exception ex) {
+                                    Logger.getLogger(CrossBot.class.getName()).log(Level.SEVERE, null, ex);
+                                }
+                                /* Cas tir raté ou dépassement de grille */
+                                if ((res == MISS) || (coordCalcul.x + 1 >= taille)) {
+                                    if(aDirection == false){
+                                        this.state = VERTICAL_HAUT;
+                                    }
+                                    else{
+                                        /* On regarde si on a déjà fait l'autre partie du bateau */
+                                        if (comeFrom != HORIZONTAL_GAUCHE) {
+                                            this.state = HORIZONTAL_GAUCHE;
+                                            this.comeFrom = HORIZONTAL_DROITE;
+                                        } else {
+                                            /* si oui on a certainement coulé le bateau */
+                                            /* on retire une coordonnée aléatoire*/ 
+                                            this.state = NOTHING;
+                                            shipFired = false;
+                                            aDirection=false;
+                                        }
+                                    }
+                                } else if (res == HIT) {
+                                    lastCoordinateFired = coordCalcul;
+                                    /* on connait maintenant la direction du bateau */
+                                    aDirection =  true;
+                                }
+                                /* la coordonnée étant à portée et utilisée, on l'ajoute à notre liste */
+                                listTirs.add(new Coordinate(this.lastCoordinateFired.x + 1, this.lastCoordinateFired.y));
+                                return (res);
+                            }
+                        }
+                    }
+                } else if ((state == HORIZONTAL_GAUCHE) && (this.lastCoordinateFired.x - 1 >= 0)) {
+                    coordCalcul = new Coordinate(this.lastCoordinateFired.x - 1, this.lastCoordinateFired.y);
+                    //Si on a pas déjà utilisé cette coordonnée
+                    if (!(listTirs.contains(coordCalcul))) {
+                        /* On regarde si on peut atteindre cette coordonnée */
+                        for (Ship s : this.flotte.getVaisseaux()) {
+                            if (s.estAporteeDeTir(coordCalcul)) {
+                                try {
+                                    res=flotte.fire(target,new OrdreTir(coordCalcul, flotte.getVaisseaux().indexOf(s)));
+                                } catch (Exception ex) {
+                                    Logger.getLogger(CrossBot.class.getName()).log(Level.SEVERE, null, ex);
+                                }
+                                /* Cas tir raté ou dépassement de grille */
+                                if ((res == MISS) || (coordCalcul.x - 1 >= taille)) {
+                                    if(aDirection == false){
+                                        this.state = VERTICAL_BAS;
+                                    }
+                                    else{
+                                        /* On regarde si on a déjà fait l'autre partie du bateau */
+                                        if (comeFrom != HORIZONTAL_DROITE) {
+                                            this.state = HORIZONTAL_DROITE;
+                                            this.comeFrom = HORIZONTAL_GAUCHE;
+                                        } else {
+                                            /* si oui on a certainement coulé le bateau */
+                                            /* on retire une coordonnée aléatoire*/ 
+                                            this.state = NOTHING;
+                                            shipFired = false;
+                                            aDirection=false;
+                                        }
+                                    }
+                                } else if (res == HIT) {
+                                    lastCoordinateFired = coordCalcul;
+                                    /* on connait maintenant la direction du bateau */
+                                    aDirection =  true;
+                                }
+                                /* la coordonnée étant à portée et utilisée, on l'ajoute à notre liste */
+                                listTirs.add(new Coordinate(this.lastCoordinateFired.x - 1, this.lastCoordinateFired.y));
+                                return (res);
+                            }
+                        }
+                    }
+                } else if ((state == VERTICAL_HAUT) && (this.lastCoordinateFired.y - 1 >= 0)) {
+                    coordCalcul = new Coordinate(this.lastCoordinateFired.x, this.lastCoordinateFired.y - 1);
+                    //Si on a pas déjà utilisé cette coordonnée
+                    if (!(listTirs.contains(coordCalcul))) {
+                        /* On regarde si on peut atteindre cette coordonnée */
+                        for (Ship s : this.flotte.getVaisseaux()) {
+                            if (s.estAporteeDeTir(coordCalcul)) {
+                                try {
+                                    res=flotte.fire(target,new OrdreTir(coordCalcul, flotte.getVaisseaux().indexOf(s)));
+                                } catch (Exception ex) {
+                                    Logger.getLogger(CrossBot.class.getName()).log(Level.SEVERE, null, ex);
+                                }
+                                /* Cas tir raté ou dépassement de grille */
+                                if ((res == MISS) || (coordCalcul.y - 1 >= taille)) {
+                                    if(aDirection == false){
+                                        this.state = HORIZONTAL_GAUCHE;
+                                    }
+                                    else{
+                                        /* On regarde si on a déjà fait l'autre partie du bateau */
+                                        if (comeFrom != VERTICAL_BAS) {
+                                            this.state = VERTICAL_BAS;
+                                            this.comeFrom = VERTICAL_HAUT;
+                                        } else {
+                                            /* si oui on a certainement coulé le bateau */
+                                            /* on retire une coordonnée aléatoire*/ 
+                                            this.state = NOTHING;
+                                            shipFired = false;
+                                            aDirection=false;
+                                        }
+                                    }
+                                } else if (res == HIT) {
+                                    lastCoordinateFired = coordCalcul;
+                                    /* on connait maintenant la direction du bateau */
+                                    aDirection =  true;
+                                }
+                                /* la coordonnée étant à portée et utilisée, on l'ajoute à notre liste */
+                                listTirs.add(new Coordinate(this.lastCoordinateFired.x, this.lastCoordinateFired.y - 1));
+                                return (res);
+                            }
+                        }
+                    }
+                } else if ((state == VERTICAL_BAS) && (this.lastCoordinateFired.y + 1 < taille)) {
+                    coordCalcul = new Coordinate(this.lastCoordinateFired.x - 1, this.lastCoordinateFired.y);
+                    //Si on a pas déjà utilisé cette coordonnée
+                    if (!(listTirs.contains(coordCalcul))) {
+                        /* On regarde si on peut atteindre cette coordonnée */
+                        for (Ship s : this.flotte.getVaisseaux()) {
+                            if (s.estAporteeDeTir(coordCalcul)) {
+                                try {
+                                    res=flotte.fire(target,new OrdreTir(coordCalcul, flotte.getVaisseaux().indexOf(s)));
+                                } catch (Exception ex) {
+                                    Logger.getLogger(CrossBot.class.getName()).log(Level.SEVERE, null, ex);
+                                }
+                                /* Cas tir raté ou dépassement de grille */
+                                if ((res == MISS) || (coordCalcul.y + 1 >= taille)) {
+                                    if(aDirection == false){
+                                        this.state = HORIZONTAL_DROITE;
+                                    }
+                                    else{
+                                        /* On regarde si on a déjà fait l'autre partie du bateau */
+                                        if (comeFrom != VERTICAL_HAUT) {
+                                            this.state = VERTICAL_HAUT;
+                                            this.comeFrom = VERTICAL_BAS;
+                                        } else {
+                                            /* si oui on a certainement coulé le bateau */
+                                            /* on retire une coordonnée aléatoire*/ 
+                                            this.state = NOTHING;
+                                            shipFired = false;
+                                            aDirection=false;
+                                        }
+                                    }
+                                } else if (res == HIT) {
+                                    lastCoordinateFired = coordCalcul;
+                                    /* on connait maintenant la direction du bateau */
+                                    aDirection =  true;
+                                }                                
+
+                                /* la coordonnée étant à portée et utilisée, on l'ajoute à notre liste */
+                                listTirs.add(new Coordinate(this.lastCoordinateFired.x, this.lastCoordinateFired.y + 1));
+                                return (res);
+                            }
+                        }
+                    }
+                }
+            }
+            /* les 50coups n'ont pas suffit, les coordonnées ne sont donc pas atteignables */
+            /* l'ordinateur tirera à nouveau une coordonnée aléatoire au prochaine tour */
+            /* on réinitialise les données de direction et de tir sur un bateau */
+            state = NOTHING;
+            aDirection = false;
+            shipFired = false;
+            return(UNREACHABLE);
+        }
+    }
+
+    protected List<Coordinate> tailsPossibles(Ship s) {
+        List<Coordinate> tirsPossibles = new ArrayList<>();
+        for (int i = 0; i < this.getMap().getLargeur(); i++) {
+            for (int j = 0; j < this.getMap().getHauteur(); j++) {
+                if (s.estAporteeDeTir(new Coordinate(i, j))) {
+                    tirsPossibles.add(new Coordinate(i, j));
+                }
+            }
+        }
+        return tirsPossibles;
+    }
+}
+        //   throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        /*List <Ship> list = target.getVaisseaux();
+ VisionBattlefield v;
+ int totalShip = 0;
+ int scoreSrc = Integer.MIN_VALUE;
+        
+ for(Ship ship : list){ 
+ int score = bf.getState(null);
+ if(score > scoreSrc){
+ scoreSrc = score;
+ v = bf;
+ return scoreSrc;
+ }
+ }
+        
+ VisionBattlefield v2;
+ int scoreDst = Integer.MAX_VALUE;
+        
+ for(Ship nShip : list){
+ int score = bf.getState(null);
+ if (score < scoreDst){
+ scoreDst = score;
+ v2 = bf;
+ return scoreDst;
+ }
+                
+ }*/
+
 //    @Override
 //    public StateCase autoFire(VisionBattlefield bf, Flotte target) {
 //        boolean coord = false;
@@ -178,246 +439,3 @@ public class CrossBot extends Bot implements Serializable {
 //        return res;
 //    }
 //}
-    @Override
-    public StateCase autoFire(VisionBattlefield bf, Flotte target) {
-        int taille = this.getFlotte().getVaisseaux().size();
-        List<Coordinate> tailsPossibles = null;
-        Random generator = new Random();
-        int choixCoordTir = 0;
-        Coordinate coordTir = null;
-        StateCase res = null;
-        boolean tirOK = false;
-        Coordinate coordCalcul = null;
-        int i = 0;
-
-        int choixBateau = 0;
-        //Si on est pas en train de couler un bateau
-        if (this.shipFired == false) {
-            //Il faut choisir une coordonnée non utilisée
-            while (tirOK == false) {
-                /* choix d'un bateau dans la flotte */
-                choixBateau = generator.nextInt(taille);
-                Ship s = this.getFlotte().getVaisseaux().get(choixBateau);
-                /* choix de la coordonnée */
-                tailsPossibles = tailsPossibles(s);
-                choixCoordTir = generator.nextInt(tailsPossibles.size());
-                coordTir = tailsPossibles.get(choixCoordTir);
-                if (!(listTirs.contains(coordTir))) {
-                    res = fire(new OrdreTir(coordTir, choixBateau), target);
-                    tirOK = true;
-                }
-            }
-            if (res == HIT) {
-                firstCoordinate = coordTir;
-                lastCoordinateFired = coordTir;
-                /* on commence à couler un bateau */
-                shipFired = true;
-                /* on ne connait pas encore sa direction : HORIZONTAL, VERTICAL */
-                aDirection = false;
-            }
-            listTirs.add(coordTir);
-            return res;
-        } else {
-            //On laisse 50 coups à l'ordinateur pour choisir une coordonnée valide
-            while (i != 50) {
-                i++;
-                if (((state == NOTHING) || (state == HORIZONTAL_DROITE)) && (this.lastCoordinateFired.x + 1 < taille) && (this.lastCoordinateFired.y < taille)) {
-                    coordCalcul = new Coordinate(this.lastCoordinateFired.x + 1, this.lastCoordinateFired.y);
-                    //Si on a pas déjà utilisé cette coordonnée
-                    if (!(listTirs.contains(coordCalcul))) {
-                        /* On regarde si on peut atteindre cette coordonnée */
-                        for (Ship s : this.flotte.getVaisseaux()) {
-                            if (s.estAporteeDeTir(coordCalcul)) {
-                                res = this.fire(new OrdreTir(coordCalcul, flotte.getVaisseaux().indexOf(s)), target);
-                                /* Cas tir raté ou dépassement de grille */
-                                if ((res == MISS) || (coordCalcul.x + 1 >= taille)) {
-                                    if(aDirection == false){
-                                        this.state = VERTICAL_HAUT;
-                                    }
-                                    else{
-                                        /* On regarde si on a déjà fait l'autre partie du bateau */
-                                        if (comeFrom != HORIZONTAL_GAUCHE) {
-                                            this.state = HORIZONTAL_GAUCHE;
-                                            this.comeFrom = HORIZONTAL_DROITE;
-                                        } else {
-                                            /* si oui on a certainement coulé le bateau */
-                                            /* on retire une coordonnée aléatoire*/ 
-                                            this.state = NOTHING;
-                                            shipFired = false;
-                                            aDirection=false;
-                                        }
-                                    }
-                                } else if (res == HIT) {
-                                    lastCoordinateFired = coordCalcul;
-                                    /* on connait maintenant la direction du bateau */
-                                    aDirection =  true;
-                                }
-                                /* la coordonnée étant à portée et utilisée, on l'ajoute à notre liste */
-                                listTirs.add(new Coordinate(this.lastCoordinateFired.x + 1, this.lastCoordinateFired.y));
-                                return (res);
-                            }
-                        }
-                    }
-                } else if ((state == HORIZONTAL_GAUCHE) && (this.lastCoordinateFired.x - 1 >= 0)) {
-                    coordCalcul = new Coordinate(this.lastCoordinateFired.x - 1, this.lastCoordinateFired.y);
-                    //Si on a pas déjà utilisé cette coordonnée
-                    if (!(listTirs.contains(coordCalcul))) {
-                        /* On regarde si on peut atteindre cette coordonnée */
-                        for (Ship s : this.flotte.getVaisseaux()) {
-                            if (s.estAporteeDeTir(coordCalcul)) {
-                                res = this.fire(new OrdreTir(coordCalcul, flotte.getVaisseaux().indexOf(s)), target);
-                                /* Cas tir raté ou dépassement de grille */
-                                if ((res == MISS) || (coordCalcul.x - 1 >= taille)) {
-                                    if(aDirection == false){
-                                        this.state = VERTICAL_BAS;
-                                    }
-                                    else{
-                                        /* On regarde si on a déjà fait l'autre partie du bateau */
-                                        if (comeFrom != HORIZONTAL_DROITE) {
-                                            this.state = HORIZONTAL_DROITE;
-                                            this.comeFrom = HORIZONTAL_GAUCHE;
-                                        } else {
-                                            /* si oui on a certainement coulé le bateau */
-                                            /* on retire une coordonnée aléatoire*/ 
-                                            this.state = NOTHING;
-                                            shipFired = false;
-                                            aDirection=false;
-                                        }
-                                    }
-                                } else if (res == HIT) {
-                                    lastCoordinateFired = coordCalcul;
-                                    /* on connait maintenant la direction du bateau */
-                                    aDirection =  true;
-                                }
-                                /* la coordonnée étant à portée et utilisée, on l'ajoute à notre liste */
-                                listTirs.add(new Coordinate(this.lastCoordinateFired.x - 1, this.lastCoordinateFired.y));
-                                return (res);
-                            }
-                        }
-                    }
-                } else if ((state == VERTICAL_HAUT) && (this.lastCoordinateFired.y - 1 >= 0)) {
-                    coordCalcul = new Coordinate(this.lastCoordinateFired.x, this.lastCoordinateFired.y - 1);
-                    //Si on a pas déjà utilisé cette coordonnée
-                    if (!(listTirs.contains(coordCalcul))) {
-                        /* On regarde si on peut atteindre cette coordonnée */
-                        for (Ship s : this.flotte.getVaisseaux()) {
-                            if (s.estAporteeDeTir(coordCalcul)) {
-                                res = this.fire(new OrdreTir(coordCalcul, flotte.getVaisseaux().indexOf(s)), target);
-                                /* Cas tir raté ou dépassement de grille */
-                                if ((res == MISS) || (coordCalcul.y - 1 >= taille)) {
-                                    if(aDirection == false){
-                                        this.state = HORIZONTAL_GAUCHE;
-                                    }
-                                    else{
-                                        /* On regarde si on a déjà fait l'autre partie du bateau */
-                                        if (comeFrom != VERTICAL_BAS) {
-                                            this.state = VERTICAL_BAS;
-                                            this.comeFrom = VERTICAL_HAUT;
-                                        } else {
-                                            /* si oui on a certainement coulé le bateau */
-                                            /* on retire une coordonnée aléatoire*/ 
-                                            this.state = NOTHING;
-                                            shipFired = false;
-                                            aDirection=false;
-                                        }
-                                    }
-                                } else if (res == HIT) {
-                                    lastCoordinateFired = coordCalcul;
-                                    /* on connait maintenant la direction du bateau */
-                                    aDirection =  true;
-                                }
-                                /* la coordonnée étant à portée et utilisée, on l'ajoute à notre liste */
-                                listTirs.add(new Coordinate(this.lastCoordinateFired.x, this.lastCoordinateFired.y - 1));
-                                return (res);
-                            }
-                        }
-                    }
-                } else if ((state == VERTICAL_BAS) && (this.lastCoordinateFired.y + 1 < taille)) {
-                    coordCalcul = new Coordinate(this.lastCoordinateFired.x - 1, this.lastCoordinateFired.y);
-                    //Si on a pas déjà utilisé cette coordonnée
-                    if (!(listTirs.contains(coordCalcul))) {
-                        /* On regarde si on peut atteindre cette coordonnée */
-                        for (Ship s : this.flotte.getVaisseaux()) {
-                            if (s.estAporteeDeTir(coordCalcul)) {
-                                res = this.fire(new OrdreTir(coordCalcul, flotte.getVaisseaux().indexOf(s)), target);
-                                /* Cas tir raté ou dépassement de grille */
-                                if ((res == MISS) || (coordCalcul.y + 1 >= taille)) {
-                                    if(aDirection == false){
-                                        this.state = HORIZONTAL_DROITE;
-                                    }
-                                    else{
-                                        /* On regarde si on a déjà fait l'autre partie du bateau */
-                                        if (comeFrom != VERTICAL_HAUT) {
-                                            this.state = VERTICAL_HAUT;
-                                            this.comeFrom = VERTICAL_BAS;
-                                        } else {
-                                            /* si oui on a certainement coulé le bateau */
-                                            /* on retire une coordonnée aléatoire*/ 
-                                            this.state = NOTHING;
-                                            shipFired = false;
-                                            aDirection=false;
-                                        }
-                                    }
-                                } else if (res == HIT) {
-                                    lastCoordinateFired = coordCalcul;
-                                    /* on connait maintenant la direction du bateau */
-                                    aDirection =  true;
-                                }                                
-
-                                /* la coordonnée étant à portée et utilisée, on l'ajoute à notre liste */
-                                listTirs.add(new Coordinate(this.lastCoordinateFired.x, this.lastCoordinateFired.y + 1));
-                                return (res);
-                            }
-                        }
-                    }
-                }
-            }
-            /* les 50coups n'ont pas suffit, les coordonnées ne sont donc pas atteignables */
-            /* l'ordinateur tirera à nouveau une coordonnée aléatoire au prochaine tour */
-            /* on réinitialise les données de direction et de tir sur un bateau */
-            state = NOTHING;
-            aDirection = false;
-            shipFired = false;
-            return(UNREACHABLE);
-        }
-    }
-
-    protected List<Coordinate> tailsPossibles(Ship s) {
-        List<Coordinate> tirsPossibles = new ArrayList<>();
-        for (int i = 0; i < this.getMap().getLargeur(); i++) {
-            for (int j = 0; j < this.getMap().getHauteur(); j++) {
-                if (s.estAporteeDeTir(new Coordinate(i, j))) {
-                    tirsPossibles.add(new Coordinate(i, j));
-                }
-            }
-        }
-        return tirsPossibles;
-    }
-}
-        //   throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        /*List <Ship> list = target.getVaisseaux();
- VisionBattlefield v;
- int totalShip = 0;
- int scoreSrc = Integer.MIN_VALUE;
-        
- for(Ship ship : list){ 
- int score = bf.getState(null);
- if(score > scoreSrc){
- scoreSrc = score;
- v = bf;
- return scoreSrc;
- }
- }
-        
- VisionBattlefield v2;
- int scoreDst = Integer.MAX_VALUE;
-        
- for(Ship nShip : list){
- int score = bf.getState(null);
- if (score < scoreDst){
- scoreDst = score;
- v2 = bf;
- return scoreDst;
- }
-                
- }*/
