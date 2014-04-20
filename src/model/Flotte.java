@@ -24,9 +24,11 @@ import model.ship.Ship.Etat;
 public class Flotte implements Serializable{
 
     private final List<Ship> vaisseaux;
+    private List<Ship> vaisseauxCoules;
 
     public Flotte() {
         vaisseaux = new ArrayList<>();
+        vaisseauxCoules = new ArrayList<>();
     }
     
     /**
@@ -70,6 +72,7 @@ public class Flotte implements Serializable{
         if (shiphit != null) {
             shiphit.receivedDamage(coordinate);
             if (shiphit.isDetroy()) {
+                vaisseauxCoules.add(shiphit);
                 vaisseaux.remove(shiphit);
                 if (vaisseaux.isEmpty()) {
                     return FLOTTE_DETRUITE;
@@ -107,5 +110,9 @@ public class Flotte implements Serializable{
      */
     public List<Ship> getVaisseaux() {
         return vaisseaux;
+    }
+    
+    public List<Ship> getVaisseauxCoules(){
+        return vaisseauxCoules;
     }
 }

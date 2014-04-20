@@ -79,7 +79,7 @@ public class JPanelJouer extends JPanel implements Observer {
             addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent ae) {
-                    Object[] os = {"Rejouer", "Voir les scores", "Quitter"};
+                    Object[] os = {"Rejouer", "Voir les scores", "Revenir à l\'accueil", "Quitter"};
 
                     switch (state) {
                         case NOTHING_SELECTED:
@@ -102,7 +102,7 @@ public class JPanelJouer extends JPanel implements Observer {
                                             GUI.getInstance(),
                                             "Match nul! Dommage...\nQue voulez-vous faire?",
                                             "Fin de partie",
-                                            JOptionPane.QUESTION_MESSAGE,
+                                            JOptionPane.INFORMATION_MESSAGE,
                                             null,
                                             os, "Rejouer");
                                     break;
@@ -111,7 +111,7 @@ public class JPanelJouer extends JPanel implements Observer {
                                             GUI.getInstance(),
                                             "Vous avez gagné! Bravo!\nQue voulez-vous faire?",
                                             "Fin de partie",
-                                            JOptionPane.QUESTION_MESSAGE,
+                                            JOptionPane.INFORMATION_MESSAGE,
                                             null,
                                             os, "Voir les scores");
                                     break;
@@ -120,7 +120,7 @@ public class JPanelJouer extends JPanel implements Observer {
                                             GUI.getInstance(),
                                             "Vous avez perdu!\nQue voulez-vous faire?",
                                             "Fin de partie",
-                                            JOptionPane.QUESTION_MESSAGE,
+                                            JOptionPane.INFORMATION_MESSAGE,
                                             null,
                                             os, "Rejouer");
                                     break;
@@ -149,7 +149,7 @@ public class JPanelJouer extends JPanel implements Observer {
                                                             GUI.getInstance(),
                                                             "Vous avez perdu!\nQue voulez-vous faire?",
                                                             "Fin de partie",
-                                                            JOptionPane.QUESTION_MESSAGE,
+                                                            JOptionPane.INFORMATION_MESSAGE,
                                                             null,
                                                             os, "Rejouer");// valeur initiale
                                                     break;
@@ -158,9 +158,9 @@ public class JPanelJouer extends JPanel implements Observer {
                                                             GUI.getInstance(),
                                                             "Match nul! Dommage...\nQue voulez-vous faire?",
                                                             "Fin de partie",
-                                                            JOptionPane.QUESTION_MESSAGE,
+                                                            JOptionPane.INFORMATION_MESSAGE,
                                                             null,
-                                                            os, "Rejouer");
+                                                            os, "Rejouer");                                                    
                                                     break;
                                                 default:
                                                     model2.switchTurn();
@@ -175,12 +175,19 @@ public class JPanelJouer extends JPanel implements Observer {
                             if (s != null) {
                                 wizard.clean(model2);
                                 if (s.equals("Rejouer")) {
-                                    wizard.show(JPanelAcceuil.id);
+                                    wizard.show(JPanelCreer.id);
                                 } else if (s.equals("Voir les scores")) {
                                     wizard.show(JPanelScore.id);
+                                } else if (s.equals("Revenir à l\'accueil")){
+                                    wizard.clean(model2);
+                                    wizard.show(JPanelAcceuil.id);
                                 } else {
                                     System.exit(0);
                                 }
+                            }
+                            else{
+                                wizard.clean(model2);
+                                wizard.show(JPanelAcceuil.id);
                             }
                     }
                 }
@@ -319,6 +326,18 @@ public class JPanelJouer extends JPanel implements Observer {
                         t = "";
                         break;
                 }
+                b.setText(t);
+                b.setBackground(s.getRepresentationGraphique());
+                int pos = e.getC().y + model.getLargeurGrille() * e.getC().x;
+                grilleFlotte.remove(pos);
+                grilleFlotte.add(b, pos);
+            }
+        }
+        for(Ship s:model.getJ1().getFlotte().getVaisseauxCoules()){
+            for(Etat e : s.getEtats()){
+                JButton b = new JButton();
+                b.setEnabled(false);
+                String t = "X";
                 b.setText(t);
                 b.setBackground(s.getRepresentationGraphique());
                 int pos = e.getC().y + model.getLargeurGrille() * e.getC().x;
