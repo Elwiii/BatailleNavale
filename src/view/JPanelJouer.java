@@ -180,14 +180,15 @@ public class JPanelJouer extends JPanel implements Observer {
                                     } else if (s.equals("Voir les scores")) {
                                         wizard.show(JPanelScore.id);
                                     } else if (s.equals("Revenir à l\'accueil")){
-                                        wizard.clean(model2);
+//                                        wizard.clean(model2);
                                         wizard.show(JPanelAcceuil.id);
                                     } else {
                                         System.exit(0);
                                     }
                                 }
+                                /* clique sur bouton annuler du pop-up */
                                 else{
-                                    wizard.clean(model2);
+//                                    wizard.clean(model2);
                                     wizard.show(JPanelAcceuil.id);
                                 }
                             }
