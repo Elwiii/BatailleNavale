@@ -85,7 +85,7 @@ public class JPanelJouer extends JPanel implements Observer {
                         case NOTHING_SELECTED:
                             break;
                         case SHIP_SELECTED:
-                            String s = null;
+                            String s = " ";
                             int launcherid = model2.getJ1().getFlotte().getVaisseaux().indexOf(selectedShip);
                             StateCase res = StateCase.ERROR;
                             try {
