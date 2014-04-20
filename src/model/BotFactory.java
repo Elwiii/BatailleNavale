@@ -41,7 +41,7 @@ public class BotFactory {
             case POSEIDON:
                 return new Poseidon();
             default :
-                throw new Exception("difficultée inconnue");
+                throw new Exception("difficulté inconnue");
         }
     }
 
