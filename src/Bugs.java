@@ -381,4 +381,88 @@ public class Bugs {
      Commentaires sur le test: 
      Le test est t'il réussi ? OUI
      */
+
+    /*
+    @todo BUG 19
+    Si le répertoire Game n'ets pas créé, une exception est levée.
+    */
+
+    /*
+    @todo BUG 20
+    On peut crérer une partie sans nom
+    */
+    
+    /*
+    @todo BUG 21
+    Epoque: XVIII, Taille: 5, Difficulté: Poseidon ---> Bugs/map4
+    La grille bug impossible de jouer.
+    IMPOSSIBLE d'enregistrer la partie via Fichier->Enregistrer
+    Je reviens sur Acceuil, on me propose de l'enregistrer.
+    Je la charge et je peux continuer à jouer.
+    
+    ERREURS:
+    
+    
+    Poseidon a tiré en (2,0) et a eu le resultat suivant  : DESTROYED_SHIP
+Poseidon a tiré en (0,1) et a eu le resultat suivant  : UNREACHABLE
+model.getState() : JOUEUR2
+avr. 20, 2014 12:48:13 PM view.JPanelJouer$JButtonFire$1 actionPerformed
+SEVERE: null
+java.lang.ArrayIndexOutOfBoundsException: -1
+Etat du modèle après le tir de l'humain : JOUEUR1
+flotte du bot : [TRANSPORT, TRANSPORT]
+	at java.util.ArrayList.elementData(ArrayList.java:371)
+	at java.util.ArrayList.get(ArrayList.java:384)
+	at model.Flotte.fire(Flotte.java:44)
+	at model.player.Human.fire(Human.java:28)
+	at model.BatailleNavale.fire(BatailleNavale.java:97)
+	at view.JPanelJouer$JButtonFire$1.actionPerformed(JPanelJouer.java:92)
+	at javax.swing.AbstractButton.fireActionPerformed(AbstractButton.java:2018)
+	at javax.swing.AbstractButton$Handler.actionPerformed(AbstractButton.java:2341)
+	at javax.swing.DefaultButtonModel.fireActionPerformed(DefaultButtonModel.java:402)
+	at javax.swing.DefaultButtonModel.setPressed(DefaultButtonModel.java:259)
+	at javax.swing.plaf.basic.BasicButtonListener.mouseReleased(BasicButtonListener.java:252)
+	at java.awt.Component.processMouseEvent(Component.java:6505)
+	at javax.swing.JComponent.processMouseEvent(JComponent.java:3321)
+	at java.awt.Component.processEvent(Component.java:6270)
+	at java.awt.Container.processEvent(Container.java:2229)
+	at java.awt.Component.dispatchEventImpl(Component.java:4861)
+	at java.awt.Container.dispatchEventImpl(Container.java:2287)
+	at java.awt.Component.dispatchEvent(Component.java:4687)
+	at java.awt.LightweightDispatcher.retargetMouseEvent(Container.java:4832)
+	at java.awt.LightweightDispatcher.processMouseEvent(Container.java:4492)
+	at java.awt.LightweightDispatcher.dispatchEvent(Container.java:4422)
+	at java.awt.Container.dispatchEventImpl(Container.java:2273)
+	at java.awt.Window.dispatchEventImpl(Window.java:2719)
+	at java.awt.Component.dispatchEvent(Component.java:4687)
+	at java.awt.EventQueue.dispatchEventImpl(EventQueue.java:729)
+	at java.awt.EventQueue.access$200(EventQueue.java:103)
+	at java.awt.EventQueue$3.run(EventQueue.java:688)
+	at java.awt.EventQueue$3.run(EventQueue.java:686)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$1.doIntersectionPrivilege(ProtectionDomain.java:76)
+	at java.security.ProtectionDomain$1.doIntersectionPrivilege(ProtectionDomain.java:87)
+	at java.awt.EventQueue$4.run(EventQueue.java:702)
+	at java.awt.EventQueue$4.run(EventQueue.java:700)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$1.doIntersectionPrivilege(ProtectionDomain.java:76)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:699)
+	at java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:242)
+	at java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:161)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:150)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:146)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:138)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:91)
+    */
+
+
+    /*
+    @todo BUG 22
+    
+    */
+    
+    /*
+    @todo BUG 
+    */
 }
+
