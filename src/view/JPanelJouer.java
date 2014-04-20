@@ -326,6 +326,18 @@ public class JPanelJouer extends JPanel implements Observer {
                 grilleFlotte.add(b, pos);
             }
         }
+        for(Ship s:model.getJ1().getFlotte().getVaisseauxCoules()){
+            for(Etat e : s.getEtats()){
+                JButton b = new JButton();
+                b.setEnabled(false);
+                String t = "X";
+                b.setText(t);
+                b.setBackground(s.getRepresentationGraphique());
+                int pos = e.getC().y + model.getLargeurGrille() * e.getC().x;
+                grilleFlotte.remove(pos);
+                grilleFlotte.add(b, pos);
+            }
+        }
     }
 
     @Override
