@@ -85,7 +85,7 @@ public class JPanelJouer extends JPanel implements Observer {
                         case NOTHING_SELECTED:
                             break;
                         case SHIP_SELECTED:
-                            String s = null;
+                            String s = " ";
                             int launcherid = model2.getJ1().getFlotte().getVaisseaux().indexOf(selectedShip);
                             StateCase res = StateCase.ERROR;
                             try {
@@ -172,22 +172,24 @@ public class JPanelJouer extends JPanel implements Observer {
                                     }
                             }
 
-                            if (s != null) {
-                                wizard.clean(model2);
-                                if (s.equals("Rejouer")) {
-                                    wizard.show(JPanelCreer.id);
-                                } else if (s.equals("Voir les scores")) {
-                                    wizard.show(JPanelScore.id);
-                                } else if (s.equals("Revenir à l\'accueil")){
+                            if (s != " ") {
+                                if(s!=null){
+                                    wizard.clean(model2);
+                                    if (s.equals("Rejouer")) {
+                                        wizard.show(JPanelCreer.id);
+                                    } else if (s.equals("Voir les scores")) {
+                                        wizard.show(JPanelScore.id);
+                                    } else if (s.equals("Revenir à l\'accueil")){
+                                        wizard.clean(model2);
+                                        wizard.show(JPanelAcceuil.id);
+                                    } else {
+                                        System.exit(0);
+                                    }
+                                }
+                                else{
                                     wizard.clean(model2);
                                     wizard.show(JPanelAcceuil.id);
-                                } else {
-                                    System.exit(0);
                                 }
-                            }
-                            else{
-                                wizard.clean(model2);
-                                wizard.show(JPanelAcceuil.id);
                             }
                     }
                 }
