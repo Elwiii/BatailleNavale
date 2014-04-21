@@ -10,11 +10,11 @@ du projet.
 Le dossier Game contient les sauvegardes des parties.
 
 Le fichier config.properties représente une configuration persistante du projet.
-Seul un compteur pour le nombre de partie crée y est representé.
+Seul un compteur pour le nombre de parties crées y est representé.
 
 Le fichier score.ser stock les entrées pseudo/score des parties crées jusqu'alors.
 
-
+Quelques tests unitaires sont sous le dossier test.
 
 
 Brouillons :
