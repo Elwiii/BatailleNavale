@@ -383,7 +383,7 @@ public class Bugs {
      */
 
     /*
-    @todo BUG 7
+     BUG 7 Corrigé
     Si le répertoire Game n'ets pas créé, une exception est levée.
     */
 
