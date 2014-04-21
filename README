@@ -1,0 +1,33 @@
+Veuillez trouver le git du projet à l'adresse suivante : https://github.com/Elwiii/BatailleNavale
+
+Nous avons rajouté le fichier Tests.pdf à la racine du projet. Vous pourrez
+voir les bugs corrigés ainsi que les non résolus. Vous trouverez sous le dossier
+Bugs des images relatives à certains bug listés dans Test.pdf
+
+Le fichier ant est généré automatiquement par netbeans : build.xml à la racine
+du projet.
+
+Le dossier Game contient les sauvegardes des parties.
+
+Le fichier config.properties représente une configuration persistante du projet.
+Seul un compteur pour le nombre de partie crée y est representé.
+
+Le fichier score.ser stock les entrées pseudo/score des parties crées jusqu'alors.
+
+
+
+
+Brouillons :
+
+----------------------- Nicolas ------------------------------------------------
+
+
+
+
+----------------------- Thomas ------------------------------------------------
+
+
+
+----------------------- Rym ------------------------------------------------
+
+
