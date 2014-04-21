@@ -341,8 +341,24 @@ public class JPanelJouer extends JPanel implements Observer {
 
     }
 
-//    private void updateGrilleFlotte() {
-//    }
+    private void updateGrilleEnnemi() {
+        if (selectedShip != null) {
+            state = SHIP_SELECTED;
+            for (JButtonFire jbf : listTir) {
+                if (selectedShip.estAporteeDeTir(jbf.getC())) {
+                    jbf.setEnabled(true);
+                } else {
+                    jbf.setEnabled(false);
+                }
+                StateCase etat = model.getJ1().getMap().getState(jbf.getC());
+                if ((etat == HIT) || (etat == MISS)) {
+                    jbf.setEnabled(false);
+                }
+            }
+        }else{
+            state = NOTHING_SELECTED;
+        }
+    }
     /**
      * update la grille de votre flotte
      */
@@ -385,5 +401,6 @@ public class JPanelJouer extends JPanel implements Observer {
     @Override
     public void update(Observable o, Object o1) {
         updateGrilleFlotte();
+        updateGrilleEnnemi();
     }
 }
