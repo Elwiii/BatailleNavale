@@ -17,9 +17,9 @@ import model.OrdreTir;
 import model.VisionBattlefield;
 
 /**
- * Ce bot parcouru la grille de gauche à droite et de haut en bas. A chaque
- * position, il choisit un bateau aléatoirement dans sa flotte pour tirer, tant
- * pis si il est pas à portée
+ * Ce bot parcouru la grille de gauche a droite et de haut en bas. A chaque
+ * position, il choisit un bateau aleatoirement dans sa flotte pour tirer, tant
+ * pis si il est pas a portee
  *
  * @author Nikolai
  */

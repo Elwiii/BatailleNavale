@@ -119,16 +119,7 @@ public class GUI extends JFrame {
     }
 
     public static void main(String[] args) throws UnsupportedLookAndFeelException {
-//        NimRODTheme nt = new NimRODTheme();
-//nt.setPrimary1( new Color(10,10,10));
-//nt.setPrimary2( new Color(20,20,20));
-//nt.setPrimary3( new Color(30,30,30));
-//
-//NimRODLookAndFeel NimRODLF = new NimRODLookAndFeel();
-//NimRODLF.setCurrentTheme( nt);
-//UIManager.setLookAndFeel( NimRODLF);
-//        UIManager.setLookAndFeel( new com.nilo.plaf.nimrod.NimRODLookAndFeel());
-//        UIManager.setLookAndFeel(new TinyLookAndFeel());
+
         GUI.getInstance();
     }
 }

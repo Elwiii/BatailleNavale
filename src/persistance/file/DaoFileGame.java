@@ -40,7 +40,7 @@ public class DaoFileGame extends DaoFile<Game> implements DaoGame{
             File fich = new File("Game/"+id+".ser");
             if(fich.exists()){
                 try {
-                    //On déserialise le fichier
+                    //On deserialise le fichier
                     FileInputStream fichier = new FileInputStream("Game/"+id+".ser");
                     ObjectInputStream ois = new ObjectInputStream(fichier);
                     Game game = (Game) ois.readObject();
@@ -61,10 +61,10 @@ public class DaoFileGame extends DaoFile<Game> implements DaoGame{
     @Override
     public ArrayList<Game> find(){
         File dossier = new File ("Game/");//Repertoire des fichiers
-        ArrayList<Game> listGame = new ArrayList<>();//liste de Game à retourner
+        ArrayList<Game> listGame = new ArrayList<>();//liste de Game a retourner
         if(dossier.exists()){
             File[] listFile = dossier.listFiles();//Liste de tous les fichiers contenus dans le repertoire
-            String nom = "";//utilisé pour le nom du fichier
+            String nom = "";//utilise pour le nom du fichier
             String nom_modif="";
             String carAsup=".ser";
 
@@ -84,14 +84,14 @@ public class DaoFileGame extends DaoFile<Game> implements DaoGame{
     public int persiste(Game g) throws FileAlreadyPersisted {
         File dossier = new File("Game");
         
-        //Si le dossier n'existe pas, on le crée
+        //Si le dossier n'existe pas, on le cree
         if (!(dossier.exists() /*&& dossier.isDirectory()*/)){
             dossier.mkdir();
         }
         if (new File("Game/"+g.getId()+".ser").exists()){
             throw new FileAlreadyPersisted((g));
         }
-        //Création du fichier
+        //Creation du fichier
         try{
             FileOutputStream fichier = new FileOutputStream("Game/"+g.getId()+".ser");
             ObjectOutputStream oos = new ObjectOutputStream(fichier);
@@ -109,7 +109,7 @@ public class DaoFileGame extends DaoFile<Game> implements DaoGame{
     @Override
     public void update(Game g) throws FileAlreadyPersisted {
         File fichier = new File("Game/"+g.getId()+".ser");
-        //Si le fichier a déjà été créé, on le supprime
+        //Si le fichier a deja ete cree, on le supprime
         if(fichier.exists()){
             boolean b = fichier.delete();
         } 

@@ -200,8 +200,8 @@ public class JPanelPlacement extends JPanel implements Observer {
     }
 
     /**
-     * renvoi tous les boutons qui ne sont pas cliquables afin de determiner la
-     * queue du bateau (sachant une tête déjà choisie)
+     * renvoie tous les boutons qui ne sont pas cliquables afin de determiner la
+     * queue du bateau (sachant une tete deja choisie)
      *
      * @return
      */
@@ -231,7 +231,7 @@ public class JPanelPlacement extends JPanel implements Observer {
                 //On compare les coord de tous les bateaux du joueur
                 for (Ship s : model.getJ1().getFlotte().getVaisseaux()) {
                     for (Etat e : s.getEtats()) {
-                        //Avec toutes les coordonées des placements possibles du bateau
+                        //Avec toutes les coordonees des placements possibles du bateau
                         if (i > headLigne) {
                             l_max = i;
                             l_min = headLigne;

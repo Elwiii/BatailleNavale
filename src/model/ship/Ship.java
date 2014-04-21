@@ -86,7 +86,7 @@ public class Ship implements Serializable, Comparable {
     /**
      * evalue si le point de coordonne est atteingable par ce bateau Est
      * fonction de la puissance du bateau (faire un rayon autour de chacun des
-     * points du bateau on récupère les coordonnées des points du bateau dans la
+     * points du bateau on recupere les coordonnees des points du bateau dans la
      * variable etats
      *
      * @param coordonnee
@@ -130,7 +130,7 @@ public class Ship implements Serializable, Comparable {
     
     /**
      * remplir la liste etats en fonction de la position de la tete et la queue
-     * la queue est la tête doivent former une ligne ou une diagonale
+     * la queue est la tete doivent former une ligne ou une diagonale
      *
      * @todotest
      * @param queue
@@ -185,7 +185,7 @@ public class Ship implements Serializable, Comparable {
 
     /**
      * tire sur un flotte Il n'y a que la classe flotte qui peut apeller cette
-     * fonction Le bateau doit être sur de toucher sa cible pour fire.
+     * fonction Le bateau doit etre sur de toucher sa cible pour fire.
      *
      * @param target
      * @param coordinate
@@ -195,7 +195,7 @@ public class Ship implements Serializable, Comparable {
     }
 
     /**
-     * la reception de dommage par default d'un bateau peut être override selon
+     * la reception de dommage par default d'un bateau peut etre override selon
      * le bateau
      *
      * @param coordinate
@@ -215,62 +215,8 @@ public class Ship implements Serializable, Comparable {
             throw new Exception("le bateau ne possède aucune de ses parties à cette coordonée");
         }
     }
-
-    /**
-     * // * @return the etat //
-     */
-//    public int[] getEtat() {
-//        return etat;
-//    }
-//
-//    /**
-//     * @param etat the etat to set
-//     */
-//    public void setEtat(int[] etat) {
-//        this.etat = etat;
-//    }
-//
-//    /**
-//     * @return the puissance
-//     */
-//    public int getPuissance() {
-//        return puissance;
-//    }
-//
-//    /**
-//     * @param puissance the puissance to set
-//     */
-//    public void setPuissance(int puissance) {
-//        this.puissance = puissance;
-//    }
-//
-//    /**
-//     * @return the queue
-//     */
-//    public Coordinate getQueue() {
-//        return queue;
-//    }
-//
-//    /**
-//     * @param queue the queue to set
-//     */
-//    public void setQueue(Coordinate queue) {
-//        this.queue = queue;
-//    }
-//
-//    /**
-//     * @return the nez
-//     */
-//    public Coordinate getNez() {
-//        return nez;
-//    }
-//
-//    /**
-//     * @param nez the nez to set
-//     */
-//    public void setNez(Coordinate nez) {
-//        this.nez = nez;
-//    }
+    
+    
     @Override
     public String toString() {
         return "" + type;

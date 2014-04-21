@@ -234,16 +234,16 @@ public class JPanelJouer extends JPanel implements Observer {
             StateCase etat = model2.getJ1().getMap().getState(c);
             switch (etat) {
                 case UNKNOWN:
-                    setText("?"); // ? pour dire "pas encore attaqué"
+                    setText("?"); // ? pour dire "pas encore attaque"
                     break;
                 case HIT:
                 case DESTROYED_SHIP:
                 case FLOTTE_DETRUITE:
-                    setText("X"); // Croix pour dire "touché"
+                    setText("X"); // Croix pour dire "touche"
                     setEnabled(false); //Desactivation pour ne pas tirer au même endroit
                     break;
                 case MISS:
-                    setText(""); // " " pour dire "raté"  
+                    setText(""); // " " pour dire "rate"  
                     setEnabled(false); //Desactivation pour ne pas tirer au même endroit
                     break;
                 case UNREACHABLE:
@@ -267,7 +267,7 @@ public class JPanelJouer extends JPanel implements Observer {
     }
 
     /**
-     * enlève toute chose spécifique à une partie en particulier sur ce panel
+     * enleve toute chose specifique a une partie en particulier sur ce panel
      */
     public void clear() {
         removeAll(); // what else ? Nespresso

@@ -55,14 +55,14 @@ public abstract class Bot extends Player implements Serializable {
     }
 
     /**
-     * Place les bateaux de manière aléatoire par defaut. Peut être override par
+     * Place les bateaux de maniere aleatoire par defaut. Peut etre override par
      * un type de bot pour rendre le placement plus efficace
      *
-     * @param bateaux les bateaux à placer (PS : on peut avoir plusieur type
+     * @param bateaux les bateaux a placer (PS : on peut avoir plusieur type
      * similaire dans le meme tableau)
      */
     public void placerBateaux(TypeShip[] bateaux) {
-        //@todo thomas => verifie juste que c'est bon 
+         
         ShipFactory factory = ShipFactory.getInstance();
         Random generator = new Random();
         List<Coordinate> listCoord = new ArrayList<>();
@@ -119,14 +119,14 @@ public abstract class Bot extends Player implements Serializable {
                         || ((j == head.y) && (Math.abs(head.x - i) == s.getPuissance() - 1))
                         || ((Math.abs(head.y - j) == s.getPuissance() - 1) && (Math.abs(head.x - i) == s.getPuissance() - 1)))) {
                     ajout = false;
-                } /* cas bateau en diagonale, teste des croisements possibles */ /*On considère le placement en diagonale impossible */ else if ((head.y != j) && (head.x != i)) {//                                    
+                } /* cas bateau en diagonale, teste des croisements possibles */ /*On considere le placement en diagonale impossible */ else if ((head.y != j) && (head.x != i)) {//                                    
                     ajout = false;
                 } else {
                     /* cas bateau vertical/horizontal, teste des chevauchements possibles */
                     //On compare les coord de tous les bateaux du joueur
                     for (Ship s1 : this.getFlotte().getVaisseaux()) {
                         for (Etat e : s1.getEtats()) {
-                            //Avec toutes les coordonées des placements possibles du bateau
+                            //Avec toutes les coordonees des placements possibles du bateau
                             if (i > head.x) {
                                 l_max = i;
                                 l_min = head.x;
