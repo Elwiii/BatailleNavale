@@ -178,9 +178,6 @@ public class Ship implements Serializable, Comparable {
             }
         }
 
-//        System.out.println("puissance : " + puissance);
-//        System.out.println("nombreCase : " + nombreCase);
-//        System.out.println("etat : "+etats);
         if (nombreCase != puissance) {
             throw new Exception("le nombre de case doit être égale à la puissance du bateau");
         }

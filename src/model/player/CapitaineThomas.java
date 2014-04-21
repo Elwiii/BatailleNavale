@@ -43,10 +43,8 @@ public class CapitaineThomas extends Bot implements Serializable {
             Coordinate c = new Coordinate(lastLigneFired, lastColonneFired);
             lastCoordinateFired = c;
             OrdreTir o = new OrdreTir(c, shooter);
-            System.out.println("Tire du captain Thomas  : " + c + " avec le bateau " + flotte.getVaisseaux().get(shooter));
 
             StateCase res = flotte.fire(target, o);
-            System.out.println("Captain thomas a t il touché ? "+res);
             if (lastColonneFired + 1 < map.getLargeur()) {
                 lastColonneFired++;
 

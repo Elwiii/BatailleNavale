@@ -162,7 +162,6 @@ public class JPanelJouer extends JPanel implements Observer {
                                                             }
                                                         }
                                                     }
-                                                    System.out.println("model.getState() : " + model.getState());
                                                     switch (model.getState()) {
                                                         case WINJ2:
                                                             model2.updateScore();

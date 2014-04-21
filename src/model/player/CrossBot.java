@@ -101,24 +101,18 @@ public class CrossBot extends Bot implements Serializable {
         } else {
             //On laisse 50 coups à l'ordinateur pour choisir une coordonnée valide
             while (i != 50) {
-                System.out.println("On est dans la boucle");
                 i++;
-                System.out.println("taille = "+taille_grille+" lastCoordinate.x = "+lastCoordinateFired.x+" lastCoordinate.y = "+lastCoordinateFired.y);
                 if(this.lastCoordinateFired.y + 1 < taille_grille){
                 }
                 if (((state == NOTHING) || (state == HORIZONTAL_DROITE)) && (this.lastCoordinateFired.y + 1 < taille_grille)) {
                     coordCalcul = new Coordinate(this.lastCoordinateFired.x, this.lastCoordinateFired.y + 1);
-                    System.out.println("coordCalcul.x = "+coordCalcul.x+" coordCalcul.y ="+coordCalcul.y);
                     //Si on a pas déjà utilisé cette coordonnée
                     if (!(listTirs.contains(coordCalcul))) {
                         /* On regarde si on peut atteindre cette coordonnée */
                         for (Ship s : this.flotte.getVaisseaux()) {
                             if (s.estAporteeDeTir(coordCalcul)) {
-                                System.out.println("a portee de tir");
                                 try {
                                     res = flotte.fire(target,new OrdreTir(coordCalcul, flotte.getVaisseaux().indexOf(s)));
-                                    System.out.println("TIR VERTICAL DROITE");
-                                    System.out.println("res = "+res);
                                 } catch (Exception ex) {
                                     Logger.getLogger(CrossBot.class.getName()).log(Level.SEVERE, null, ex);
                                 }
@@ -152,23 +146,18 @@ public class CrossBot extends Bot implements Serializable {
                                 listTirs.add(new Coordinate(coordCalcul.x, coordCalcul.y));
                                 return (res);
                             }
-                            System.out.println("pas a portée");
                         }
-                        System.out.println("sorti de boucle");
                     }
-                    System.out.println("DEJA TIRE");
                     for(Coordinate c:listTirs){
                         System.out.println(c.x+" "+c.y);
                     }
                 }
                 else if(this.lastCoordinateFired.y + 1 >= taille_grille){
-                    System.out.println("sorti de grille");
                     state = HORIZONTAL_GAUCHE;
                     comeFrom = HORIZONTAL_DROITE;
                     lastCoordinateFired = firstCoordinate;
                 }
                 else if ((state == HORIZONTAL_GAUCHE) && (this.lastCoordinateFired.y - 1 >= 0)) {
-                    System.out.println("HORIZONTAL_GAUCHE");
                     coordCalcul = new Coordinate(this.lastCoordinateFired.x, this.lastCoordinateFired.y-1);
                     //Si on a pas déjà utilisé cette coordonnée
                     if (!(listTirs.contains(coordCalcul))) {
@@ -214,13 +203,11 @@ public class CrossBot extends Bot implements Serializable {
                     }
                 }
                 else if(this.lastCoordinateFired.y - 1 < 0){
-                    System.out.println("sorti de grille");
                     state = HORIZONTAL_DROITE;
                     comeFrom = HORIZONTAL_GAUCHE;
                     lastCoordinateFired = firstCoordinate;
                 }
                 else if ((state == VERTICAL_HAUT) && (this.lastCoordinateFired.x - 1 >= 0)) {
-                    System.out.println("VERTICAL_HAUT");
                     coordCalcul = new Coordinate(this.lastCoordinateFired.x-1, this.lastCoordinateFired.y);
                     //Si on a pas déjà utilisé cette coordonnée
                     if (!(listTirs.contains(coordCalcul))) {

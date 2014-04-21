@@ -334,7 +334,6 @@ public class JPanelPlacement extends JPanel implements Observer {
             public void valueChanged(ListSelectionEvent e) {
                 typeShip = (TypeShip) list.getSelectedValue();
                 state = SHIP_SELECTED;
-//                System.out.println("type : " + typeShip);
             }
         });
         list.clearSelection();

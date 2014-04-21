@@ -57,19 +57,7 @@ public class TestDao {
 
     }
     
-//    @Test
-//    public void test2(){
-//        System.out.println("game1 = "+bn.getAdf().getInstanceDaoGame().find("game6"));
-//     @Test
-//    public void test2(){
-//        System.out.println("game1 = "+bn.getAdf().getInstanceDaoGame().find("game6"));
-//        assert(bn.getAdf().getInstanceDaoGame().find("game1")!=null);
-//    }   assert(bn.getAdf().getInstanceDaoGame().find("game1")!=null);
-//    }
-    
     @Test
     public void test3() throws PersistanceException{
-//        System.out.println("test 3 :"+bn.getAdf().getInstanceDaoGame().find());
-//        System.out.println(ScoreManager.getInstance().getScoreOf("coucou"));
     }
 }

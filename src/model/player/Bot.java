@@ -51,7 +51,6 @@ public abstract class Bot extends Player implements Serializable {
      */
     @Override
     public StateCase fire(OrdreTir order, Flotte target) {
-//        System.out.println("TIR BOT");
         return autoFire(this.getMap(), target);
     }
 

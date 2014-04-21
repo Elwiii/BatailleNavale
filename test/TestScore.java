@@ -53,11 +53,9 @@ public class TestScore {
          score.udpate("lol", 1000);
          
          score.save();
-         System.out.println(""+score.getScoreOf("test1"));
      }
      
      @Test
      public void test1(){
-         System.out.println("test1 : "+score.getScoreOf("coucou"));
      }
 }
