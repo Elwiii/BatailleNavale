@@ -61,19 +61,21 @@ public class DaoFileGame extends DaoFile<Game> implements DaoGame{
     @Override
     public ArrayList<Game> find(){
         File dossier = new File ("Game/");//Repertoire des fichiers
-        File[] listFile = dossier.listFiles();//Liste de tous les fichiers contenus dans le repertoire
         ArrayList<Game> listGame = new ArrayList<>();//liste de Game à retourner
-        String nom = "";//utilisé pour le nom du fichier
-        String nom_modif="";
-        String carAsup=".ser";
-        
-        for(File f : listFile){
-            nom = f.getName();
-            nom_modif = nom.replaceAll(carAsup,"");
-            
-            listGame.add(find(nom_modif));
+        if(dossier.exists()){
+            File[] listFile = dossier.listFiles();//Liste de tous les fichiers contenus dans le repertoire
+            String nom = "";//utilisé pour le nom du fichier
+            String nom_modif="";
+            String carAsup=".ser";
 
-            
+            for(File f : listFile){
+                nom = f.getName();
+                nom_modif = nom.replaceAll(carAsup,"");
+
+                listGame.add(find(nom_modif));
+
+
+            }
         }
 //        System.out.println("taille liste  = "+listGame.size());
 
@@ -85,7 +87,7 @@ public class DaoFileGame extends DaoFile<Game> implements DaoGame{
         File dossier = new File("Game");
         
         //Si le dossier n'existe pas, on le crée
-        if (!(dossier.exists() && dossier.isDirectory())){
+        if (!(dossier.exists() /*&& dossier.isDirectory()*/)){
             dossier.mkdir();
         }
         if (new File("Game/"+g.getId()+".ser").exists()){
