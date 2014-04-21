@@ -83,7 +83,6 @@ public abstract class Bot extends Player implements Serializable {
             if (listCoord.isEmpty()) {
                 // nothing to do
             } else {
-//                System.out.println("choix de la 2e coord");
                 Coordinate randCoord = listCoord.get(generator.nextInt(listCoord.size()));
                 try {
                     addShip(factory.buildShip(s, c1, randCoord));
@@ -101,10 +100,6 @@ public abstract class Bot extends Player implements Serializable {
             typeships[i] = bateaux.get(i);
             
         }
-//        System.out.println("bateaux : "+bateaux);
-//        for (int i = 0; i < typeships.length; i++) {
-//            System.out.println(""+typeships[i]);            
-//        }
         placerBateaux(typeships);
     }
 
@@ -168,28 +163,3 @@ public abstract class Bot extends Player implements Serializable {
         return list;
     }
 }
-//    
-//    public class structPlacement{
-//        protected Coordinate chead;
-//        protected Coordinate cqueue;
-//        protected TypeShip type;
-//        
-//        public structPlacement(Coordinate c1, Coordinate c2, TypeShip t){
-//            this.chead = c1;
-//            this.cqueue = c2;
-//            this.type = t;
-//        }
-//        
-//        public Coordinate getCHead(){
-//            return this.chead;
-//        }
-//        
-//        public Coordinate getCQueue(){
-//            return this.cqueue;
-//        }
-//        
-//        public TypeShip getType(){
-//            return this.type;
-//        }
-//    }
-

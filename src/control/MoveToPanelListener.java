@@ -53,10 +53,8 @@ public class MoveToPanelListener implements ActionListener {
                         Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
                     }
             }
-//            System.out.println("clearing ...");
             jpj.clear();
         }
-//        System.out.println("idPane : "+idPanel                 );
         cards.show(idPanel);
     }
 }

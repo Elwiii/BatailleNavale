@@ -52,7 +52,6 @@ public class JPanelParties extends JPanel implements Observer {
             public void valueChanged(ListSelectionEvent e) {
                 Game game = (Game) list.getSelectedValue();
                 if (game != null) {
-//                    System.out.println("game : " + game);
                     int n = JOptionPane.showConfirmDialog(
                             GUI.getInstance(),
                             "Voulez vous charger cette partie ?",

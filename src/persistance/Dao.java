@@ -19,7 +19,5 @@ public abstract class Dao<T extends Serializable> {
     public abstract T find(String id) throws PersistanceException;
     public abstract ArrayList<T> find() throws PersistanceException;
     public abstract int persiste(T g) throws PersistanceException;
-    public abstract void update(T g) throws PersistanceException;
-    //public abstract Dao getInstance();
-    
+    public abstract void update(T g) throws PersistanceException;    
 }

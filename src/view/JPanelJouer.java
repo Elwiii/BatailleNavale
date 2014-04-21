@@ -92,12 +92,9 @@ public class JPanelJouer extends JPanel implements Observer {
                                 StateCase res = StateCase.ERROR;
                                 try {
                                     res = model2.fire(new OrdreTir(c, launcherid));
-                                    System.out.println("Resultat du tir du joueur humain : "+res);
                                 } catch (Exception ex) {
                                     Logger.getLogger(JPanelJouer.class.getName()).log(Level.SEVERE, null, ex);
                                 }
-                                System.out.println("Etat du modèle après le tir de l'humain : "+model2.getState());
-                                System.out.println("flotte du bot : "+model2.getJ2().getFlotte().getVaisseaux());
                                 switch (model2.getState()) {
                                     case MATCH_NUL:
                                         model2.updateScore();

@@ -61,7 +61,6 @@ public class JPanelWizard extends JPanel implements Observer {
 
     public void show(String id) {
         switchJPanel(id);
-//        System.out.println("showing ...");
         cl.show(this, id);
         GUI.getInstance().updateMenu();
         GUI.getInstance().pack();

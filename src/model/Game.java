@@ -48,7 +48,7 @@ public class Game implements Serializable{
 
     @Override
     public String toString() {
-        return id+" : "+j1.getNom()+" vs "+j2.getNom();//"Game{" + "id=" + id + ", j1=" + j1.getNom() + ", j2=" + j2.getNom() + ", score=" + score + ", state=" + state + '}';
+        return id+" : "+j1.getNom()+" vs "+j2.getNom();
     }
     
 

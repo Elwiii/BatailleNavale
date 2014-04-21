@@ -33,7 +33,6 @@ public class SavedGameListModel extends AbstractListModel{
     @Override
     public Object getElementAt(int i) {
         try {
-            /* @todo c'est sale il parse tout les fichiers pour chaque indice ... */
             return AbstractDaoFactory.getAbstractDaoFactory(TypePersistance.FILE).getInstanceDaoGame().find().get(i);
         } catch (PersistanceException | DaoFactoryException ex) {
             Logger.getLogger(SavedGameListModel.class.getName()).log(Level.SEVERE, null, ex);

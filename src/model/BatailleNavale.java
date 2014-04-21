@@ -88,7 +88,6 @@ public class BatailleNavale {
     public StateCase fire(OrdreTir order) throws Exception {
         if ((currentPlayer.horsDePortee(otherPlayer.getFlotte()) == true) && (otherPlayer.horsDePortee(currentPlayer.getFlotte()) == true)) {
             state = State.MATCH_NUL;
-//            System.out.println("MATCH NUL");
             update();
             return ERROR;
         } else {
@@ -97,19 +96,15 @@ public class BatailleNavale {
                 switch (state) {
                     case JOUEUR1:
                         state = State.WINJ1;
-//                        System.out.println("j1 : " + j1);
-
                         break;
                     case JOUEUR2:
                         state = State.WINJ2;
-//                        scoreManager.udpate(j2.getNom(), score);
                         break;
                     default:
                         throw new Exception("error");
                 }
             } else {
                 // on met à jour la vison du battlefield qu'a le joueur courant
-                //currentPlayer.getMap().setState(order.getCoordinate(), res);
                 currentPlayer.updateBattlefield(order, res);
             }
             update();
@@ -183,7 +178,6 @@ public class BatailleNavale {
      */
     public void save() throws PersistanceException {
         save = new Game(this);
-//        System.out.println("save : " + save);
         adf.getInstanceDaoGame().update(save);
         update();
     }
@@ -204,7 +198,6 @@ public class BatailleNavale {
         hauteurGrille = game.hauteurGrille;
         largeurGrille = game.largeurGrille;
         pseudoHumun = game.pseudoHumun;
-//        update();
 
     }
 

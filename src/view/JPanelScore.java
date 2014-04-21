@@ -39,7 +39,6 @@ public class JPanelScore extends JPanel implements Observer{
     
     @Override
     public void update(Observable o, Object o1) {
-        //@todo reparation de fortune => faire moins moche, attaché un listener à la table ou un truc dans le genre
         table = new JTable(ScoreManager.getInstance());
     }
     

@@ -51,15 +51,6 @@ public class JPanelCreer extends JPanel implements Observer {
         model.addObserver(this);
 
         nom = new JTextField("votre pseudo");
-//        panelOption.add(nom);
-//
-//        layout.putConstraint(SpringLayout.WEST, nom,
-//                50,
-//                SpringLayout.WEST, panelOption);
-//        layout.putConstraint(SpringLayout.NORTH, nom,
-//                50,
-//                SpringLayout.NORTH, panelOption);
-
         south.add(new JButtonBackToAcceuil(model, wizard), BorderLayout.SOUTH);
         epoque = new JComboBox(Epoque.values());
         epoque.addActionListener(new ActionListener() {
@@ -116,7 +107,6 @@ public class JPanelCreer extends JPanel implements Observer {
 
             @Override
             public void actionPerformed(ActionEvent ae) {
-//                System.out.println("Ep : " + epo + " la : " + lar + "lon " + lon + " diff : " + diff);
                 model.setDifficulty(diff);
                 model.setPseudoHumun(nom.getText());
                 model.setLongeurGrille(lon);
@@ -130,23 +120,15 @@ public class JPanelCreer extends JPanel implements Observer {
                     model.newGame();
                 } catch (PersistanceException ex) {
                     Logger.getLogger(JPanelCreer.class.getName()).log(Level.SEVERE, null, ex);
-//                    System.out.println("NEW GAME ERREUR");
                 }
                 wizard.getJpanelPlacement().constuctGrille(lon, lon/*lar @todo*/);
                 wizard.getJpanelPlacement().constructList(epo);
                 wizard.show(JPanelPlacement.id);
-//                System.out.println("model : "+model.getPseudoHumun());
             }
         });
         south.add(valider);
         add(panelOption, BorderLayout.CENTER);
         add(south, BorderLayout.SOUTH);
-
-//        nom.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.GRAY), "Pseudo", TitledBorder.LEFT, TitledBorder.TOP, new Font(Font.SERIF, Font.ITALIC, 16), Color.GRAY));
-//        longueur.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.GRAY), "Taille", TitledBorder.LEFT, TitledBorder.TOP, new Font(Font.SERIF, Font.ITALIC, 16), Color.GRAY));
-//        epoque.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.GRAY), "Longeur", TitledBorder.LEFT, TitledBorder.TOP, new Font(Font.SERIF, Font.ITALIC, 16), Color.GRAY));
-//        difficulty.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.GRAY), "Difficultée", TitledBorder.LEFT, TitledBorder.TOP, new Font(Font.SERIF, Font.ITALIC, 16), Color.GRAY));
-
     }
 
     @Override
