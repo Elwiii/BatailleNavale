@@ -136,29 +136,6 @@ public class ScoreManager implements TableModel{
     public void removeTableModelListener(TableModelListener l) {
 //        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
-//    class Couple implements Comparable{
-//        String pseudo;
-//        Integer score;
-//        Couple(String pseudo, int score){
-//            this.score = score;
-//            this.pseudo = pseudo;
-//        }
-//        
-//        @Override
-//        public int compareTo(Object o){
-//            return this.score.compareTo(((Couple)o).score);
-//        }
-//    }
-//    
-//    public List<Couple> getOrderListOfScore(){
-//        List<Couple> orderList = new ArrayList<>();
-//        for(Map.Entry<String, Integer> cursor : hm.entrySet()){
-//            orderList.add(new Couple(cursor.getKey(),cursor.getValue()));
-//        }
-//        Collections.sort(orderList);
-//        return orderList;
-//    }
     
     /**
      * @return the hm
