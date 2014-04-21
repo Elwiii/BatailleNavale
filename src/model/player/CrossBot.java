@@ -148,9 +148,6 @@ public class CrossBot extends Bot implements Serializable {
                             }
                         }
                     }
-                    for(Coordinate c:listTirs){
-                        System.out.println(c.x+" "+c.y);
-                    }
                 }
                 else if(this.lastCoordinateFired.y + 1 >= taille_grille){
                     state = HORIZONTAL_GAUCHE;
