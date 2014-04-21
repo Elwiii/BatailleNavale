@@ -32,6 +32,7 @@ import javax.swing.event.ListSelectionListener;
 import model.BatailleNavale;
 import model.Coordinate;
 import model.OrdreTir;
+import model.ScoreException;
 import model.State;
 import model.StateCase;
 import static model.StateCase.DESTROYED_SHIP;
@@ -79,118 +80,127 @@ public class JPanelJouer extends JPanel implements Observer {
             addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent ae) {
-                    Object[] os = {"Rejouer", "Voir les scores", "Revenir à l\'accueil", "Quitter"};
-
-                    switch (state) {
-                        case NOTHING_SELECTED:
-                            break;
-                        case SHIP_SELECTED:
-                            String s = " ";
-                            int launcherid = model2.getJ1().getFlotte().getVaisseaux().indexOf(selectedShip);
-                            StateCase res = StateCase.ERROR;
-                            try {
-                                res = model2.fire(new OrdreTir(c, launcherid));
-                                System.out.println("Resultat du tir du joueur humain : "+res);
-                            } catch (Exception ex) {
-                                Logger.getLogger(JPanelJouer.class.getName()).log(Level.SEVERE, null, ex);
-                            }
-                            System.out.println("Etat du modèle après le tir de l'humain : "+model2.getState());
-                            System.out.println("flotte du bot : "+model2.getJ2().getFlotte().getVaisseaux());
-                            switch (model2.getState()) {
-                                case MATCH_NUL:
-                                    s = (String) JOptionPane.showInputDialog(
-                                            GUI.getInstance(),
-                                            "Match nul! Dommage...\nQue voulez-vous faire?",
-                                            "Fin de partie",
-                                            JOptionPane.INFORMATION_MESSAGE,
-                                            null,
-                                            os, "Rejouer");
-                                    break;
-                                case WINJ1:
-                                    s = (String) JOptionPane.showInputDialog(
-                                            GUI.getInstance(),
-                                            "Vous avez gagné! Bravo!\nQue voulez-vous faire?",
-                                            "Fin de partie",
-                                            JOptionPane.INFORMATION_MESSAGE,
-                                            null,
-                                            os, "Voir les scores");
-                                    break;
-                                case WINJ2:
-                                    s = (String) JOptionPane.showInputDialog(
-                                            GUI.getInstance(),
-                                            "Vous avez perdu!\nQue voulez-vous faire?",
-                                            "Fin de partie",
-                                            JOptionPane.INFORMATION_MESSAGE,
-                                            null,
-                                            os, "Rejouer");
-                                    break;
-                                default:
-                                    if (res == MISS) {
-                                        // on fait tirer le bot
-                                        try {
-                                            model2.switchTurn();
-                                            StateCase resBot = model2.fire(OrdreTir.NO_ORDER);
-                                            while (resBot == HIT || resBot == DESTROYED_SHIP) {
-                                                resBot = model2.fire(OrdreTir.NO_ORDER);
-                                                if (resBot == DESTROYED_SHIP) {
-                                                    // on met à jour la list
-                                                    listModel.update();
-                                                    list.updateUI();
-                                                    list.clearSelection();
-                                                    for (JButtonFire jbf : listTir){
-                                                        jbf.setEnabled(false);
+                    try {
+                        Object[] os = {"Rejouer", "Voir les scores", "Revenir à l\'accueil", "Quitter"};
+                        
+                        switch (state) {
+                            case NOTHING_SELECTED:
+                                break;
+                            case SHIP_SELECTED:
+                                String s = " ";
+                                int launcherid = model2.getJ1().getFlotte().getVaisseaux().indexOf(selectedShip);
+                                StateCase res = StateCase.ERROR;
+                                try {
+                                    res = model2.fire(new OrdreTir(c, launcherid));
+                                    System.out.println("Resultat du tir du joueur humain : "+res);
+                                } catch (Exception ex) {
+                                    Logger.getLogger(JPanelJouer.class.getName()).log(Level.SEVERE, null, ex);
+                                }
+                                System.out.println("Etat du modèle après le tir de l'humain : "+model2.getState());
+                                System.out.println("flotte du bot : "+model2.getJ2().getFlotte().getVaisseaux());
+                                switch (model2.getState()) {
+                                    case MATCH_NUL:
+                                        model2.updateScore();
+                                        s = (String) JOptionPane.showInputDialog(
+                                                GUI.getInstance(),
+                                                "Match nul! Dommage...\nQue voulez-vous faire?",
+                                                "Fin de partie",
+                                                JOptionPane.INFORMATION_MESSAGE,
+                                                null,
+                                                os, "Rejouer");
+                                        break;
+                                    case WINJ1:
+                                        model2.updateScore();
+                                        s = (String) JOptionPane.showInputDialog(
+                                                GUI.getInstance(),
+                                                "Vous avez gagné! Bravo!\nQue voulez-vous faire?",
+                                                "Fin de partie",
+                                                JOptionPane.INFORMATION_MESSAGE,
+                                                null,
+                                                os, "Voir les scores");
+                                        break;
+                                    case WINJ2:
+                                        model2.updateScore();
+                                        s = (String) JOptionPane.showInputDialog(
+                                                GUI.getInstance(),
+                                                "Vous avez perdu!\nQue voulez-vous faire?",
+                                                "Fin de partie",
+                                                JOptionPane.INFORMATION_MESSAGE,
+                                                null,
+                                                os, "Rejouer");
+                                        break;
+                                    default:
+                                        if (res == MISS) {
+                                            // on fait tirer le bot
+                                            try {
+                                                model2.switchTurn();
+                                                StateCase resBot = model2.fire(OrdreTir.NO_ORDER);
+                                                while (resBot == HIT || resBot == DESTROYED_SHIP) {
+                                                    resBot = model2.fire(OrdreTir.NO_ORDER);
+                                                    if (resBot == DESTROYED_SHIP) {
+                                                        // on met à jour la list
+                                                        listModel.update();
+                                                        list.updateUI();
+                                                        list.clearSelection();
+                                                        for (JButtonFire jbf : listTir){
+                                                            jbf.setEnabled(false);
+                                                        }
                                                     }
                                                 }
+                                                System.out.println("model.getState() : " + model.getState());
+                                                switch (model.getState()) {
+                                                    case WINJ2:
+                                                        model2.updateScore();
+                                                        s = (String) JOptionPane.showInputDialog(
+                                                                GUI.getInstance(),
+                                                                "Vous avez perdu!\nQue voulez-vous faire?",
+                                                                "Fin de partie",
+                                                                JOptionPane.INFORMATION_MESSAGE,
+                                                                null,
+                                                                os, "Rejouer");// valeur initiale
+                                                        break;
+                                                    case MATCH_NUL:
+                                                        model2.updateScore();
+                                                        s = (String) JOptionPane.showInputDialog(
+                                                                GUI.getInstance(),
+                                                                "Match nul! Dommage...\nQue voulez-vous faire?",
+                                                                "Fin de partie",
+                                                                JOptionPane.INFORMATION_MESSAGE,
+                                                                null,
+                                                                os, "Rejouer");
+                                                        break;
+                                                    default:
+                                                        model2.switchTurn();
+                                                        break;
+                                                }
+                                            } catch (Exception ex) {
+                                                Logger.getLogger(JPanelJouer.class.getName()).log(Level.SEVERE, null, ex);
                                             }
-                                            System.out.println("model.getState() : " + model.getState());
-                                            switch (model.getState()) {
-                                                case WINJ2:
-                                                    s = (String) JOptionPane.showInputDialog(
-                                                            GUI.getInstance(),
-                                                            "Vous avez perdu!\nQue voulez-vous faire?",
-                                                            "Fin de partie",
-                                                            JOptionPane.INFORMATION_MESSAGE,
-                                                            null,
-                                                            os, "Rejouer");// valeur initiale
-                                                    break;
-                                                case MATCH_NUL:
-                                                    s = (String) JOptionPane.showInputDialog(
-                                                            GUI.getInstance(),
-                                                            "Match nul! Dommage...\nQue voulez-vous faire?",
-                                                            "Fin de partie",
-                                                            JOptionPane.INFORMATION_MESSAGE,
-                                                            null,
-                                                            os, "Rejouer");                                                    
-                                                    break;
-                                                default:
-                                                    model2.switchTurn();
-                                                    break;
-                                            }
-                                        } catch (Exception ex) {
-                                            Logger.getLogger(JPanelJouer.class.getName()).log(Level.SEVERE, null, ex);
+                                        }
+                                }
+                                
+                                if (s != " ") {
+                                    if(s!=null){
+                                        wizard.clean(model2);
+                                        if (s.equals("Rejouer")) {
+                                            wizard.show(JPanelCreer.id);
+                                        } else if (s.equals("Voir les scores")) {
+                                            wizard.show(JPanelScore.id);
+                                        } else if (s.equals("Revenir à l\'accueil")){
+                                            wizard.clean(model2);
+                                            wizard.show(JPanelAcceuil.id);
+                                        } else {
+                                            System.exit(0);
                                         }
                                     }
-                            }
-
-                            if (s != " ") {
-                                if(s!=null){
-                                    wizard.clean(model2);
-                                    if (s.equals("Rejouer")) {
-                                        wizard.show(JPanelCreer.id);
-                                    } else if (s.equals("Voir les scores")) {
-                                        wizard.show(JPanelScore.id);
-                                    } else if (s.equals("Revenir à l\'accueil")){
+                                    else{
                                         wizard.clean(model2);
                                         wizard.show(JPanelAcceuil.id);
-                                    } else {
-                                        System.exit(0);
                                     }
                                 }
-                                else{
-                                    wizard.clean(model2);
-                                    wizard.show(JPanelAcceuil.id);
-                                }
-                            }
+                        }
+                    } catch (ScoreException ex) {
+                        Logger.getLogger(JPanelJouer.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
             });

@@ -65,8 +65,6 @@ public class BatailleNavale {
     public void quitter() {
         //@todo really needed ?
     }
-    
-    
 
     public void constructPlayers() throws Exception {
 
@@ -100,11 +98,11 @@ public class BatailleNavale {
                     case JOUEUR1:
                         state = State.WINJ1;
 //                        System.out.println("j1 : " + j1);
-                        scoreManager.udpate(j1.getNom(), score);
+
                         break;
                     case JOUEUR2:
                         state = State.WINJ2;
-                        scoreManager.udpate(j2.getNom(), score);
+//                        scoreManager.udpate(j2.getNom(), score);
                         break;
                     default:
                         throw new Exception("error");
@@ -117,6 +115,27 @@ public class BatailleNavale {
             update();
             return res;
         }
+    }
+
+    public void updateScore() throws ScoreException {
+        switch (state) {
+            case WINJ1:
+                score = j1.getFlotte().getVaisseaux().size() - j2.getFlotte().getVaisseaux().size() ;
+                scoreManager.udpate(j1.getNom(), score);
+                break;
+            case WINJ2:
+                score = j2.getFlotte().getVaisseaux().size() - j1.getFlotte().getVaisseaux().size();
+                scoreManager.udpate(j2.getNom(), score);
+                break;
+            case MATCH_NUL:
+                // nothing to do
+                break;
+            default:
+                throw new ScoreException(("L'etat "+state+" ne permet pas de mettre les scores à jour"));
+
+        }
+        scoreManager.save();
+        update();
     }
 
     /**
@@ -185,6 +204,7 @@ public class BatailleNavale {
         hauteurGrille = game.hauteurGrille;
         largeurGrille = game.largeurGrille;
         pseudoHumun = game.pseudoHumun;
+//        update();
 
     }
 
