@@ -188,7 +188,7 @@ public class JPanelJouer extends JPanel implements Observer {
                                 }
                                 /* clique sur bouton annuler du pop-up */
                                 else{
-//                                    wizard.clean(model2);
+                                    wizard.clean(model2);
                                     wizard.show(JPanelAcceuil.id);
                                 }
                             }
@@ -349,7 +349,8 @@ public class JPanelJouer extends JPanel implements Observer {
             }
         }
     }
-
+    
+    
     @Override
     public void update(Observable o, Object o1) {
         updateGrilleFlotte();

@@ -30,9 +30,12 @@ public class JPanelWizard extends JPanel implements Observer {
 
     private String currentPanelId = null;
     private JPanel currentPanel;
+    
+    private BatailleNavale model;
 
     public JPanelWizard(BatailleNavale model) {
         super();
+        this.model = model;
         //gui = GUI.getInstance();
         cl = new CardLayout();
         this.setLayout(cl);
@@ -97,15 +100,15 @@ public class JPanelWizard extends JPanel implements Observer {
     public void clean(BatailleNavale model) {
         jpanelAcceuil.removeAll();
         jpanelJouer.removeAll();
-//        jpanelCreer.removeAll();
+        jpanelCreer.removeAll();
         jpanelPlacement.removeAll();
         jpanelParties.removeAll();
         jPanelScore.removeAll();
-
+        
         jpanelPlacement = new JPanelPlacement(model, this);
         jpanelJouer = new JPanelJouer(model, this);
         jpanelAcceuil = new JPanelAcceuil(model, this);
-//        jpanelCreer = new JPanelCreer(model, this);
+        jpanelCreer = new JPanelCreer(model, this);
         jpanelParties = new JPanelParties(model, this);
         jPanelScore = new JPanelScore(model, this);
 
