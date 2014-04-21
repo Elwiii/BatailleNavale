@@ -16,21 +16,7 @@ Le fichier score.ser stock les entrées pseudo/score des parties crées jusqu'al
 
 Quelques tests unitaires sont sous le dossier test.
 
+Pensez à agrandir la fenêtre si vous voyez des '...' sur les cases des grilles de bateaux.
 
-Brouillons :
-
------------------------ Nicolas ------------------------------------------------
-
-
-Pensez à agrandir la fenêtre si vous voyez "..." sur les cases des grilles de bateaux.
-
-Ne pas faire une fenêtre trop petite, sinon il y a des problèmes niveau Swing lors
-du click des boutons.
-
------------------------ Thomas ------------------------------------------------
-
-
-
------------------------ Rym ------------------------------------------------
-
-
+Ne pas utiliser une fenêtre trop petite, sinon il y a des problèmes niveau Swing 
+lors du click des boutons.
