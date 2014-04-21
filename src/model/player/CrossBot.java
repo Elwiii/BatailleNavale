@@ -136,25 +136,22 @@ public class CrossBot extends Bot implements Serializable {
                                         if (comeFrom != HORIZONTAL_GAUCHE) {
                                             this.state = HORIZONTAL_GAUCHE;
                                             this.comeFrom = HORIZONTAL_DROITE;
-                                            lastCoordinateFired = firstCoordinate;
                                         } else {
                                             /* si oui on a certainement coulé le bateau */
                                             /* on retire une coordonnée aléatoire*/ 
                                             this.state = NOTHING;
                                             shipFired = false;
                                             aDirection=false;
-                                            lastCoordinateFired = coordCalcul;
                                         }
                                     }
                                 } else if (res == HIT) {
                                     /* on connait maintenant la direction du bateau */
                                     aDirection =  true;
                                     state = HORIZONTAL_DROITE;
-                                    lastCoordinateFired = coordCalcul;
                                 }
                                 lastCoordinateFired = coordCalcul;
                                 /* la coordonnée étant à portée et utilisée, on l'ajoute à notre liste */
-                                listTirs.add(new Coordinate(coordCalcul.x, coordCalcul.y));
+                                listTirs.add(new Coordinate(this.lastCoordinateFired.x, this.lastCoordinateFired.y));
                                 return (res);
                             }
                             System.out.println("pas a portée");
@@ -195,25 +192,22 @@ public class CrossBot extends Bot implements Serializable {
                                         if (comeFrom != HORIZONTAL_DROITE) {
                                             this.state = HORIZONTAL_DROITE;
                                             this.comeFrom = HORIZONTAL_GAUCHE;
-                                            this.lastCoordinateFired = this.firstCoordinate;
                                         } else {
                                             /* si oui on a certainement coulé le bateau */
                                             /* on retire une coordonnée aléatoire*/ 
                                             this.state = NOTHING;
                                             shipFired = false;
                                             aDirection=false;
-                                            this.lastCoordinateFired = coordCalcul;
                                         }
                                     }
                                 } else if (res == HIT) {                                    
                                     /* on connait maintenant la direction du bateau */
                                     aDirection =  true;
                                     state = HORIZONTAL_GAUCHE;
-                                    this.lastCoordinateFired = coordCalcul;
                                 }
-//                                lastCoordinateFired = coordCalcul;
+                                lastCoordinateFired = coordCalcul;
                                 /* la coordonnée étant à portée et utilisée, on l'ajoute à notre liste */
-                                listTirs.add(new Coordinate(coordCalcul.x, coordCalcul.y));
+                                listTirs.add(new Coordinate(this.lastCoordinateFired.x, this.lastCoordinateFired.y));
                                 return (res);
                             }
                         }
@@ -248,14 +242,12 @@ public class CrossBot extends Bot implements Serializable {
                                         if (comeFrom != VERTICAL_BAS) {
                                             this.state = VERTICAL_BAS;
                                             this.comeFrom = VERTICAL_HAUT;
-                                            this.lastCoordinateFired = this.firstCoordinate;
                                         } else {
                                             /* si oui on a certainement coulé le bateau */
                                             /* on retire une coordonnée aléatoire*/ 
                                             this.state = NOTHING;
                                             shipFired = false;
                                             aDirection=false;
-                                            this.lastCoordinateFired = coordCalcul;
                                         }
                                     }
                                 } else if (res == HIT) {
@@ -263,11 +255,10 @@ public class CrossBot extends Bot implements Serializable {
                                     aDirection =  true;
                                     /* on continue à tirer vers le haut */
                                     state = VERTICAL_HAUT;
-                                    this.lastCoordinateFired = coordCalcul;
                                 }
-//                                lastCoordinateFired = coordCalcul;
+                                lastCoordinateFired = coordCalcul;
                                 /* la coordonnée étant à portée et utilisée, on l'ajoute à notre liste */
-                                listTirs.add(new Coordinate(coordCalcul.x, coordCalcul.y));
+                                listTirs.add(new Coordinate(this.lastCoordinateFired.x, this.lastCoordinateFired.y));
                                 return (res);
                             }
                         }
@@ -301,14 +292,12 @@ public class CrossBot extends Bot implements Serializable {
                                         if (comeFrom != VERTICAL_HAUT) {
                                             this.state = VERTICAL_HAUT;
                                             this.comeFrom = VERTICAL_BAS;
-                                            this.lastCoordinateFired = this.firstCoordinate;
                                         } else {
                                             /* si oui on a certainement coulé le bateau */
                                             /* on retire une coordonnée aléatoire*/ 
                                             this.state = NOTHING;
                                             shipFired = false;
                                             aDirection=false;
-                                            this.lastCoordinateFired = coordCalcul;
                                         }
                                     }
                                 } else if (res == HIT) {
@@ -316,12 +305,11 @@ public class CrossBot extends Bot implements Serializable {
                                     aDirection =  true;
                                     /* on continue à tirer vers le bas */
                                     state = VERTICAL_BAS;
-                                    this.lastCoordinateFired = coordCalcul;
                                 }
                                 //on ajout la coordonnée peu importe si MISS ou HIT
-//                                lastCoordinateFired = coordCalcul;
+                                lastCoordinateFired = coordCalcul;
                                 /* la coordonnée étant à portée et utilisée, on l'ajoute à notre liste */
-                                listTirs.add(new Coordinate(coordCalcul.x, coordCalcul.y));
+                                listTirs.add(new Coordinate(this.lastCoordinateFired.x, this.lastCoordinateFired.y));
                                 return (res);
                             }
                         }
